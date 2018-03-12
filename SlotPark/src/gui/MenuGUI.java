@@ -11,12 +11,12 @@ import javax.swing.JFrame;
  *
  * @author Kevin
  */
-public class TitleGUI extends javax.swing.JFrame {
+public class MenuGUI extends javax.swing.JFrame {
 
     /**
-     * Creates new form TitleGUI
+     * Creates new form MenuGUI
      */
-    public TitleGUI() {
+    public MenuGUI() {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setUndecorated(true);
         initComponents();
@@ -32,50 +32,50 @@ public class TitleGUI extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("SlotPark");
-        jLabel1.setToolTipText("");
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                onStart(evt);
-            }
-        });
-        getContentPane().add(jLabel1, java.awt.BorderLayout.NORTH);
+        jLabel1.setText("Willkommen!");
+        getContentPane().add(jLabel1, java.awt.BorderLayout.PAGE_START);
 
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setToolTipText("");
-        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                onStart(evt);
+        jButton4.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jButton4.setText("Logout");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                onLogout(evt);
             }
         });
-        getContentPane().add(jLabel2, java.awt.BorderLayout.CENTER);
+        getContentPane().add(jButton4, java.awt.BorderLayout.SOUTH);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Klicke");
-        jLabel3.setToolTipText("");
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                onStart(evt);
-            }
-        });
-        getContentPane().add(jLabel3, java.awt.BorderLayout.SOUTH);
+        jPanel1.setLayout(new java.awt.GridLayout(3, 0));
+
+        jButton1.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jButton1.setText("Poker");
+        jPanel1.add(jButton1);
+
+        jButton2.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jButton2.setText("Slots");
+        jPanel1.add(jButton2);
+
+        jButton3.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jButton3.setText("Roulette");
+        jPanel1.add(jButton3);
+
+        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void onStart(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_onStart
-        LoginGUI logingui = new LoginGUI();
-        logingui.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_onStart
+    private void onLogout(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onLogout
+      LoginGUI logingui = new LoginGUI();
+    }//GEN-LAST:event_onLogout
 
     /**
      * @param args the command line arguments
@@ -94,27 +94,30 @@ public class TitleGUI extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TitleGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TitleGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TitleGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TitleGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TitleGUI().setVisible(true);
+                new MenuGUI().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
