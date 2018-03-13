@@ -5,16 +5,21 @@
  */
 package gui;
 
+import java.io.File;
+import java.util.Random;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author Kevin
  */
 public class PokerGUI extends javax.swing.JFrame {
 
-    /**
-     * Creates new form PokerGUI
-     */
+    Random rand = new Random();
+    String imagepath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "images" + File.separator;
+
     public PokerGUI() {
+        lbCard1.setIcon(new ImageIcon(imagepath + "2H.png"));
         initComponents();
     }
 
@@ -47,8 +52,8 @@ public class PokerGUI extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        lbCard1 = new javax.swing.JLabel();
+        lbCard2 = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -147,13 +152,13 @@ public class PokerGUI extends javax.swing.JFrame {
 
         jPanel8.setLayout(new java.awt.GridLayout(1, 2));
 
-        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel8.add(jLabel11);
+        lbCard1.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        lbCard1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel8.add(lbCard1);
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel8.add(jLabel12);
+        lbCard2.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        lbCard2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel8.add(lbCard2);
 
         jPanel6.add(jPanel8);
 
@@ -178,19 +183,19 @@ public class PokerGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void onBack(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onBack
-     
+
     }//GEN-LAST:event_onBack
 
     private void onCheck(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onCheck
-     
+
     }//GEN-LAST:event_onCheck
 
     private void onRaise(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onRaise
-        
+
     }//GEN-LAST:event_onRaise
 
     private void onFold(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onFold
-       
+
     }//GEN-LAST:event_onFold
 
     /**
@@ -234,8 +239,6 @@ public class PokerGUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -252,5 +255,7 @@ public class PokerGUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JLabel lbCard1;
+    private javax.swing.JLabel lbCard2;
     // End of variables declaration//GEN-END:variables
 }

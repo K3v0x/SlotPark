@@ -110,7 +110,7 @@ public class MenuGUI extends javax.swing.JFrame {
         lbPoker.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
         lbPoker.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbPoker.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Poker.png"))); // NOI18N
-        lbPoker.setName("Roulette"); // NOI18N
+        lbPoker.setName("Poker"); // NOI18N
         lbPoker.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 onSelect(evt);
@@ -130,7 +130,7 @@ public class MenuGUI extends javax.swing.JFrame {
         lbRoulette.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
         lbRoulette.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbRoulette.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Roulette.png"))); // NOI18N
-        lbRoulette.setName("Poker"); // NOI18N
+        lbRoulette.setName("Roulette"); // NOI18N
         lbRoulette.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 onSelect(evt);
@@ -159,7 +159,9 @@ public class MenuGUI extends javax.swing.JFrame {
                 this.dispose();
                 break;
             case "Poker":
-
+                PokerGUI pokergui = new PokerGUI();
+                pokergui.setVisible(true);
+                this.dispose();
                 break;
             case "Roulette":
 
@@ -177,13 +179,13 @@ public class MenuGUI extends javax.swing.JFrame {
                 lbRoulette.setBorder(null);
                 break;
             case "Poker":
-                lbRoulette.setBorder(new LineBorder(Color.black, 10));
-                lbPoker.setBorder(null);
+                lbPoker.setBorder(new LineBorder(Color.black, 10));
+                lbRoulette.setBorder(null);
                 lbSlots.setBorder(null);
                 break;
             case "Roulette":
-                lbPoker.setBorder(new LineBorder(Color.black, 10));
-                lbRoulette.setBorder(null);
+                lbRoulette.setBorder(new LineBorder(Color.black, 10));
+                lbPoker.setBorder(null);
                 lbSlots.setBorder(null);
                 break;
         }

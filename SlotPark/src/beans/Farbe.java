@@ -12,9 +12,10 @@ import java.awt.Color;
  * @author Kevin
  */
 public enum Farbe {
-    PIK("Pik", Color.RED),
-    KARO("Karo", Color.BLACK),
-    HERZ("Herz", Color.RED);
+    C("Kreuz", Color.BLACK),
+    D("Karo", Color.RED),
+    S("Pik", Color.BLACK),
+    H("Herz", Color.RED);
 
     private Farbe(String name, Color color) {
         this.name = name;

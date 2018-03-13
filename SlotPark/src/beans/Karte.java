@@ -11,22 +11,12 @@ package beans;
  */
 public class Karte {
 
-    String name;
     int wert;
     Farbe farbe;
 
-    public Karte(String name, int wert, Farbe farbe) {
-        this.name = name;
+    public Karte(int wert, Farbe farbe) {
         this.wert = wert;
         this.farbe = farbe;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public int getWert() {
@@ -45,9 +35,6 @@ public class Karte {
         this.farbe = farbe;
     }
 
-    @Override
-    public String toString() {
-        return "Karte{" + "name=" + name + ", wert=" + wert + ", farbe=" + farbe + '}';
-    }
+
 
 }
