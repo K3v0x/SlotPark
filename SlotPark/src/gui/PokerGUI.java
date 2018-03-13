@@ -5,9 +5,14 @@
  */
 package gui;
 
+import beans.Farbe;
+import static beans.Farbe.*;
+import beans.Karte;
 import java.io.File;
+import java.util.LinkedList;
 import java.util.Random;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 
 /**
  *
@@ -17,12 +22,21 @@ public class PokerGUI extends javax.swing.JFrame {
 
     Random rand = new Random();
     String imagepath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "images" + File.separator + "karten" + File.separator;
+    LinkedList<Karte> stapel = new LinkedList<>();
 
     public PokerGUI() {
-
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.setUndecorated(true);
         initComponents();
-        lbCard1.setIcon(new ImageIcon(imagepath + "2H.png"));
-        lbCard2.setIcon(new ImageIcon(imagepath + "2H.png"));
+        createCards(HERZ);
+        createCards(PIK);
+        createCards(KARO);
+        createCards(KREUZ);
+        int kartenindex = rand.nextInt((stapel.size() - 1) - 0 + 1) + 0;
+        lbCard1.setIcon(new ImageIcon(imagepath + (stapel.get(kartenindex).getWert() + stapel.get(kartenindex).getFarbe().getName() + ".png")));
+        kartenindex = rand.nextInt(stapel.size() - 0 + 1) + 0;
+        lbCard2.setIcon(new ImageIcon(imagepath + (stapel.get(kartenindex).getWert() + stapel.get(kartenindex).getFarbe().getName() + ".png")));
+
     }
 
     /**
@@ -199,6 +213,12 @@ public class PokerGUI extends javax.swing.JFrame {
     private void onFold(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onFold
 
     }//GEN-LAST:event_onFold
+
+    public void createCards(Farbe farbe) {
+        for (int i = 0; i < 10; i++) {
+            stapel.add(new Karte(i + 1, farbe));
+        }
+    }
 
     /**
      * @param args the command line arguments
