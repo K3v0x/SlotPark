@@ -5,7 +5,10 @@
  */
 package gui;
 
+import java.awt.Color;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.border.LineBorder;
 
 /**
  *
@@ -13,9 +16,8 @@ import javax.swing.JFrame;
  */
 public class MenuGUI extends javax.swing.JFrame {
 
-    /**
-     * Creates new form MenuGUI
-     */
+    String selgame; //Ausgewähltes Spiel
+
     public MenuGUI() {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setUndecorated(true);
@@ -31,84 +33,111 @@ public class MenuGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        lbSlots = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        lbRoulette = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        lbPoker = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Willkommen!");
-        getContentPane().add(jLabel1, java.awt.BorderLayout.PAGE_START);
+        jPanel6.setLayout(new java.awt.GridLayout(2, 0));
 
-        jButton4.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jButton2.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
+        jButton2.setText("Spielen");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                onPlay(evt);
+            }
+        });
+        jPanel6.add(jButton2);
+
+        jButton4.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         jButton4.setText("Logout");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 onLogout(evt);
             }
         });
-        getContentPane().add(jButton4, java.awt.BorderLayout.SOUTH);
+        jPanel6.add(jButton4);
 
-        jPanel1.setLayout(new java.awt.BorderLayout());
-        jPanel1.add(jPanel4, java.awt.BorderLayout.NORTH);
+        getContentPane().add(jPanel6, java.awt.BorderLayout.SOUTH);
 
-        jPanel2.setLayout(new java.awt.GridLayout(1, 3));
+        jLabel1.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Willkommen!");
+        getContentPane().add(jLabel1, java.awt.BorderLayout.PAGE_START);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel2.add(jLabel2);
+        jPanel1.setLayout(new java.awt.GridLayout(1, 3));
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel2.add(jLabel3);
+        jPanel5.setLayout(new java.awt.BorderLayout());
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel2.add(jLabel4);
+        jLabel6.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Slots");
+        jPanel5.add(jLabel6, java.awt.BorderLayout.NORTH);
 
-        jPanel1.add(jPanel2, java.awt.BorderLayout.CENTER);
-
-        jPanel3.setLayout(new java.awt.GridLayout(1, 3));
-
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        jButton2.setText("Slots");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                onSlots(evt);
+        lbSlots.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        lbSlots.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbSlots.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/slots.png"))); // NOI18N
+        lbSlots.setName("Slots"); // NOI18N
+        lbSlots.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                onSelect(evt);
             }
         });
-        jPanel3.add(jButton2);
+        jPanel5.add(lbSlots, java.awt.BorderLayout.CENTER);
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        jButton1.setText("Poker");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                onPoker(evt);
+        jPanel1.add(jPanel5);
+
+        jPanel4.setLayout(new java.awt.BorderLayout());
+
+        jLabel7.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("Poker");
+        jPanel4.add(jLabel7, java.awt.BorderLayout.NORTH);
+
+        lbRoulette.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        lbRoulette.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbRoulette.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Poker.png"))); // NOI18N
+        lbRoulette.setName("Roulette"); // NOI18N
+        lbRoulette.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                onSelect(evt);
             }
         });
-        jPanel3.add(jButton1);
+        jPanel4.add(lbRoulette, java.awt.BorderLayout.CENTER);
 
-        jButton3.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        jButton3.setText("Roulette");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                onRoulette(evt);
+        jPanel1.add(jPanel4);
+
+        jPanel2.setLayout(new java.awt.BorderLayout());
+
+        jLabel5.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Roulette");
+        jPanel2.add(jLabel5, java.awt.BorderLayout.NORTH);
+
+        lbPoker.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        lbPoker.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbPoker.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Roulette.png"))); // NOI18N
+        lbPoker.setName("Poker"); // NOI18N
+        lbPoker.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                onSelect(evt);
             }
         });
-        jPanel3.add(jButton3);
+        jPanel2.add(lbPoker, java.awt.BorderLayout.CENTER);
 
-        jPanel1.add(jPanel3, java.awt.BorderLayout.SOUTH);
+        jPanel1.add(jPanel2);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
@@ -121,17 +150,31 @@ public class MenuGUI extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_onLogout
 
-    private void onSlots(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onSlots
-        // TODO add your handling code here:
-    }//GEN-LAST:event_onSlots
+    private void onPlay(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onPlay
 
-    private void onPoker(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onPoker
-        // TODO add your handling code here:
-    }//GEN-LAST:event_onPoker
+    }//GEN-LAST:event_onPlay
 
-    private void onRoulette(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onRoulette
-        // TODO add your handling code here:
-    }//GEN-LAST:event_onRoulette
+    private void onSelect(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_onSelect
+        JLabel lbsel = (JLabel) evt.getSource();
+        selgame = lbsel.getName();
+        switch (selgame) {
+            case "Slots":
+                lbSlots.setBorder(new LineBorder(Color.black, 5));
+                lbRoulette.setBorder(null);
+                lbPoker.setBorder(null);
+                break;
+            case "Poker":
+                lbPoker.setBorder(new LineBorder(Color.black, 5));
+                lbRoulette.setBorder(null);
+                lbSlots.setBorder(null);
+                break;
+            case "Roulette":
+                lbRoulette.setBorder(new LineBorder(Color.black, 5));
+                lbPoker.setBorder(null);
+                lbSlots.setBorder(null);
+                break;
+        }
+    }//GEN-LAST:event_onSelect
 
     /**
      * @param args the command line arguments
@@ -169,17 +212,19 @@ public class MenuGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JLabel lbPoker;
+    private javax.swing.JLabel lbRoulette;
+    private javax.swing.JLabel lbSlots;
     // End of variables declaration//GEN-END:variables
 }

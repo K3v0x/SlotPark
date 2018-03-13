@@ -15,13 +15,13 @@ import javax.swing.JFrame;
  * @author Kevin
  */
 public class LoginGUI extends javax.swing.JFrame {
-    
+
     public LoginGUI() {
-        
+
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setUndecorated(true);
         initComponents();
-        
+
         paRegister.setVisible(false);
         paLogin.setVisible(false);
     }
@@ -189,6 +189,7 @@ public class LoginGUI extends javax.swing.JFrame {
     private void onRealLogin(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onRealLogin
         String user = tfLogin.getText();
         String password = pfLogin.getText();
+        Spieler spieler;
     }//GEN-LAST:event_onRealLogin
 
     private void onRealRegister(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onRealRegister
@@ -203,17 +204,19 @@ public class LoginGUI extends javax.swing.JFrame {
         } else {
             tfRegister.setBackground(Color.red);
         }
-        
+
         if (!password.isEmpty() && !password.contains(" ") && password.equals(password2)) {
             pfRegister.setBackground(Color.white);
-            pfRegister2.setBackground(Color.RED);
             checkpassword = true;
         } else {
             pfRegister.setBackground(Color.red);
+            pfRegister2.setBackground(Color.RED);
         }
-        
+
         if (checkpassword && checkuser) {
-            
+            MenuGUI menugui = new MenuGUI();
+            menugui.setVisible(true);
+            this.dispose();
         }
 
     }//GEN-LAST:event_onRealRegister
