@@ -21,7 +21,6 @@ public class LoginGUI extends javax.swing.JFrame {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setUndecorated(true);
         initComponents();
-
         paRegister.setVisible(false);
         paLogin.setVisible(false);
     }
@@ -184,6 +183,8 @@ public class LoginGUI extends javax.swing.JFrame {
     private void onLogin(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onLogin
         btLogin.setVisible(false);
         paLogin.setVisible(true);
+        btRegister.setVisible(true);
+        paRegister.setVisible(false);
     }//GEN-LAST:event_onLogin
 
     private void onRealLogin(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onRealLogin
@@ -224,6 +225,8 @@ public class LoginGUI extends javax.swing.JFrame {
     private void onRegister(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onRegister
         btRegister.setVisible(false);
         paRegister.setVisible(true);
+        btLogin.setVisible(true);
+        paLogin.setVisible(false);
     }//GEN-LAST:event_onRegister
 
     /**

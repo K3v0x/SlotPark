@@ -16,12 +16,13 @@ import javax.swing.border.LineBorder;
  */
 public class MenuGUI extends javax.swing.JFrame {
 
-    String selgame; //Ausgewähltes Spiel
+    String selgame = "Poker"; //Ausgewähltes Spiel
 
     public MenuGUI() {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setUndecorated(true);
         initComponents();
+        lbRoulette.setBorder(new LineBorder(Color.black, 5));
     }
 
     /**
@@ -43,10 +44,10 @@ public class MenuGUI extends javax.swing.JFrame {
         lbSlots = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        lbRoulette = new javax.swing.JLabel();
+        lbPoker = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        lbPoker = new javax.swing.JLabel();
+        lbRoulette = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -106,16 +107,16 @@ public class MenuGUI extends javax.swing.JFrame {
         jLabel7.setText("Poker");
         jPanel4.add(jLabel7, java.awt.BorderLayout.NORTH);
 
-        lbRoulette.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        lbRoulette.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbRoulette.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Poker.png"))); // NOI18N
-        lbRoulette.setName("Roulette"); // NOI18N
-        lbRoulette.addMouseListener(new java.awt.event.MouseAdapter() {
+        lbPoker.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        lbPoker.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbPoker.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Poker.png"))); // NOI18N
+        lbPoker.setName("Roulette"); // NOI18N
+        lbPoker.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 onSelect(evt);
             }
         });
-        jPanel4.add(lbRoulette, java.awt.BorderLayout.CENTER);
+        jPanel4.add(lbPoker, java.awt.BorderLayout.CENTER);
 
         jPanel1.add(jPanel4);
 
@@ -126,16 +127,16 @@ public class MenuGUI extends javax.swing.JFrame {
         jLabel5.setText("Roulette");
         jPanel2.add(jLabel5, java.awt.BorderLayout.NORTH);
 
-        lbPoker.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        lbPoker.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbPoker.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Roulette.png"))); // NOI18N
-        lbPoker.setName("Poker"); // NOI18N
-        lbPoker.addMouseListener(new java.awt.event.MouseAdapter() {
+        lbRoulette.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        lbRoulette.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbRoulette.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Roulette.png"))); // NOI18N
+        lbRoulette.setName("Poker"); // NOI18N
+        lbRoulette.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 onSelect(evt);
             }
         });
-        jPanel2.add(lbPoker, java.awt.BorderLayout.CENTER);
+        jPanel2.add(lbRoulette, java.awt.BorderLayout.CENTER);
 
         jPanel1.add(jPanel2);
 
@@ -151,26 +152,38 @@ public class MenuGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_onLogout
 
     private void onPlay(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onPlay
+        switch (selgame) {
+            case "Slots":
+                SlotsGUI slotsgui = new SlotsGUI();
+                slotsgui.setVisible(true);
+                this.dispose();
+                break;
+            case "Poker":
 
+                break;
+            case "Roulette":
+
+                break;
+        }
     }//GEN-LAST:event_onPlay
 
     private void onSelect(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_onSelect
         JLabel lbsel = (JLabel) evt.getSource();
         selgame = lbsel.getName();
-        switch (selgame) {
+        switch (selgame) { //Setzt die Umrandung des Selektierten Spiels
             case "Slots":
-                lbSlots.setBorder(new LineBorder(Color.black, 5));
-                lbRoulette.setBorder(null);
+                lbSlots.setBorder(new LineBorder(Color.black, 10));
                 lbPoker.setBorder(null);
+                lbRoulette.setBorder(null);
                 break;
             case "Poker":
-                lbPoker.setBorder(new LineBorder(Color.black, 5));
-                lbRoulette.setBorder(null);
+                lbRoulette.setBorder(new LineBorder(Color.black, 10));
+                lbPoker.setBorder(null);
                 lbSlots.setBorder(null);
                 break;
             case "Roulette":
-                lbRoulette.setBorder(new LineBorder(Color.black, 5));
-                lbPoker.setBorder(null);
+                lbPoker.setBorder(new LineBorder(Color.black, 10));
+                lbRoulette.setBorder(null);
                 lbSlots.setBorder(null);
                 break;
         }
