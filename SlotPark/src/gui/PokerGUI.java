@@ -16,11 +16,13 @@ import javax.swing.ImageIcon;
 public class PokerGUI extends javax.swing.JFrame {
 
     Random rand = new Random();
-    String imagepath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "images" + File.separator;
+    String imagepath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "images" + File.separator + "karten" + File.separator;
 
     public PokerGUI() {
-        lbCard1.setIcon(new ImageIcon(imagepath + "2H.png"));
+
         initComponents();
+        lbCard1.setIcon(new ImageIcon(imagepath + "2H.png"));
+        lbCard2.setIcon(new ImageIcon(imagepath + "2H.png"));
     }
 
     /**
