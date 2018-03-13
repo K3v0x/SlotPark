@@ -13,6 +13,7 @@ import java.util.LinkedList;
 import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 /**
  *
@@ -23,6 +24,8 @@ public class PokerGUI extends javax.swing.JFrame {
     Random rand = new Random();
     String imagepath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "images" + File.separator + "karten" + File.separator;
     LinkedList<Karte> stapel = new LinkedList<>();
+    boolean preflop = true;
+    boolean floP = false;
 
     public PokerGUI() {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -32,11 +35,12 @@ public class PokerGUI extends javax.swing.JFrame {
         createCards(PIK);
         createCards(KARO);
         createCards(KREUZ);
-        int kartenindex = rand.nextInt((stapel.size() - 1) - 0 + 1) + 0;
+        int kartenindex = rand.nextInt(stapel.size() - 0 + 1) + 0;
+        stapel.remove(kartenindex);
         lbCard1.setIcon(new ImageIcon(imagepath + (stapel.get(kartenindex).getWert() + stapel.get(kartenindex).getFarbe().getName() + ".png")));
         kartenindex = rand.nextInt(stapel.size() - 0 + 1) + 0;
+        stapel.remove(kartenindex);
         lbCard2.setIcon(new ImageIcon(imagepath + (stapel.get(kartenindex).getWert() + stapel.get(kartenindex).getFarbe().getName() + ".png")));
-
     }
 
     /**
@@ -49,23 +53,31 @@ public class PokerGUI extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        lbIcon = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        lbName = new javax.swing.JLabel();
+        lbGeld = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        tfEinsatz = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
+        jPanel10 = new javax.swing.JPanel();
+        jPanel11 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        jPanel12 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        lbC1 = new javax.swing.JLabel();
+        lbC2 = new javax.swing.JLabel();
+        lbC3 = new javax.swing.JLabel();
+        lbC4 = new javax.swing.JLabel();
+        lbC5 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         lbCard1 = new javax.swing.JLabel();
@@ -76,19 +88,17 @@ public class PokerGUI extends javax.swing.JFrame {
 
         jPanel1.setLayout(new java.awt.BorderLayout());
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        jLabel1.setText("Icon");
-        jPanel1.add(jLabel1, java.awt.BorderLayout.WEST);
+        lbIcon.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        lbIcon.setText("Icon");
+        jPanel1.add(lbIcon, java.awt.BorderLayout.WEST);
 
         jPanel7.setLayout(new java.awt.GridLayout(2, 0));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        jLabel2.setText("Name:");
-        jPanel7.add(jLabel2);
+        lbName.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jPanel7.add(lbName);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        jLabel3.setText("Geld:");
-        jPanel7.add(jLabel3);
+        lbGeld.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jPanel7.add(lbGeld);
 
         jPanel1.add(jPanel7, java.awt.BorderLayout.CENTER);
 
@@ -96,7 +106,7 @@ public class PokerGUI extends javax.swing.JFrame {
 
         jPanel2.setLayout(new java.awt.GridLayout(2, 0));
 
-        jPanel4.setLayout(new java.awt.GridLayout(1, 3));
+        jPanel4.setLayout(new java.awt.GridLayout(2, 2));
 
         jButton3.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
         jButton3.setText("Check");
@@ -107,14 +117,9 @@ public class PokerGUI extends javax.swing.JFrame {
         });
         jPanel4.add(jButton3);
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        jButton2.setText("Erhöhen");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                onRaise(evt);
-            }
-        });
-        jPanel4.add(jButton2);
+        tfEinsatz.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        tfEinsatz.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jPanel4.add(tfEinsatz);
 
         jButton4.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
         jButton4.setText("Fold");
@@ -124,6 +129,15 @@ public class PokerGUI extends javax.swing.JFrame {
             }
         });
         jPanel4.add(jButton4);
+
+        jButton2.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jButton2.setText("Erhöhen");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                onRaise(evt);
+            }
+        });
+        jPanel4.add(jButton2);
 
         jPanel2.add(jPanel4);
 
@@ -140,29 +154,66 @@ public class PokerGUI extends javax.swing.JFrame {
 
         jPanel3.setLayout(new java.awt.GridLayout(2, 0));
 
-        jPanel5.setLayout(new java.awt.GridLayout(1, 5));
+        jPanel10.setLayout(new java.awt.BorderLayout());
+
+        jPanel11.setLayout(new java.awt.GridLayout(2, 1));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel5.add(jLabel4);
+        jLabel4.setText("POT: 0 Chips");
+        jPanel11.add(jLabel4);
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel5.add(jLabel5);
+        jPanel12.setLayout(new java.awt.GridLayout(1, 3));
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel5.add(jLabel6);
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("Spieler 1");
+        jPanel12.add(jLabel10);
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel5.add(jLabel7);
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setText("Spieler 2");
+        jPanel12.add(jLabel9);
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel5.add(jLabel8);
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("Spieler 3");
+        jPanel12.add(jLabel11);
 
-        jPanel3.add(jPanel5);
+        jPanel11.add(jPanel12);
+
+        jPanel10.add(jPanel11, java.awt.BorderLayout.NORTH);
+
+        jPanel5.setLayout(new java.awt.GridLayout(1, 5));
+
+        lbC1.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        lbC1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbC1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/karten/red_back.png"))); // NOI18N
+        jPanel5.add(lbC1);
+
+        lbC2.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        lbC2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbC2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/karten/red_back.png"))); // NOI18N
+        jPanel5.add(lbC2);
+
+        lbC3.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        lbC3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbC3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/karten/red_back.png"))); // NOI18N
+        jPanel5.add(lbC3);
+
+        lbC4.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        lbC4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbC4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/karten/red_back.png"))); // NOI18N
+        jPanel5.add(lbC4);
+
+        lbC5.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        lbC5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbC5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/karten/red_back.png"))); // NOI18N
+        jPanel5.add(lbC5);
+
+        jPanel10.add(jPanel5, java.awt.BorderLayout.CENTER);
+
+        jPanel3.add(jPanel10);
 
         jPanel6.setLayout(new java.awt.GridLayout(1, 2));
 
@@ -170,10 +221,12 @@ public class PokerGUI extends javax.swing.JFrame {
 
         lbCard1.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
         lbCard1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbCard1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/karten/10C.png"))); // NOI18N
         jPanel8.add(lbCard1);
 
         lbCard2.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
         lbCard2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbCard2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/karten/10C.png"))); // NOI18N
         jPanel8.add(lbCard2);
 
         jPanel6.add(jPanel8);
@@ -182,11 +235,11 @@ public class PokerGUI extends javax.swing.JFrame {
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 501, Short.MAX_VALUE)
+            .addGap(0, 1000, Short.MAX_VALUE)
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
+            .addGap(0, 500, Short.MAX_VALUE)
         );
 
         jPanel6.add(jPanel9);
@@ -199,15 +252,21 @@ public class PokerGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void onBack(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onBack
-
+        MenuGUI menugui = new MenuGUI();
+        menugui.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_onBack
 
     private void onCheck(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onCheck
-
+        if (preflop) {
+            aufdecken(lbC1);
+            aufdecken(lbC2);
+            aufdecken(lbC3);
+        }
     }//GEN-LAST:event_onCheck
 
     private void onRaise(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onRaise
-
+        int einsatz = Integer.parseInt(tfEinsatz.getText());
     }//GEN-LAST:event_onRaise
 
     private void onFold(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onFold
@@ -218,6 +277,12 @@ public class PokerGUI extends javax.swing.JFrame {
         for (int i = 0; i < 10; i++) {
             stapel.add(new Karte(i + 1, farbe));
         }
+    }
+
+    public void aufdecken(JLabel lb) {
+        int kartenindex = rand.nextInt(stapel.size() - 0 + 1) + 0;
+        lb.setIcon(new ImageIcon(imagepath + (stapel.get(kartenindex).getWert() + stapel.get(kartenindex).getFarbe().getName() + ".png")));
+        stapel.remove(kartenindex);
     }
 
     /**
@@ -260,15 +325,14 @@ public class PokerGUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -277,7 +341,16 @@ public class PokerGUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JLabel lbC1;
+    private javax.swing.JLabel lbC2;
+    private javax.swing.JLabel lbC3;
+    private javax.swing.JLabel lbC4;
+    private javax.swing.JLabel lbC5;
     private javax.swing.JLabel lbCard1;
     private javax.swing.JLabel lbCard2;
+    private javax.swing.JLabel lbGeld;
+    private javax.swing.JLabel lbIcon;
+    private javax.swing.JLabel lbName;
+    private javax.swing.JTextField tfEinsatz;
     // End of variables declaration//GEN-END:variables
 }
