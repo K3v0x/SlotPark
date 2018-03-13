@@ -118,7 +118,6 @@ public class SlotsGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void onSpin(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onSpin
-
         spin(lb1);
         spin(lb2);
         spin(lb3);
