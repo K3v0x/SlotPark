@@ -5,6 +5,7 @@
  */
 package gui;
 
+import database.DB_Access;
 import javax.swing.JFrame;
 
 /**
@@ -13,13 +14,14 @@ import javax.swing.JFrame;
  */
 public class LoginGUI extends javax.swing.JFrame {
 
-    /**
-     * Creates new form LoginGUI
-     */
+    DB_Access acces = DB_Access.getInstance();
+
     public LoginGUI() {
+
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setUndecorated(true);
         initComponents();
+        paLogin.setVisible(false);
     }
 
     /**
@@ -33,7 +35,15 @@ public class LoginGUI extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        btLogin = new javax.swing.JButton();
+        paLogin = new javax.swing.JPanel();
+        jButton4 = new javax.swing.JButton();
+        paLoginPanel = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        tfUser = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        pfPassword = new javax.swing.JPasswordField();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
@@ -46,14 +56,49 @@ public class LoginGUI extends javax.swing.JFrame {
 
         jPanel1.setLayout(new java.awt.GridLayout(3, 0));
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        jButton1.setText("Login");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jPanel2.setLayout(new java.awt.CardLayout());
+
+        btLogin.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        btLogin.setText("Login");
+        btLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 onLogin(evt);
             }
         });
-        jPanel1.add(jButton1);
+        jPanel2.add(btLogin, "card2");
+
+        paLogin.setLayout(new java.awt.BorderLayout());
+
+        jButton4.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jButton4.setText("Login");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                onRealLogin(evt);
+            }
+        });
+        paLogin.add(jButton4, java.awt.BorderLayout.SOUTH);
+
+        paLoginPanel.setLayout(new java.awt.GridLayout(2, 1));
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jLabel2.setText("User:");
+        paLoginPanel.add(jLabel2);
+
+        tfUser.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        paLoginPanel.add(tfUser);
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jLabel3.setText("Password:");
+        paLoginPanel.add(jLabel3);
+
+        pfPassword.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        paLoginPanel.add(pfPassword);
+
+        paLogin.add(paLoginPanel, java.awt.BorderLayout.CENTER);
+
+        jPanel2.add(paLogin, "card3");
+
+        jPanel1.add(jPanel2);
 
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
         jButton2.setText("Register");
@@ -78,8 +123,14 @@ public class LoginGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_onExit
 
     private void onLogin(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onLogin
-  
+        btLogin.setVisible(false);
+        paLogin.setVisible(true);
     }//GEN-LAST:event_onLogin
+
+    private void onRealLogin(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onRealLogin
+        String user = tfUser.getText();
+        String password = pfPassword.getText();
+    }//GEN-LAST:event_onRealLogin
 
     /**
      * @param args the command line arguments
@@ -117,10 +168,18 @@ public class LoginGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btLogin;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel paLogin;
+    private javax.swing.JPanel paLoginPanel;
+    private javax.swing.JPasswordField pfPassword;
+    private javax.swing.JTextField tfUser;
     // End of variables declaration//GEN-END:variables
 }
