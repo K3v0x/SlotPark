@@ -34,8 +34,14 @@ public class MenuGUI extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -54,19 +60,55 @@ public class MenuGUI extends javax.swing.JFrame {
         });
         getContentPane().add(jButton4, java.awt.BorderLayout.SOUTH);
 
-        jPanel1.setLayout(new java.awt.GridLayout(3, 0));
+        jPanel1.setLayout(new java.awt.BorderLayout());
+        jPanel1.add(jPanel4, java.awt.BorderLayout.NORTH);
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        jButton1.setText("Poker");
-        jPanel1.add(jButton1);
+        jPanel2.setLayout(new java.awt.GridLayout(1, 3));
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel2.add(jLabel2);
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel2.add(jLabel3);
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel2.add(jLabel4);
+
+        jPanel1.add(jPanel2, java.awt.BorderLayout.CENTER);
+
+        jPanel3.setLayout(new java.awt.GridLayout(1, 3));
 
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
         jButton2.setText("Slots");
-        jPanel1.add(jButton2);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                onSlots(evt);
+            }
+        });
+        jPanel3.add(jButton2);
+
+        jButton1.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jButton1.setText("Poker");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                onPoker(evt);
+            }
+        });
+        jPanel3.add(jButton1);
 
         jButton3.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
         jButton3.setText("Roulette");
-        jPanel1.add(jButton3);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                onRoulette(evt);
+            }
+        });
+        jPanel3.add(jButton3);
+
+        jPanel1.add(jPanel3, java.awt.BorderLayout.SOUTH);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
@@ -74,8 +116,22 @@ public class MenuGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void onLogout(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onLogout
-      LoginGUI logingui = new LoginGUI();
+        LoginGUI logingui = new LoginGUI();
+        logingui.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_onLogout
+
+    private void onSlots(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onSlots
+        // TODO add your handling code here:
+    }//GEN-LAST:event_onSlots
+
+    private void onPoker(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onPoker
+        // TODO add your handling code here:
+    }//GEN-LAST:event_onPoker
+
+    private void onRoulette(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onRoulette
+        // TODO add your handling code here:
+    }//GEN-LAST:event_onRoulette
 
     /**
      * @param args the command line arguments
@@ -118,6 +174,12 @@ public class MenuGUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     // End of variables declaration//GEN-END:variables
 }

@@ -10,5 +10,44 @@ package beans;
  * @author Kevin
  */
 public class Spieler {
+    private String name;
+    private String password;
+    private int geld;
+
+    public Spieler(String name, String password, int geld) {
+        this.name = name;
+        this.password = password;
+        this.geld = geld;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public int getGeld() {
+        return geld;
+    }
+
+    public void setGeld(int geld) {
+        this.geld = geld;
+    }
+
+    @Override
+    public String toString() {
+        return "Spieler{" + "name=" + name + ", password=" + password + ", geld=" + geld + '}';
+    }
+    
     
 }

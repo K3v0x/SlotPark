@@ -5,7 +5,9 @@
  */
 package gui;
 
+import beans.Spieler;
 import database.DB_Access;
+import java.awt.Color;
 import javax.swing.JFrame;
 
 /**
@@ -13,14 +15,14 @@ import javax.swing.JFrame;
  * @author Kevin
  */
 public class LoginGUI extends javax.swing.JFrame {
-
-    DB_Access acces = DB_Access.getInstance();
-
+    
     public LoginGUI() {
-
+        
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setUndecorated(true);
         initComponents();
+        
+        paRegister.setVisible(false);
         paLogin.setVisible(false);
     }
 
@@ -41,15 +43,25 @@ public class LoginGUI extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         paLoginPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        tfUser = new javax.swing.JTextField();
+        tfLogin = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        pfPassword = new javax.swing.JPasswordField();
-        jButton2 = new javax.swing.JButton();
+        pfLogin = new javax.swing.JPasswordField();
+        jPanel3 = new javax.swing.JPanel();
+        btRegister = new javax.swing.JButton();
+        paRegister = new javax.swing.JPanel();
+        jButton5 = new javax.swing.JButton();
+        paRegisterPanel = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        tfRegister = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        pfRegister = new javax.swing.JPasswordField();
+        jLabel6 = new javax.swing.JLabel();
+        pfRegister2 = new javax.swing.JPasswordField();
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("SlotPark");
         getContentPane().add(jLabel1, java.awt.BorderLayout.PAGE_START);
@@ -69,7 +81,7 @@ public class LoginGUI extends javax.swing.JFrame {
 
         paLogin.setLayout(new java.awt.BorderLayout());
 
-        jButton4.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jButton4.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         jButton4.setText("Login");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -80,19 +92,19 @@ public class LoginGUI extends javax.swing.JFrame {
 
         paLoginPanel.setLayout(new java.awt.GridLayout(2, 1));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         jLabel2.setText("User:");
         paLoginPanel.add(jLabel2);
 
-        tfUser.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        paLoginPanel.add(tfUser);
+        tfLogin.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
+        paLoginPanel.add(tfLogin);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         jLabel3.setText("Password:");
         paLoginPanel.add(jLabel3);
 
-        pfPassword.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        paLoginPanel.add(pfPassword);
+        pfLogin.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
+        paLoginPanel.add(pfLogin);
 
         paLogin.add(paLoginPanel, java.awt.BorderLayout.CENTER);
 
@@ -100,11 +112,58 @@ public class LoginGUI extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2);
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        jButton2.setText("Register");
-        jPanel1.add(jButton2);
+        jPanel3.setLayout(new java.awt.CardLayout());
 
-        jButton3.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        btRegister.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        btRegister.setText("Register");
+        btRegister.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                onRegister(evt);
+            }
+        });
+        jPanel3.add(btRegister, "card3");
+
+        paRegister.setLayout(new java.awt.BorderLayout());
+
+        jButton5.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
+        jButton5.setText("Registrieren");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                onRealRegister(evt);
+            }
+        });
+        paRegister.add(jButton5, java.awt.BorderLayout.SOUTH);
+
+        paRegisterPanel.setLayout(new java.awt.GridLayout(3, 1));
+
+        jLabel4.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
+        jLabel4.setText("User:");
+        paRegisterPanel.add(jLabel4);
+
+        tfRegister.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
+        paRegisterPanel.add(tfRegister);
+
+        jLabel5.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
+        jLabel5.setText("Password:");
+        paRegisterPanel.add(jLabel5);
+
+        pfRegister.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
+        paRegisterPanel.add(pfRegister);
+
+        jLabel6.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
+        jLabel6.setText("Password bestätigen:");
+        paRegisterPanel.add(jLabel6);
+
+        pfRegister2.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
+        paRegisterPanel.add(pfRegister2);
+
+        paRegister.add(paRegisterPanel, java.awt.BorderLayout.CENTER);
+
+        jPanel3.add(paRegister, "card3");
+
+        jPanel1.add(jPanel3);
+
+        jButton3.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         jButton3.setText("Exit");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,9 +187,41 @@ public class LoginGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_onLogin
 
     private void onRealLogin(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onRealLogin
-        String user = tfUser.getText();
-        String password = pfPassword.getText();
+        String user = tfLogin.getText();
+        String password = pfLogin.getText();
     }//GEN-LAST:event_onRealLogin
+
+    private void onRealRegister(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onRealRegister
+        boolean checkuser = false;
+        boolean checkpassword = false;
+        String user = tfRegister.getText();
+        String password = pfRegister.getText();
+        String password2 = pfRegister2.getText();
+        if (!user.isEmpty() && !user.contains(" ")) {
+            tfRegister.setBackground(Color.WHITE);
+            checkuser = true;
+        } else {
+            tfRegister.setBackground(Color.red);
+        }
+        
+        if (!password.isEmpty() && !password.contains(" ") && password.equals(password2)) {
+            pfRegister.setBackground(Color.white);
+            pfRegister2.setBackground(Color.RED);
+            checkpassword = true;
+        } else {
+            pfRegister.setBackground(Color.red);
+        }
+        
+        if (checkpassword && checkuser) {
+            
+        }
+
+    }//GEN-LAST:event_onRealRegister
+
+    private void onRegister(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onRegister
+        btRegister.setVisible(false);
+        paRegister.setVisible(true);
+    }//GEN-LAST:event_onRegister
 
     /**
      * @param args the command line arguments
@@ -169,17 +260,27 @@ public class LoginGUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btLogin;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btRegister;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel paLogin;
     private javax.swing.JPanel paLoginPanel;
-    private javax.swing.JPasswordField pfPassword;
-    private javax.swing.JTextField tfUser;
+    private javax.swing.JPanel paRegister;
+    private javax.swing.JPanel paRegisterPanel;
+    private javax.swing.JPasswordField pfLogin;
+    private javax.swing.JPasswordField pfRegister;
+    private javax.swing.JPasswordField pfRegister2;
+    private javax.swing.JTextField tfLogin;
+    private javax.swing.JTextField tfRegister;
     // End of variables declaration//GEN-END:variables
 }
