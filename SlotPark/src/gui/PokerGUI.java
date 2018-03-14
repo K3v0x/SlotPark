@@ -6,15 +6,19 @@
 package gui;
 
 import beans.Combi;
+import static beans.Combi.*;
 import beans.Farbe;
 import static beans.Farbe.*;
 import beans.Karte;
 import beans.PokerSpieler;
+import beans.Spieler;
 import java.awt.Color;
 import java.io.File;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
 import java.util.Stack;
@@ -88,6 +92,7 @@ public class PokerGUI extends javax.swing.JFrame {
         lbCard2 = new javax.swing.JLabel();
         lbCard1 = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
+        lbDeckWert = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -249,17 +254,12 @@ public class PokerGUI extends javax.swing.JFrame {
         jPanel6.add(jPanel8);
 
         jPanel9.setOpaque(false);
+        jPanel9.setLayout(new java.awt.BorderLayout());
 
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 908, Short.MAX_VALUE)
-        );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 422, Short.MAX_VALUE)
-        );
+        lbDeckWert.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        lbDeckWert.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbDeckWert.setText("Checking...");
+        jPanel9.add(lbDeckWert, java.awt.BorderLayout.PAGE_START);
 
         jPanel6.add(jPanel9);
 
@@ -338,15 +338,34 @@ public class PokerGUI extends javax.swing.JFrame {
     }
 
     public Combi checkCombi(PokerSpieler spieler) { //Auf Combis prüfen
+        HashMap<Integer, Integer> anzahl = new HashMap<>();
         Karte[] deck = spieler.getKarten();
         Karte[] alle = new Karte[7];
+        Combi combi = HOHEKARTE;
         for (int i = 0; i < deck.length; i++) {
             alle[i] = deck[i];
         }
-        for (int i = 0; i < kartentisch.length; i++) {
+        for (int i = 0; i < flopedcards; i++) {
             alle[i + 2] = kartentisch[i];
         }
-        Combi combi = null;
+
+        for (int i = 0; i < 13; i++) {
+            anzahl.put(i + 1, 0);
+        }
+
+        for (int i = 0; i < alle.length; i++) {
+            anzahl.put(alle[i].getWert(), anzahl.get(alle[i].getWert()) + 1);
+        }
+
+        for (int i = 0; i < 13; i++) {
+            if (anzahl.get(i + 1) == 3) {
+                combi = DRILLING;
+            } else if ((anzahl.get(i + 1) == 2)) {
+                combi = PAAR;
+            } else {
+                combi = HOHEKARTE;
+            }
+        }
         return combi;
     }
 
@@ -372,17 +391,18 @@ public class PokerGUI extends javax.swing.JFrame {
             }
             karte = stapel.pop();
             if (karte.getWert() == 1) {
-
                 lbCard2.setIcon(new ImageIcon(imagepath + ("A" + karte.getFarbe().getName() + ".png")));
             } else {
                 lbCard2.setIcon(new ImageIcon(imagepath + (karte.getWert() + karte.getFarbe().getName() + ".png")));
-
             }
         }
+        PokerSpieler spieler = new PokerSpieler(null, imagepath, imagepath, pot);
+        lbDeckWert.setText(checkCombi((PokerSpieler) spieler).getName());
     }
-        /**
-         * @param args the command line arguments
-         */
+
+    /**
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -443,6 +463,7 @@ public class PokerGUI extends javax.swing.JFrame {
     private javax.swing.JLabel lbC5;
     private javax.swing.JLabel lbCard1;
     private javax.swing.JLabel lbCard2;
+    private javax.swing.JLabel lbDeckWert;
     private javax.swing.JLabel lbGeld;
     private javax.swing.JLabel lbIcon;
     private javax.swing.JLabel lbName;
