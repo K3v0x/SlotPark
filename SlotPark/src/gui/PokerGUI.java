@@ -5,12 +5,19 @@
  */
 package gui;
 
+import beans.Combi;
 import beans.Farbe;
 import static beans.Farbe.*;
 import beans.Karte;
+import beans.PokerSpieler;
+import java.awt.Color;
 import java.io.File;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Random;
+import java.util.Stack;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -21,9 +28,13 @@ import javax.swing.JLabel;
  */
 public class PokerGUI extends javax.swing.JFrame {
 
+    int mindesteinsatz = 10;
+    int flopedcards = 0;
+    int pot = 0;
     Random rand = new Random();
     String imagepath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "images" + File.separator + "karten" + File.separator;
-    LinkedList<Karte> stapel = new LinkedList<>();
+    Stack<Karte> stapel = new Stack<>();
+    Karte[] kartentisch = new Karte[5];
     boolean preflop = true;
     boolean floP = false;
 
@@ -31,16 +42,8 @@ public class PokerGUI extends javax.swing.JFrame {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setUndecorated(true);
         initComponents();
-        createCards(HERZ);
-        createCards(PIK);
-        createCards(KARO);
-        createCards(KREUZ);
-        int kartenindex = rand.nextInt(stapel.size() - 0 + 1) + 0;
-        stapel.remove(kartenindex);
-        lbCard1.setIcon(new ImageIcon(imagepath + (stapel.get(kartenindex).getWert() + stapel.get(kartenindex).getFarbe().getName() + ".png")));
-        kartenindex = rand.nextInt(stapel.size() - 0 + 1) + 0;
-        stapel.remove(kartenindex);
-        lbCard2.setIcon(new ImageIcon(imagepath + (stapel.get(kartenindex).getWert() + stapel.get(kartenindex).getFarbe().getName() + ".png")));
+        lbPot.setText("Pot: " + pot);
+        newRound();
     }
 
     /**
@@ -67,7 +70,7 @@ public class PokerGUI extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
+        lbPot = new javax.swing.JLabel();
         jPanel12 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -158,10 +161,10 @@ public class PokerGUI extends javax.swing.JFrame {
 
         jPanel11.setLayout(new java.awt.GridLayout(2, 1));
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("POT: 0 Chips");
-        jPanel11.add(jLabel4);
+        lbPot.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        lbPot.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbPot.setText("POT: 0 Chips");
+        jPanel11.add(lbPot);
 
         jPanel12.setLayout(new java.awt.GridLayout(1, 3));
 
@@ -259,30 +262,92 @@ public class PokerGUI extends javax.swing.JFrame {
 
     private void onCheck(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onCheck
         if (preflop) {
-            aufdecken(lbC1);
-            aufdecken(lbC2);
-            aufdecken(lbC3);
+            flop(lbC1);
+            flop(lbC2);
+            flop(lbC3);
+            flopedcards = 3;
+            preflop = false;
+        } else {
+            switch (flopedcards) {
+                case 3:
+                    flop(lbC4);
+                    break;
+                case 4:
+                    flop(lbC5);
+                    break;
+            }
+            flopedcards++;
         }
+
     }//GEN-LAST:event_onCheck
 
     private void onRaise(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onRaise
-        int einsatz = Integer.parseInt(tfEinsatz.getText());
+        try {
+            int einsatz = Integer.parseInt(tfEinsatz.getText());
+            tfEinsatz.setBackground(Color.WHITE);
+            pot = pot + einsatz;
+            lbPot.setText("Pot: " + pot);
+        } catch (NumberFormatException e) {
+            System.out.println("Einsatz muss eine Zahl sein!");
+            tfEinsatz.setBackground(Color.RED);
+        }
+
+
     }//GEN-LAST:event_onRaise
 
     private void onFold(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onFold
-
+        newRound();
     }//GEN-LAST:event_onFold
 
     public void createCards(Farbe farbe) {
         for (int i = 0; i < 10; i++) {
             stapel.add(new Karte(i + 1, farbe));
         }
+        Collections.shuffle(stapel);
     }
 
-    public void aufdecken(JLabel lb) {
-        int kartenindex = rand.nextInt(stapel.size() - 0 + 1) + 0;
-        lb.setIcon(new ImageIcon(imagepath + (stapel.get(kartenindex).getWert() + stapel.get(kartenindex).getFarbe().getName() + ".png")));
-        stapel.remove(kartenindex);
+    public void flop(JLabel lb) {
+        if (stapel.size() - 1 > -1) {
+            Karte karte = stapel.pop();
+            lb.setIcon(new ImageIcon(imagepath + (karte.getWert() + karte.getFarbe().getName() + ".png")));
+            System.out.println(karte.getWert() + karte.getFarbe().getName());
+        }
+    }
+
+    public Combi checkCombi(PokerSpieler spieler) {
+        Karte[] deck = spieler.getKarten();
+        Karte[] alle = new Karte[7];
+        for (int i = 0; i < deck.length; i++) {
+            alle[i] = deck[i];
+        }
+        for (int i = 0; i < kartentisch.length; i++) {
+            alle[i + 2] = kartentisch[i];
+        }
+        Combi combi = null;
+        return combi;
+    }
+
+    public void newRound() {
+        preflop = true;
+        stapel.clear();
+        flopedcards = 0;
+        createCards(HERZ);
+        createCards(PIK);
+        createCards(KARO);
+        createCards(KREUZ);
+        lbC1.setIcon(new ImageIcon(imagepath + "red_back.png"));
+        lbC2.setIcon(new ImageIcon(imagepath + "red_back.png"));
+        lbC3.setIcon(new ImageIcon(imagepath + "red_back.png"));
+        lbC4.setIcon(new ImageIcon(imagepath + "red_back.png"));
+        lbC5.setIcon(new ImageIcon(imagepath + "red_back.png"));
+        if (stapel.size() - 1 > -1) {
+            //int kartenindex = rand.nextInt((stapel.size() - 1) - 0 + 1) + 0;
+            Karte karte = stapel.pop();
+            lbCard1.setIcon(new ImageIcon(imagepath + (karte.getWert() + karte.getFarbe().getName() + ".png")));
+            karte = stapel.pop();
+            lbCard2.setIcon(new ImageIcon(imagepath + (karte.getWert() + karte.getFarbe().getName() + ".png")));
+
+        }
     }
 
     /**
@@ -327,7 +392,6 @@ public class PokerGUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
@@ -351,6 +415,7 @@ public class PokerGUI extends javax.swing.JFrame {
     private javax.swing.JLabel lbGeld;
     private javax.swing.JLabel lbIcon;
     private javax.swing.JLabel lbName;
+    private javax.swing.JLabel lbPot;
     private javax.swing.JTextField tfEinsatz;
     // End of variables declaration//GEN-END:variables
 }
