@@ -22,7 +22,6 @@ public class MenuGUI extends javax.swing.JFrame {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setUndecorated(true);
         initComponents();
-        lbRoulette.setBorder(new LineBorder(Color.black, 5));
     }
 
     /**
@@ -34,8 +33,6 @@ public class MenuGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel6 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -51,17 +48,6 @@ public class MenuGUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel6.setLayout(new java.awt.GridLayout(2, 0));
-
-        jButton2.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
-        jButton2.setText("Spielen");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                onPlay(evt);
-            }
-        });
-        jPanel6.add(jButton2);
-
         jButton4.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         jButton4.setText("Logout");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -69,9 +55,7 @@ public class MenuGUI extends javax.swing.JFrame {
                 onLogout(evt);
             }
         });
-        jPanel6.add(jButton4);
-
-        getContentPane().add(jPanel6, java.awt.BorderLayout.SOUTH);
+        getContentPane().add(jButton4, java.awt.BorderLayout.SOUTH);
 
         jLabel1.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -91,9 +75,14 @@ public class MenuGUI extends javax.swing.JFrame {
         lbSlots.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbSlots.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/slots.png"))); // NOI18N
         lbSlots.setName("Slots"); // NOI18N
+        lbSlots.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                onSelect(evt);
+            }
+        });
         lbSlots.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                onSelect(evt);
+                onPlay(evt);
             }
         });
         jPanel5.add(lbSlots, java.awt.BorderLayout.CENTER);
@@ -111,9 +100,14 @@ public class MenuGUI extends javax.swing.JFrame {
         lbPoker.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbPoker.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Poker.png"))); // NOI18N
         lbPoker.setName("Poker"); // NOI18N
+        lbPoker.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                onSelect(evt);
+            }
+        });
         lbPoker.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                onSelect(evt);
+                onPlay(evt);
             }
         });
         jPanel4.add(lbPoker, java.awt.BorderLayout.CENTER);
@@ -131,9 +125,14 @@ public class MenuGUI extends javax.swing.JFrame {
         lbRoulette.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbRoulette.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Roulette.png"))); // NOI18N
         lbRoulette.setName("Roulette"); // NOI18N
+        lbRoulette.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                onSelect(evt);
+            }
+        });
         lbRoulette.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                onSelect(evt);
+                onPlay(evt);
             }
         });
         jPanel2.add(lbRoulette, java.awt.BorderLayout.CENTER);
@@ -151,7 +150,7 @@ public class MenuGUI extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_onLogout
 
-    private void onPlay(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onPlay
+    private void onPlay(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_onPlay
         switch (selgame) {
             case "Slots":
                 SlotsGUI slotsgui = new SlotsGUI();
@@ -174,17 +173,17 @@ public class MenuGUI extends javax.swing.JFrame {
         selgame = lbsel.getName();
         switch (selgame) { //Setzt die Umrandung des Selektierten Spiels
             case "Slots":
-                lbSlots.setBorder(new LineBorder(Color.black, 10));
+                lbSlots.setBorder(new LineBorder(Color.black, 20));
                 lbPoker.setBorder(null);
                 lbRoulette.setBorder(null);
                 break;
             case "Poker":
-                lbPoker.setBorder(new LineBorder(Color.black, 10));
+                lbPoker.setBorder(new LineBorder(Color.black, 20));
                 lbRoulette.setBorder(null);
                 lbSlots.setBorder(null);
                 break;
             case "Roulette":
-                lbRoulette.setBorder(new LineBorder(Color.black, 10));
+                lbRoulette.setBorder(new LineBorder(Color.black, 20));
                 lbPoker.setBorder(null);
                 lbSlots.setBorder(null);
                 break;
@@ -227,7 +226,6 @@ public class MenuGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
@@ -237,7 +235,6 @@ public class MenuGUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JLabel lbPoker;
     private javax.swing.JLabel lbRoulette;
     private javax.swing.JLabel lbSlots;
