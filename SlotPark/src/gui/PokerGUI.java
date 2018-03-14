@@ -28,15 +28,16 @@ import javax.swing.JLabel;
  */
 public class PokerGUI extends javax.swing.JFrame {
 
-    int mindesteinsatz = 10;
-    int flopedcards = 0;
-    int pot = 0;
     Random rand = new Random();
     String imagepath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "images" + File.separator + "karten" + File.separator;
-    Stack<Karte> stapel = new Stack<>();
-    Karte[] kartentisch = new Karte[5];
-    boolean preflop = true;
-    boolean floP = false;
+
+    int mindesteinsatz = 10; //Minimaler Einsatz
+    int flopedcards = 0; //Anzahl der aufgedeckten Karten
+    int pot = 0; //Anzahl der Chips im Pot
+    Stack<Karte> stapel = new Stack<>(); //Kartenstapel
+    Karte[] kartentisch = new Karte[5]; //Karten, die auf dem Tisch liegen
+    boolean preflop = true; //Preflop-Phase
+    boolean flop = false; //Flop-Phase
 
     public PokerGUI() {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -261,13 +262,13 @@ public class PokerGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_onBack
 
     private void onCheck(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onCheck
-        if (preflop) {
+        if (preflop) { //Preflop: 3 Karten werden auf dem Tisch aufgedeckt
             flop(lbC1);
             flop(lbC2);
             flop(lbC3);
             flopedcards = 3;
             preflop = false;
-        } else {
+        } else { //Flop: 1 weitere Karte wird aufgedeckt
             switch (flopedcards) {
                 case 3:
                     flop(lbC4);
@@ -282,7 +283,7 @@ public class PokerGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_onCheck
 
     private void onRaise(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onRaise
-        try {
+        try { //Einsatz erhöhen
             int einsatz = Integer.parseInt(tfEinsatz.getText());
             tfEinsatz.setBackground(Color.WHITE);
             pot = pot + einsatz;
@@ -299,14 +300,14 @@ public class PokerGUI extends javax.swing.JFrame {
         newRound();
     }//GEN-LAST:event_onFold
 
-    public void createCards(Farbe farbe) {
+    public void createCards(Farbe farbe) { //Karte erstellen
         for (int i = 0; i < 10; i++) {
             stapel.add(new Karte(i + 1, farbe));
         }
         Collections.shuffle(stapel);
     }
 
-    public void flop(JLabel lb) {
+    public void flop(JLabel lb) { //Karte aufdecken
         if (stapel.size() - 1 > -1) {
             Karte karte = stapel.pop();
             lb.setIcon(new ImageIcon(imagepath + (karte.getWert() + karte.getFarbe().getName() + ".png")));
@@ -314,7 +315,7 @@ public class PokerGUI extends javax.swing.JFrame {
         }
     }
 
-    public Combi checkCombi(PokerSpieler spieler) {
+    public Combi checkCombi(PokerSpieler spieler) { //Auf Combis prüfen
         Karte[] deck = spieler.getKarten();
         Karte[] alle = new Karte[7];
         for (int i = 0; i < deck.length; i++) {
@@ -327,7 +328,7 @@ public class PokerGUI extends javax.swing.JFrame {
         return combi;
     }
 
-    public void newRound() {
+    public void newRound() { //Neue Runde starten
         preflop = true;
         stapel.clear();
         flopedcards = 0;
@@ -341,7 +342,6 @@ public class PokerGUI extends javax.swing.JFrame {
         lbC4.setIcon(new ImageIcon(imagepath + "red_back.png"));
         lbC5.setIcon(new ImageIcon(imagepath + "red_back.png"));
         if (stapel.size() - 1 > -1) {
-            //int kartenindex = rand.nextInt((stapel.size() - 1) - 0 + 1) + 0;
             Karte karte = stapel.pop();
             lbCard1.setIcon(new ImageIcon(imagepath + (karte.getWert() + karte.getFarbe().getName() + ".png")));
             karte = stapel.pop();
