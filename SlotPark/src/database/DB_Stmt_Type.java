@@ -10,7 +10,9 @@ package database;
  * @author micha
  */
 public enum DB_Stmt_Type {
-    GetAllUsers("SELECT \"UID\",password,username FROM \"user\" ORDER BY \"UID\";");
+    AddNewUser("INSERT INTO spieler(\n"
+            + "	name, passwort, geld)\n"
+            + "	VALUES (?, ?, ?);");
 
     private DB_Stmt_Type(String pStatString) {
         this.pStatString = pStatString;

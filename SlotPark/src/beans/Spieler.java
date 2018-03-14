@@ -12,9 +12,9 @@ package beans;
 public class Spieler {
     private String name;
     private String password;
-    private int geld;
+    private double geld;
 
-    public Spieler(String name, String password, int geld) {
+    public Spieler(String name, String password, double geld) {
         this.name = name;
         this.password = password;
         this.geld = geld;
@@ -36,11 +36,11 @@ public class Spieler {
         this.password = password;
     }
 
-    public int getGeld() {
+    public double getGeld() {
         return geld;
     }
 
-    public void setGeld(int geld) {
+    public void setGeld(double geld) {
         this.geld = geld;
     }
 

@@ -8,6 +8,9 @@ package gui;
 import beans.Spieler;
 import database.DB_Access;
 import java.awt.Color;
+import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 /**
@@ -16,13 +19,15 @@ import javax.swing.JFrame;
  */
 public class LoginGUI extends javax.swing.JFrame {
 
-    public LoginGUI() {
+    private DB_Access access;
 
+    public LoginGUI() {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setUndecorated(true);
         initComponents();
         paRegister.setVisible(false);
         paLogin.setVisible(false);
+        access = DB_Access.getInstance();
     }
 
     /**
@@ -189,8 +194,20 @@ public class LoginGUI extends javax.swing.JFrame {
 
     private void onRealLogin(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onRealLogin
         String user = tfLogin.getText();
-        String password = pfLogin.getText();
-        Spieler spieler;
+        String password = new String(pfLogin.getPassword());
+        try {
+            LinkedList<Spieler> spieler = (LinkedList<Spieler>) access.getAllUsers();
+            for (Spieler s : spieler) {
+                if (s.getName().equals(user) && s.getPassword().equals(password)) {
+                    MenuGUI menugui = new MenuGUI();
+                    menugui.setVisible(true);
+                    this.dispose();
+                    return;
+                }
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.toString());
+        }
     }//GEN-LAST:event_onRealLogin
 
     private void onRealRegister(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onRealRegister
@@ -215,9 +232,17 @@ public class LoginGUI extends javax.swing.JFrame {
         }
 
         if (checkpassword && checkuser) {
-            MenuGUI menugui = new MenuGUI();
-            menugui.setVisible(true);
-            this.dispose();
+            Spieler s = new Spieler(user, password, 100.0);
+            try {
+                boolean erfolg = access.addUser(s);
+                if (erfolg) {
+                    MenuGUI menugui = new MenuGUI();
+                    menugui.setVisible(true);
+                    this.dispose();
+                }
+            } catch (Exception ex) {
+                System.out.println(ex.toString());
+            }
         }
 
     }//GEN-LAST:event_onRealRegister

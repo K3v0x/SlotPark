@@ -14,5 +14,5 @@ public interface DB_Config {
     public static final String DB_URL = "jdbc:postgresql://localhost/";
     public static final String DB_USER = "postgres";
     public static final String DB_PASSWD = "postgres"; // geheim123
-    public static final String DB_DBNAME = "SlotParkdb";
+    public static final String DB_DBNAME = "slotparkdb";
 }
