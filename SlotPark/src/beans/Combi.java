@@ -16,7 +16,7 @@ public enum Combi {
     FLUSH("Flush", 4),
     STRASSE("Strasse", 5),
     FULLHOUSE("FullHouse", 6),
-    VIELING("Vierling", 7),
+    VIERLING("Vierling", 7),
     STRAIGHTFLUSH("StraightFlush", 8),
     ROYALFLUSH("RoyalFlush", 9);
 

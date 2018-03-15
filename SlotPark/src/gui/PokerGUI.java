@@ -279,21 +279,22 @@ public class PokerGUI extends javax.swing.JFrame {
 
     private void onCheck(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onCheck
         if (preflop) { //Preflop: 3 Karten werden auf dem Tisch aufgedeckt
-            flop(lbC1);
-            flop(lbC2);
-            flop(lbC3);
+            kartentisch[0] = flop(lbC1);
+            kartentisch[1] = flop(lbC2);
+            kartentisch[2] = flop(lbC3);
             flopedcards = 3;
             preflop = false;
         } else { //Flop: 1 weitere Karte wird aufgedeckt
             switch (flopedcards) {
                 case 3:
-                    flop(lbC4);
+                    kartentisch[3] = flop(lbC4);
                     break;
                 case 4:
-                    flop(lbC5);
+                    kartentisch[4] = flop(lbC5);
                     break;
             }
             flopedcards++;
+            lbDeckWert.setText(checkCombi(spieler).getName());
         }
 
     }//GEN-LAST:event_onCheck
@@ -324,16 +325,19 @@ public class PokerGUI extends javax.swing.JFrame {
         Collections.shuffle(stapel);
     }
 
-    public void flop(JLabel lb) { //Karte aufdecken
+    public Karte flop(JLabel lb) { //Karte aufdecken
         if (stapel.size() - 1 > -1) {
             Karte karte = stapel.pop();
+
             if (karte.getWert() == 1) {
                 lb.setIcon(new ImageIcon(imagepath + ("A" + karte.getFarbe().getName() + ".png")));
             } else {
                 lb.setIcon(new ImageIcon(imagepath + (karte.getWert() + karte.getFarbe().getName() + ".png")));
             }
             System.out.println(karte.getWert() + karte.getFarbe().getName());
+            return karte;
         }
+        return null;
     }
 
     public Combi checkCombi(PokerSpieler spieler) { //Auf Combis prüfen
@@ -342,30 +346,43 @@ public class PokerGUI extends javax.swing.JFrame {
         Karte[] alle = new Karte[7];
         Combi combi = HOHEKARTE;
         for (int i = 0; i < deck.length; i++) {
-            System.out.println(alle[i]);
             alle[i] = deck[i];
+            System.out.println("Hand: " + alle[i].getWert());
         }
         for (int i = 0; i < flopedcards; i++) {
-
             alle[i + 2] = kartentisch[i];
-            System.out.println(alle[i]);
+            System.out.println("Kartentisch:" + alle[i + 2].getWert());
         }
 
-        for (int i = 0; i < 11; i++) {
+        for (int i = 0; i < 10; i++) {
             anzahl.put(i + 1, 0);
         }
 
-        for (int i = 0; i < alle.length; i++) {
-            anzahl.put(i + 1, anzahl.get(alle[i].getWert()) + 1);
+        for (int i = 1; i < anzahl.size(); i++) {
+            for (int j = 0; j < alle.length; j++) {
+                if (alle[j] != null) {
+                    if (i == alle[j].getWert()) {
+                        anzahl.put(i, anzahl.get(alle[j].getWert()) + 1);
+                    }
+
+                }
+            }
+
         }
 
-        for (int i = 0; i < 11; i++) {
-            if (anzahl.get(i + 1) == 3) {
+        for (int i = 0; i < 10; i++) {
+            if (anzahl.get(i + 1) == 4) {
+                combi = VIERLING;
+                return combi;
+            } else if (anzahl.get(i + 1) == 3) {
                 combi = DRILLING;
+                return combi;
             } else if ((anzahl.get(i + 1) == 2)) {
                 combi = PAAR;
+                return combi;
             } else {
                 combi = HOHEKARTE;
+                return combi;
             }
         }
         return combi;
@@ -392,6 +409,7 @@ public class PokerGUI extends javax.swing.JFrame {
                 lbCard1.setIcon(new ImageIcon(imagepath + (karte.getWert() + karte.getFarbe().getName() + ".png")));
             }
             spieler.getKarten()[0] = karte;
+            System.out.println(spieler.getKarten()[0].getFarbe());
             karte = stapel.pop();
             if (karte.getWert() == 1) {
                 lbCard2.setIcon(new ImageIcon(imagepath + ("A" + karte.getFarbe().getName() + ".png")));
@@ -399,6 +417,7 @@ public class PokerGUI extends javax.swing.JFrame {
                 lbCard2.setIcon(new ImageIcon(imagepath + (karte.getWert() + karte.getFarbe().getName() + ".png")));
             }
             spieler.getKarten()[1] = karte;
+            System.out.println(spieler.getKarten()[1].getFarbe());
         }
         lbDeckWert.setText(checkCombi(spieler).getName());
     }
