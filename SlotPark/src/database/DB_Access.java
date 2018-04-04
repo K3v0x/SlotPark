@@ -9,10 +9,7 @@ import beans.Spieler;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Date;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -37,12 +34,11 @@ public class DB_Access {
     public List<Spieler> getAllUsers() throws Exception {
         Connection conn = connections.getConnection();
         String sqlString = "SELECT name, passwort, geld\n"
-                + "            + \"FROM spieler;";
+                + "FROM spieler;";
         Statement stat = conn.createStatement();
         ResultSet rs = stat.executeQuery(sqlString);
         List<Spieler> spieler = new LinkedList<>();
-        while(rs.next())
-        {
+        while (rs.next()) {
             String name = rs.getString(1);
             String passwort = rs.getString(2);
             double geld = rs.getDouble(3);
@@ -51,9 +47,8 @@ public class DB_Access {
         connections.releaseConnection(conn);
         return spieler;
     }
-    
-    public boolean addUser(Spieler s) throws Exception
-    {
+
+    public boolean addUser(Spieler s) throws Exception {
         Connection conn = connections.getConnection();
         PreparedStatement pStat = pool.getPreparedStatement(conn, DB_Stmt_Type.AddNewUser);
         pStat.setString(1, s.getName());
@@ -61,8 +56,7 @@ public class DB_Access {
         pStat.setDouble(3, s.getGeld());
         int anz = pStat.executeUpdate();
         connections.releaseConnection(conn);
-        if(anz == 1)
-        {
+        if (anz == 1) {
             return true;
         }
         return false;

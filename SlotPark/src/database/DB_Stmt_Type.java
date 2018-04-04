@@ -10,7 +10,7 @@ package database;
  * @author micha
  */
 public enum DB_Stmt_Type {
-    AddNewUser("INSERT INTO spieler(\n"
+    AddNewUser("INSERT INTO public.spieler(\n"
             + "	name, passwort, geld)\n"
             + "	VALUES (?, ?, ?);");
 

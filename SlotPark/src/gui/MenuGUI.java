@@ -17,6 +17,24 @@ import javax.swing.border.LineBorder;
 public class MenuGUI extends javax.swing.JFrame {
 
     String selgame = "Poker"; //Ausgewähltes Spiel
+    String username;
+    double geld;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public double getGeld() {
+        return geld;
+    }
+
+    public void setGeld(double geld) {
+        this.geld = geld;
+    }
 
     public MenuGUI() {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
