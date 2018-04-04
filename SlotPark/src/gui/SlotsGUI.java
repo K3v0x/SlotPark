@@ -18,6 +18,26 @@ import javax.swing.JLabel;
 public class SlotsGUI extends javax.swing.JFrame {
 
     String[] slots = {"Diamond", "Luck", "Tree", "Cherry"};
+    String username;
+    double geld;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public double getGeld() {
+        return geld;
+    }
+
+    public void setGeld(double geld) {
+        this.geld = geld;
+        lbGeld.setText("Geld: "+geld);
+    }
+    
 
     public SlotsGUI() {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -39,10 +59,10 @@ public class SlotsGUI extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        lbIcon = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        lbName = new javax.swing.JLabel();
+        lbGeld = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -96,19 +116,19 @@ public class SlotsGUI extends javax.swing.JFrame {
 
         jPanel1.setLayout(new java.awt.BorderLayout());
 
-        jLabel3.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
-        jLabel3.setText("Icon");
-        jPanel1.add(jLabel3, java.awt.BorderLayout.WEST);
+        lbIcon.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
+        lbIcon.setText("Icon");
+        jPanel1.add(lbIcon, java.awt.BorderLayout.WEST);
 
         jPanel4.setLayout(new java.awt.GridLayout(2, 0));
 
-        jLabel4.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
-        jLabel4.setText("Name:");
-        jPanel4.add(jLabel4);
+        lbName.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
+        lbName.setText("Name:");
+        jPanel4.add(lbName);
 
-        jLabel5.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
-        jLabel5.setText("Geld:");
-        jPanel4.add(jLabel5);
+        lbGeld.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
+        lbGeld.setText("Geld:");
+        jPanel4.add(lbGeld);
 
         jPanel1.add(jPanel4, java.awt.BorderLayout.CENTER);
 
@@ -171,9 +191,6 @@ public class SlotsGUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -181,5 +198,8 @@ public class SlotsGUI extends javax.swing.JFrame {
     private javax.swing.JLabel lb1;
     private javax.swing.JLabel lb2;
     private javax.swing.JLabel lb3;
+    private javax.swing.JLabel lbGeld;
+    private javax.swing.JLabel lbIcon;
+    private javax.swing.JLabel lbName;
     // End of variables declaration//GEN-END:variables
 }

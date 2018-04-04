@@ -16,9 +16,9 @@ import javax.swing.border.LineBorder;
  */
 public class MenuGUI extends javax.swing.JFrame {
 
-    String selgame = "Poker"; //Ausgewähltes Spiel
-    String username;
-    double geld;
+    private String selgame = "Poker"; //Ausgewähltes Spiel
+    private String username;
+    private double geld;
 
     public String getUsername() {
         return username;
@@ -26,6 +26,7 @@ public class MenuGUI extends javax.swing.JFrame {
 
     public void setUsername(String username) {
         this.username = username;
+        lbName.setText("Name: "+username);
     }
 
     public double getGeld() {
@@ -34,6 +35,7 @@ public class MenuGUI extends javax.swing.JFrame {
 
     public void setGeld(double geld) {
         this.geld = geld;
+        lbGeld.setText("Geld: "+String.format("%,.02f €", geld));
     }
 
     public MenuGUI() {
@@ -52,7 +54,6 @@ public class MenuGUI extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton4 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
@@ -63,6 +64,13 @@ public class MenuGUI extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         lbRoulette = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        lbIcon = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        lbName = new javax.swing.JLabel();
+        lbGeld = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -74,11 +82,6 @@ public class MenuGUI extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton4, java.awt.BorderLayout.SOUTH);
-
-        jLabel1.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Willkommen!");
-        getContentPane().add(jLabel1, java.awt.BorderLayout.PAGE_START);
 
         jPanel1.setLayout(new java.awt.GridLayout(1, 3));
 
@@ -158,6 +161,35 @@ public class MenuGUI extends javax.swing.JFrame {
         jPanel1.add(jPanel2);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
+
+        jPanel3.setLayout(new java.awt.BorderLayout());
+
+        jLabel1.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Willkommen!");
+        jPanel3.add(jLabel1, java.awt.BorderLayout.CENTER);
+
+        jPanel6.setLayout(new java.awt.BorderLayout());
+
+        lbIcon.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
+        lbIcon.setText("ICON");
+        jPanel6.add(lbIcon, java.awt.BorderLayout.WEST);
+
+        jPanel7.setLayout(new java.awt.GridLayout(2, 1));
+
+        lbName.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
+        lbName.setText("Name:");
+        jPanel7.add(lbName);
+
+        lbGeld.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
+        lbGeld.setText("Geld:");
+        jPanel7.add(lbGeld);
+
+        jPanel6.add(jPanel7, java.awt.BorderLayout.CENTER);
+
+        jPanel3.add(jPanel6, java.awt.BorderLayout.PAGE_START);
+
+        getContentPane().add(jPanel3, java.awt.BorderLayout.PAGE_START);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -251,8 +283,14 @@ public class MenuGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JLabel lbGeld;
+    private javax.swing.JLabel lbIcon;
+    private javax.swing.JLabel lbName;
     private javax.swing.JLabel lbPoker;
     private javax.swing.JLabel lbRoulette;
     private javax.swing.JLabel lbSlots;

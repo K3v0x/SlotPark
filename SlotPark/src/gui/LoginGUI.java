@@ -200,6 +200,8 @@ public class LoginGUI extends javax.swing.JFrame {
             for (Spieler s : spieler) {
                 if (s.getName().equals(user) && s.getPassword().equals(password)) {
                     MenuGUI menugui = new MenuGUI();
+                    menugui.setGeld(s.getGeld());
+                    menugui.setUsername(s.getName());
                     menugui.setVisible(true);
                     this.dispose();
                     return;
