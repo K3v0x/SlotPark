@@ -285,15 +285,18 @@ public class PokerGUI extends javax.swing.JFrame {
             flopedcards = 3;
             preflop = false;
         } else { //Flop: 1 weitere Karte wird aufgedeckt
-            switch (flopedcards) {
-                case 3:
-                    kartentisch[3] = flop(lbC4);
-                    break;
-                case 4:
-                    kartentisch[4] = flop(lbC5);
-                    break;
+            if (flopedcards < 5) {
+                switch (flopedcards) {
+                    case 3:
+                        kartentisch[3] = flop(lbC4);
+                        break;
+                    case 4:
+                        kartentisch[4] = flop(lbC5);
+                        break;
+                }
+                flopedcards++;
             }
-            flopedcards++;
+
             lbDeckWert.setText(checkCombi(spieler).getName());
         }
 
@@ -326,6 +329,7 @@ public class PokerGUI extends javax.swing.JFrame {
     }
 
     public Karte flop(JLabel lb) { //Karte aufdecken
+
         if (stapel.size() - 1 > -1) {
             Karte karte = stapel.pop();
 
