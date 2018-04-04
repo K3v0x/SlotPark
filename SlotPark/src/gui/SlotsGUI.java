@@ -17,9 +17,9 @@ import javax.swing.JLabel;
  */
 public class SlotsGUI extends javax.swing.JFrame {
 
-    String[] slots = {"Diamond", "Luck", "Tree", "Cherry"};
-    String username;
-    double geld;
+    private String[] slots = {"Diamond", "Luck", "Tree", "Cherry"};
+    private String username;
+    private double geld;
 
     public String getUsername() {
         return username;
@@ -27,6 +27,7 @@ public class SlotsGUI extends javax.swing.JFrame {
 
     public void setUsername(String username) {
         this.username = username;
+        lbName.setText("Name: "+username);
     }
 
     public double getGeld() {
@@ -35,7 +36,7 @@ public class SlotsGUI extends javax.swing.JFrame {
 
     public void setGeld(double geld) {
         this.geld = geld;
-        lbGeld.setText("Geld: "+geld);
+        lbGeld.setText(String.format("Geld: %.0f Chips", geld));
     }
     
 
@@ -145,6 +146,8 @@ public class SlotsGUI extends javax.swing.JFrame {
 
     private void onBack(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onBack
         MenuGUI menugui = new MenuGUI();
+        menugui.setUsername(username);
+        menugui.setGeld((int)(geld/5));
         menugui.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_onBack
