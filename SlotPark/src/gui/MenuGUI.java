@@ -211,6 +211,8 @@ public class MenuGUI extends javax.swing.JFrame {
                 break;
             case "Poker":
                 PokerGUI pokergui = new PokerGUI();
+                pokergui.setUsername(username);
+                pokergui.setGeld((int)(geld*5));
                 pokergui.setVisible(true);
                 this.dispose();
                 break;
