@@ -204,11 +204,15 @@ public class MenuGUI extends javax.swing.JFrame {
         switch (selgame) {
             case "Slots":
                 SlotsGUI slotsgui = new SlotsGUI();
+                slotsgui.setUsername(username);
+                slotsgui.setGeld((int)(geld*5));
                 slotsgui.setVisible(true);
                 this.dispose();
                 break;
             case "Poker":
                 PokerGUI pokergui = new PokerGUI();
+                pokergui.setUsername(username);
+                pokergui.setGeld((int)(geld*5));
                 pokergui.setVisible(true);
                 this.dispose();
                 break;
