@@ -38,7 +38,11 @@ public class PokerGUI extends javax.swing.JFrame {
     int mindesteinsatz = 10; //Minimaler Einsatz
     int flopedcards = 0; //Anzahl der aufgedeckten Karten
     int pot = 0; //Anzahl der Chips im Pot
-    PokerSpieler spieler = new PokerSpieler(new Karte[2], "Hans", "1", 100);
+    PokerSpieler spieler = new PokerSpieler(new Karte[2], false, "Hans", "1", 100);
+    PokerSpieler com1 = new PokerSpieler(new Karte[2], true, "Mike", "1", 100);
+    PokerSpieler com2 = new PokerSpieler(new Karte[2], true, "Martin", "1", 100);
+    PokerSpieler com3 = new PokerSpieler(new Karte[2], true, "Sarah", "1", 100);
+    PokerSpieler com4 = new PokerSpieler(new Karte[2], true, "Tom", "1", 100);
     Stack<Karte> stapel = new Stack<>(); //Kartenstapel
     Karte[] kartentisch = new Karte[5]; //Karten, die auf dem Tisch liegen
     boolean preflop = true; //Preflop-Phase
@@ -47,9 +51,15 @@ public class PokerGUI extends javax.swing.JFrame {
     public PokerGUI() {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setUndecorated(true);
+
         initComponents();
+        tfEinsatz.setText("" + mindesteinsatz);
         lbPot.setText("Pot: " + pot);
-        newRound();
+        newRound(spieler);
+        newRound(com1);
+        newRound(com2);
+        newRound(com3);
+        newRound(com4);
     }
 
     /**
@@ -90,8 +100,8 @@ public class PokerGUI extends javax.swing.JFrame {
         lbC5 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
-        lbCard2 = new javax.swing.JLabel();
         lbCard1 = new javax.swing.JLabel();
+        lbCard2 = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         lbDeckWert = new javax.swing.JLabel();
 
@@ -242,15 +252,15 @@ public class PokerGUI extends javax.swing.JFrame {
         jPanel8.setOpaque(false);
         jPanel8.setLayout(new java.awt.GridLayout(1, 2));
 
-        lbCard2.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        lbCard2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbCard2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/karten/10C.png"))); // NOI18N
-        jPanel8.add(lbCard2);
-
         lbCard1.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
         lbCard1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbCard1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/karten/10C.png"))); // NOI18N
         jPanel8.add(lbCard1);
+
+        lbCard2.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        lbCard2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbCard2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/karten/10C.png"))); // NOI18N
+        jPanel8.add(lbCard2);
 
         jPanel6.add(jPanel8);
 
@@ -318,8 +328,57 @@ public class PokerGUI extends javax.swing.JFrame {
 
     private void onFold(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onFold
         System.out.println("\n");
-        newRound();
+        stapel.clear();
+        newRound(spieler);
+        newRound(com1);
+        newRound(com2);
+        newRound(com3);
+        newRound(com4);
     }//GEN-LAST:event_onFold
+
+    public void newRound(PokerSpieler spieler) { //Neue Runde starten
+        preflop = true;
+
+        flopedcards = 0;
+        createCards(HERZ);
+        createCards(PIK);
+        createCards(KARO);
+        createCards(KREUZ);
+        lbC1.setIcon(new ImageIcon(imagepath + "red_back.png"));
+        lbC2.setIcon(new ImageIcon(imagepath + "red_back.png"));
+        lbC3.setIcon(new ImageIcon(imagepath + "red_back.png"));
+        lbC4.setIcon(new ImageIcon(imagepath + "red_back.png"));
+        lbC5.setIcon(new ImageIcon(imagepath + "red_back.png"));
+
+        //Karte 1
+        Karte karte = stapel.pop();
+        if (stapel.size() - 1 > -1) {
+            if (!spieler.isComputer()) {
+                if (karte.getWert() == 1) {
+                    lbCard1.setIcon(new ImageIcon(imagepath + ("A" + karte.getFarbe().getName() + ".png")));
+                } else {
+                    lbCard1.setIcon(new ImageIcon(imagepath + (karte.getWert() + karte.getFarbe().getName() + ".png")));
+                }
+            }
+            spieler.getKarten()[0] = karte;
+            System.out.println(spieler.getName() + ": " + spieler.getKarten()[0].getFarbe());
+
+            //Karte 2
+            karte = stapel.pop();
+            if (!spieler.isComputer()) {
+                if (karte.getWert() == 1) {
+                    lbCard2.setIcon(new ImageIcon(imagepath + ("A" + karte.getFarbe().getName() + ".png")));
+                } else {
+                    lbCard2.setIcon(new ImageIcon(imagepath + (karte.getWert() + karte.getFarbe().getName() + ".png")));
+                }
+            }
+            spieler.getKarten()[1] = karte;
+            System.out.println(spieler.getName() + ": " + spieler.getKarten()[1].getFarbe() + "\n");
+
+            lbDeckWert.setText(checkCombi(spieler).getName());
+        }
+
+    }
 
     public void createCards(Farbe farbe) { //Karte erstellen
         for (int i = 0; i < 10; i++) {
@@ -351,11 +410,11 @@ public class PokerGUI extends javax.swing.JFrame {
         Combi combi = HOHEKARTE;
         for (int i = 0; i < deck.length; i++) {
             alle[i] = deck[i];
-            System.out.println("Hand: " + alle[i].getWert());
+
         }
         for (int i = 0; i < flopedcards; i++) {
             alle[i + 2] = kartentisch[i];
-            System.out.println("Kartentisch:" + alle[i + 2].getWert());
+
         }
 
         for (int i = 0; i < 10; i++) {
@@ -390,40 +449,6 @@ public class PokerGUI extends javax.swing.JFrame {
             }
         }
         return combi;
-    }
-
-    public void newRound() { //Neue Runde starten
-        preflop = true;
-        stapel.clear();
-        flopedcards = 0;
-        createCards(HERZ);
-        createCards(PIK);
-        createCards(KARO);
-        createCards(KREUZ);
-        lbC1.setIcon(new ImageIcon(imagepath + "red_back.png"));
-        lbC2.setIcon(new ImageIcon(imagepath + "red_back.png"));
-        lbC3.setIcon(new ImageIcon(imagepath + "red_back.png"));
-        lbC4.setIcon(new ImageIcon(imagepath + "red_back.png"));
-        lbC5.setIcon(new ImageIcon(imagepath + "red_back.png"));
-        Karte karte = stapel.pop();
-        if (stapel.size() - 1 > -1) {
-            if (karte.getWert() == 1) {
-                lbCard1.setIcon(new ImageIcon(imagepath + ("A" + karte.getFarbe().getName() + ".png")));
-            } else {
-                lbCard1.setIcon(new ImageIcon(imagepath + (karte.getWert() + karte.getFarbe().getName() + ".png")));
-            }
-            spieler.getKarten()[0] = karte;
-            System.out.println(spieler.getKarten()[0].getFarbe());
-            karte = stapel.pop();
-            if (karte.getWert() == 1) {
-                lbCard2.setIcon(new ImageIcon(imagepath + ("A" + karte.getFarbe().getName() + ".png")));
-            } else {
-                lbCard2.setIcon(new ImageIcon(imagepath + (karte.getWert() + karte.getFarbe().getName() + ".png")));
-            }
-            spieler.getKarten()[1] = karte;
-            System.out.println(spieler.getKarten()[1].getFarbe());
-        }
-        lbDeckWert.setText(checkCombi(spieler).getName());
     }
 
     /**
