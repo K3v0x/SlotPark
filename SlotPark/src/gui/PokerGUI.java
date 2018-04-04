@@ -49,8 +49,8 @@ public class PokerGUI extends javax.swing.JFrame {
     boolean flop = false; //Flop-Phase
 
     public PokerGUI() {
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        this.setUndecorated(true);
+//        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+//        this.setUndecorated(true);
 
         initComponents();
         tfEinsatz.setText("" + mindesteinsatz);
@@ -72,11 +72,11 @@ public class PokerGUI extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel14 = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        lbCom2 = new javax.swing.JLabel();
+        lbCom1 = new javax.swing.JLabel();
         jPanel13 = new javax.swing.JPanel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        lbCom3 = new javax.swing.JLabel();
+        lbCom4 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         lbIcon = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
@@ -109,29 +109,29 @@ public class PokerGUI extends javax.swing.JFrame {
 
         jPanel14.setLayout(new java.awt.GridLayout(2, 0));
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText("Spieler 1");
-        jPanel14.add(jLabel10);
+        lbCom2.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        lbCom2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbCom2.setText("Spieler 3");
+        jPanel14.add(lbCom2);
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("Spieler 2");
-        jPanel14.add(jLabel9);
+        lbCom1.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        lbCom1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbCom1.setText("Spieler 2");
+        jPanel14.add(lbCom1);
 
         getContentPane().add(jPanel14, java.awt.BorderLayout.WEST);
 
         jPanel13.setLayout(new java.awt.GridLayout(2, 0));
 
-        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText("Spieler 3");
-        jPanel13.add(jLabel11);
+        lbCom3.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        lbCom3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbCom3.setText("Spieler 4");
+        jPanel13.add(lbCom3);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Spieler 5");
-        jPanel13.add(jLabel1);
+        lbCom4.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        lbCom4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbCom4.setText("Spieler 5");
+        jPanel13.add(lbCom4);
 
         getContentPane().add(jPanel13, java.awt.BorderLayout.EAST);
 
@@ -289,12 +289,19 @@ public class PokerGUI extends javax.swing.JFrame {
 
     private void onCheck(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onCheck
         if (preflop) { //Preflop: 3 Karten werden auf dem Tisch aufgedeckt
+
             kartentisch[0] = flop(lbC1);
             kartentisch[1] = flop(lbC2);
             kartentisch[2] = flop(lbC3);
             flopedcards = 3;
             preflop = false;
-        } else { //Flop: 1 weitere Karte wird aufgedeckt
+
+            checkCombi(com1);
+            checkCombi(com2);
+            checkCombi(com3);
+            checkCombi(com4);
+            System.out.println("\n");
+        } else { //Flop: 1 weitere Karte wird auf dem Tisch aufgedeckt
             if (flopedcards < 5) {
                 switch (flopedcards) {
                     case 3:
@@ -307,7 +314,12 @@ public class PokerGUI extends javax.swing.JFrame {
                 flopedcards++;
             }
 
-            lbDeckWert.setText(checkCombi(spieler).getName());
+            lbDeckWert.setText("" + checkCombi(spieler));
+            checkCombi(com1);
+            checkCombi(com2);
+            checkCombi(com3);
+            checkCombi(com4);
+            System.out.println("\n");
         }
 
     }//GEN-LAST:event_onCheck
@@ -375,7 +387,7 @@ public class PokerGUI extends javax.swing.JFrame {
             spieler.getKarten()[1] = karte;
             System.out.println(spieler.getName() + ": " + spieler.getKarten()[1].getFarbe() + "\n");
 
-            lbDeckWert.setText(checkCombi(spieler).getName());
+            lbDeckWert.setText("" + checkCombi(spieler));
         }
 
     }
@@ -397,7 +409,7 @@ public class PokerGUI extends javax.swing.JFrame {
             } else {
                 lb.setIcon(new ImageIcon(imagepath + (karte.getWert() + karte.getFarbe().getName() + ".png")));
             }
-            System.out.println(karte.getWert() + karte.getFarbe().getName());
+
             return karte;
         }
         return null;
@@ -436,18 +448,23 @@ public class PokerGUI extends javax.swing.JFrame {
         for (int i = 0; i < 10; i++) {
             if (anzahl.get(i + 1) == 4) {
                 combi = VIERLING;
+                System.out.println(spieler.getName() + ": " + combi);
                 return combi;
             } else if (anzahl.get(i + 1) == 3) {
                 combi = DRILLING;
+                System.out.println(spieler.getName() + ": " + combi);
                 return combi;
             } else if ((anzahl.get(i + 1) == 2)) {
                 combi = PAAR;
+                System.out.println(spieler.getName() + ": " + combi);
                 return combi;
             } else {
                 combi = HOHEKARTE;
+                System.out.println(spieler.getName() + ": " + combi);
                 return combi;
             }
         }
+
         return combi;
     }
 
@@ -491,10 +508,6 @@ public class PokerGUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel13;
@@ -514,6 +527,10 @@ public class PokerGUI extends javax.swing.JFrame {
     private javax.swing.JLabel lbC5;
     private javax.swing.JLabel lbCard1;
     private javax.swing.JLabel lbCard2;
+    private javax.swing.JLabel lbCom1;
+    private javax.swing.JLabel lbCom2;
+    private javax.swing.JLabel lbCom3;
+    private javax.swing.JLabel lbCom4;
     private javax.swing.JLabel lbDeckWert;
     private javax.swing.JLabel lbGeld;
     private javax.swing.JLabel lbIcon;
