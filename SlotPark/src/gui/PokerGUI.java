@@ -126,6 +126,8 @@ public class PokerGUI extends javax.swing.JFrame {
         lbC4 = new javax.swing.JLabel();
         lbC5 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
+        jPanel11 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         lbCard1 = new javax.swing.JLabel();
         lbCard2 = new javax.swing.JLabel();
@@ -276,6 +278,15 @@ public class PokerGUI extends javax.swing.JFrame {
         jPanel6.setOpaque(false);
         jPanel6.setLayout(new java.awt.GridLayout(1, 2));
 
+        jPanel11.setOpaque(false);
+        jPanel11.setLayout(new java.awt.BorderLayout());
+
+        jLabel1.setBackground(new java.awt.Color(153, 102, 0));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Eigene Karten");
+        jPanel11.add(jLabel1, java.awt.BorderLayout.PAGE_START);
+
         jPanel8.setOpaque(false);
         jPanel8.setLayout(new java.awt.GridLayout(1, 2));
 
@@ -289,7 +300,9 @@ public class PokerGUI extends javax.swing.JFrame {
         lbCard2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/karten/10C.png"))); // NOI18N
         jPanel8.add(lbCard2);
 
-        jPanel6.add(jPanel8);
+        jPanel11.add(jPanel8, java.awt.BorderLayout.CENTER);
+
+        jPanel6.add(jPanel11);
 
         jPanel9.setOpaque(false);
         jPanel9.setLayout(new java.awt.BorderLayout());
@@ -331,7 +344,7 @@ public class PokerGUI extends javax.swing.JFrame {
             letcomplay(com1, lbCom2);
             letcomplay(com1, lbCom3);
             letcomplay(com1, lbCom4);
-            System.out.println("\n");
+        
         } else {
             //Flop: 1 weitere Karte wird auf dem Tisch aufgedeckt
             if (flopedcards < 5 && !raisemode) {
@@ -351,8 +364,7 @@ public class PokerGUI extends javax.swing.JFrame {
             letcomplay(com2, lbCom2);
             letcomplay(com3, lbCom3);
             letcomplay(com4, lbCom4);
-
-            System.out.println("\n");
+          
         }
 
     }//GEN-LAST:event_onCheck
@@ -364,11 +376,11 @@ public class PokerGUI extends javax.swing.JFrame {
             int einsatz = Integer.parseInt(tfEinsatz.getText());
             tfEinsatz.setBackground(Color.WHITE);
             pot = pot + einsatz;
-            update();
             letcomplay(com1, lbCom1);
             letcomplay(com2, lbCom2);
             letcomplay(com3, lbCom3);
             letcomplay(com4, lbCom4);
+
         } catch (NumberFormatException e) {
             System.out.println("Einsatz muss eine Zahl sein!");
             tfEinsatz.setBackground(Color.RED);
@@ -378,8 +390,7 @@ public class PokerGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_onRaise
 
     private void onFold(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onFold
-        System.out.println("\n");
-        stapel.clear();
+    stapel.clear();
         newRound(spieler);
         for (PokerSpieler pokerSpieler : spielerliste) {
             newRound(pokerSpieler);
@@ -514,24 +525,36 @@ public class PokerGUI extends javax.swing.JFrame {
     }
 
     public void letcomplay(PokerSpieler spieler, JLabel lbComState) {
-        Combi combo = checkCombi(spieler);
-        if (!raisemode) {
+        //wenn jemand erhöht hat und 
+        if (!spieler.isFolded()) {
 
-            lbComState.setText("Checked");
-        } else {
-            lbComState.setText("Raised");
-            pot = (int) (pot + (spieler.getGeld() * 5 / 5));
-        }
+            Combi combo = checkCombi(spieler);
+            if (raisemode && spieler.getGeld() >= mindesteinsatz * 2 && combo.getWert() > 1) {
+                lbComState.setText("Raised");
+                spieler.setGeld(spieler.getGeld() - mindesteinsatz * 2);
+                pot = (int) (pot + mindesteinsatz * 2);
+            } else if (combo.getWert() == 1 && raisemode) {
+                lbComState.setText("Folded");
+                spieler.setFolded(true);
+            } else {
+                lbComState.setText("Checked");
+            }
 
-        if (combo.getWert() < 1) {
-            lbComState.setText("Folded");
-            spieler.setFolded(true);
+            update();
         }
-        update();
     }
 
     public void update() {
         lbPot.setText("POT: " + pot);
+        int anz = 0;
+        for (PokerSpieler pokerSpieler : spielerliste) {
+            if (pokerSpieler.isFolded()) {
+                anz++;
+            }
+        }
+        if (anz == 4) {
+            System.out.println("gewonnen!");
+        }
     }
 
     /**
@@ -574,8 +597,10 @@ public class PokerGUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel2;
