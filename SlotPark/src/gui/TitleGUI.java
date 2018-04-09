@@ -37,7 +37,7 @@ public class TitleGUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Eras Bold ITC", 1, 48)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("SlotPark");
         jLabel1.setToolTipText("");
@@ -49,7 +49,6 @@ public class TitleGUI extends javax.swing.JFrame {
         getContentPane().add(jLabel1, java.awt.BorderLayout.NORTH);
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setToolTipText("");
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 onStart(evt);
@@ -57,7 +56,7 @@ public class TitleGUI extends javax.swing.JFrame {
         });
         getContentPane().add(jLabel2, java.awt.BorderLayout.CENTER);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Eras Bold ITC", 1, 48)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Klicke");
         jLabel3.setToolTipText("");

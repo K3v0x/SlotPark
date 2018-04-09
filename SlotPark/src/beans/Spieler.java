@@ -5,6 +5,8 @@
  */
 package beans;
 
+import java.util.Objects;
+
 /**
  *
  * @author Kevin
@@ -45,9 +47,26 @@ public class Spieler {
     }
 
     @Override
-    public String toString() {
-        return "Spieler{" + "name=" + name + ", password=" + password + ", geld=" + geld + '}';
+    public int hashCode() {
+        int hash = 5;
+        return hash;
     }
-    
-    
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Spieler other = (Spieler) obj;
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        return true;
+    }  
 }
