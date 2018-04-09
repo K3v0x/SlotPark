@@ -11,15 +11,15 @@ package beans;
  */
 public class PokerSpieler extends Spieler{
     private Karte [] karten;
+    private boolean folded;
     private boolean computer;
 
-    public PokerSpieler(Karte[] karten, boolean computer, String name, String password, double geld) {
+    public PokerSpieler(Karte[] karten, boolean folded, boolean computer, String name, String password, double geld) {
         super(name, password, geld);
         this.karten = karten;
+        this.folded = folded;
         this.computer = computer;
     }
-
-   
 
     public Karte[] getKarten() {
         return karten;
@@ -29,6 +29,14 @@ public class PokerSpieler extends Spieler{
         this.karten = karten;
     }
 
+    public boolean isFolded() {
+        return folded;
+    }
+
+    public void setFolded(boolean folded) {
+        this.folded = folded;
+    }
+
     public boolean isComputer() {
         return computer;
     }
@@ -36,6 +44,8 @@ public class PokerSpieler extends Spieler{
     public void setComputer(boolean computer) {
         this.computer = computer;
     }
+
+   
     
    
     

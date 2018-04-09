@@ -34,20 +34,22 @@ public class PokerGUI extends javax.swing.JFrame {
 
     Random rand = new Random();
     String imagepath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "images" + File.separator + "karten" + File.separator;
+    LinkedList<PokerSpieler> spielerliste = new LinkedList<>(); //Spielerliste
+    Stack<Karte> stapel = new Stack<>(); //Kartenstapel
 
     int mindesteinsatz = 10; //Minimaler Einsatz
     int flopedcards = 0; //Anzahl der aufgedeckten Karten
     int pot = 0; //Anzahl der Chips im Pot
-    PokerSpieler spieler = new PokerSpieler(new Karte[2], false, "Hans", "1", 100);
-    PokerSpieler com1 = new PokerSpieler(new Karte[2], true, "Mike", "1", 100);
-    PokerSpieler com2 = new PokerSpieler(new Karte[2], true, "Martin", "1", 100);
-    PokerSpieler com3 = new PokerSpieler(new Karte[2], true, "Sarah", "1", 100);
-    PokerSpieler com4 = new PokerSpieler(new Karte[2], true, "Tom", "1", 100);
-    Stack<Karte> stapel = new Stack<>(); //Kartenstapel
+    PokerSpieler spieler = new PokerSpieler(new Karte[2], false, false, "Hans", "1", 100);
+    PokerSpieler com1 = new PokerSpieler(new Karte[2], false, true, "Mike", "1", 100);
+    PokerSpieler com2 = new PokerSpieler(new Karte[2], false, true, "Martin", "1", 100);
+    PokerSpieler com3 = new PokerSpieler(new Karte[2], false, true, "Sarah", "1", 100);
+    PokerSpieler com4 = new PokerSpieler(new Karte[2], false, true, "Tom", "1", 100);
+
     Karte[] kartentisch = new Karte[5]; //Karten, die auf dem Tisch liegen
     boolean preflop = true; //Preflop-Phase
     boolean flop = false; //Flop-Phase
-
+    boolean raisemode = false;
     private String username;
     private double geld;
 
@@ -74,6 +76,10 @@ public class PokerGUI extends javax.swing.JFrame {
 //        this.setUndecorated(true);
 
         initComponents();
+        spielerliste.add(com1);
+        spielerliste.add(com2);
+        spielerliste.add(com3);
+        spielerliste.add(com4);
         tfEinsatz.setText("" + mindesteinsatz);
         lbPot.setText("Pot: " + pot);
         newRound(spieler);
@@ -311,8 +317,9 @@ public class PokerGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_onBack
 
     private void onCheck(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onCheck
-        if (preflop) { //Preflop: 3 Karten werden auf dem Tisch aufgedeckt
-
+        raisemode = false;
+        if (preflop) {
+            //Preflop: 3 Karten werden auf dem Tisch aufgedeckt
             kartentisch[0] = flop(lbC1);
             kartentisch[1] = flop(lbC2);
             kartentisch[2] = flop(lbC3);
@@ -320,13 +327,14 @@ public class PokerGUI extends javax.swing.JFrame {
             preflop = false;
 
             lbDeckWert.setText("" + checkCombi(spieler));
-            checkCombi(com1);
-            checkCombi(com2);
-            checkCombi(com3);
-            checkCombi(com4);
+            letcomplay(com1, lbCom1);
+            letcomplay(com1, lbCom2);
+            letcomplay(com1, lbCom3);
+            letcomplay(com1, lbCom4);
             System.out.println("\n");
-        } else { //Flop: 1 weitere Karte wird auf dem Tisch aufgedeckt
-            if (flopedcards < 5) {
+        } else {
+            //Flop: 1 weitere Karte wird auf dem Tisch aufgedeckt
+            if (flopedcards < 5 && !raisemode) {
                 switch (flopedcards) {
                     case 3:
                         kartentisch[3] = flop(lbC4);
@@ -339,21 +347,28 @@ public class PokerGUI extends javax.swing.JFrame {
             }
 
             lbDeckWert.setText("" + checkCombi(spieler));
-            checkCombi(com1);
-            checkCombi(com2);
-            checkCombi(com3);
-            checkCombi(com4);
+            letcomplay(com1, lbCom1);
+            letcomplay(com2, lbCom2);
+            letcomplay(com3, lbCom3);
+            letcomplay(com4, lbCom4);
+
             System.out.println("\n");
         }
 
     }//GEN-LAST:event_onCheck
 
     private void onRaise(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onRaise
-        try { //Einsatz erhöhen
+        try {
+            //Einsatz erhöhen
+            raisemode = true;
             int einsatz = Integer.parseInt(tfEinsatz.getText());
             tfEinsatz.setBackground(Color.WHITE);
             pot = pot + einsatz;
-            lbPot.setText("Pot: " + pot);
+            update();
+            letcomplay(com1, lbCom1);
+            letcomplay(com2, lbCom2);
+            letcomplay(com3, lbCom3);
+            letcomplay(com4, lbCom4);
         } catch (NumberFormatException e) {
             System.out.println("Einsatz muss eine Zahl sein!");
             tfEinsatz.setBackground(Color.RED);
@@ -366,26 +381,26 @@ public class PokerGUI extends javax.swing.JFrame {
         System.out.println("\n");
         stapel.clear();
         newRound(spieler);
-        newRound(com1);
-        newRound(com2);
-        newRound(com3);
-        newRound(com4);
+        for (PokerSpieler pokerSpieler : spielerliste) {
+            newRound(pokerSpieler);
+        }
     }//GEN-LAST:event_onFold
 
     public void newRound(PokerSpieler spieler) { //Neue Runde starten
         preflop = true;
 
         flopedcards = 0;
-        createCards(HERZ);
-        createCards(PIK);
-        createCards(KARO);
-        createCards(KREUZ);
-        lbC1.setIcon(new ImageIcon(imagepath + "red_back.png"));
-        lbC2.setIcon(new ImageIcon(imagepath + "red_back.png"));
-        lbC3.setIcon(new ImageIcon(imagepath + "red_back.png"));
-        lbC4.setIcon(new ImageIcon(imagepath + "red_back.png"));
-        lbC5.setIcon(new ImageIcon(imagepath + "red_back.png"));
-
+        if (!spieler.isComputer()) {
+            createCards(HERZ);
+            createCards(PIK);
+            createCards(KARO);
+            createCards(KREUZ);
+            lbC1.setIcon(new ImageIcon(imagepath + "red_back.png"));
+            lbC2.setIcon(new ImageIcon(imagepath + "red_back.png"));
+            lbC3.setIcon(new ImageIcon(imagepath + "red_back.png"));
+            lbC4.setIcon(new ImageIcon(imagepath + "red_back.png"));
+            lbC5.setIcon(new ImageIcon(imagepath + "red_back.png"));
+        }
         //Karte 1
         Karte karte = stapel.pop();
         if (stapel.size() - 1 > -1) {
@@ -409,6 +424,7 @@ public class PokerGUI extends javax.swing.JFrame {
             }
             spieler.getKarten()[1] = karte;
 
+            //Wert der Karten
             if (!spieler.isComputer()) {
                 lbDeckWert.setText("" + checkCombi(spieler));
             }
@@ -417,14 +433,16 @@ public class PokerGUI extends javax.swing.JFrame {
 
     }
 
-    public void createCards(Farbe farbe) { //Karte erstellen
+    //Karten erstellen
+    public void createCards(Farbe farbe) {
         for (int i = 0; i < 10; i++) {
             stapel.add(new Karte(i + 1, farbe));
         }
         Collections.shuffle(stapel);
     }
 
-    public Karte flop(JLabel lb) { //Karte aufdecken
+    //Karte aufdecken
+    public Karte flop(JLabel lb) {
 
         if (stapel.size() - 1 > -1) {
             Karte karte = stapel.pop();
@@ -440,25 +458,32 @@ public class PokerGUI extends javax.swing.JFrame {
         return null;
     }
 
-    public Combi checkCombi(PokerSpieler spieler) { //Auf Combis prüfen
+    //Auf Combis prüfen
+    public Combi checkCombi(PokerSpieler spieler) {
 
         HashMap<Integer, Integer> anzahl = new HashMap<>();
         Karte[] deck = spieler.getKarten();
         Karte[] alle = new Karte[7];
         Combi combi = HOHEKARTE;
+
+        //Eigene Karten übertragen
         for (int i = 0; i < deck.length; i++) {
             alle[i] = deck[i];
 
         }
+
+        //Community-Karten übertragen
         for (int i = 0; i < flopedcards; i++) {
             alle[i + 2] = kartentisch[i];
 
         }
 
+        //Hashmap setzen
         for (int i = 0; i < 10; i++) {
             anzahl.put(i + 1, 0);
         }
 
+        //Anzahl der Karten im Deck zählen
         for (int i = 0; i < anzahl.size(); i++) {
             for (int j = 0; j < alle.length; j++) {
                 if (alle[j] != null) {
@@ -471,6 +496,7 @@ public class PokerGUI extends javax.swing.JFrame {
 
         }
 
+        //Combo prüfen
         for (int i = 0; i < 10; i++) {
             if (anzahl.get(i + 1) == 4) {
                 combi = VIERLING;
@@ -485,6 +511,27 @@ public class PokerGUI extends javax.swing.JFrame {
         }
 
         return combi;
+    }
+
+    public void letcomplay(PokerSpieler spieler, JLabel lbComState) {
+        Combi combo = checkCombi(spieler);
+        if (!raisemode) {
+
+            lbComState.setText("Checked");
+        } else {
+            lbComState.setText("Raised");
+            pot = (int) (pot + (spieler.getGeld() * 5 / 5));
+        }
+
+        if (combo.getWert() < 1) {
+            lbComState.setText("Folded");
+            spieler.setFolded(true);
+        }
+        update();
+    }
+
+    public void update() {
+        lbPot.setText("POT: " + pot);
     }
 
     /**
