@@ -47,7 +47,7 @@ public class PokerGUI extends javax.swing.JFrame {
     Karte[] kartentisch = new Karte[5]; //Karten, die auf dem Tisch liegen
     boolean preflop = true; //Preflop-Phase
     boolean flop = false; //Flop-Phase
-    
+
     private String username;
     private double geld;
 
@@ -57,7 +57,7 @@ public class PokerGUI extends javax.swing.JFrame {
 
     public void setUsername(String username) {
         this.username = username;
-        lbName.setText("Name: "+username);
+        lbName.setText("Name: " + username);
     }
 
     public double getGeld() {
@@ -305,7 +305,7 @@ public class PokerGUI extends javax.swing.JFrame {
     private void onBack(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onBack
         MenuGUI menugui = new MenuGUI();
         menugui.setUsername(username);
-        menugui.setGeld((int)(geld/5));
+        menugui.setGeld((int) (geld / 5));
         menugui.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_onBack
@@ -319,6 +319,7 @@ public class PokerGUI extends javax.swing.JFrame {
             flopedcards = 3;
             preflop = false;
 
+            lbDeckWert.setText("" + checkCombi(spieler));
             checkCombi(com1);
             checkCombi(com2);
             checkCombi(com3);
@@ -396,7 +397,6 @@ public class PokerGUI extends javax.swing.JFrame {
                 }
             }
             spieler.getKarten()[0] = karte;
-            System.out.println(spieler.getName() + ": " + spieler.getKarten()[0].getFarbe());
 
             //Karte 2
             karte = stapel.pop();
@@ -408,9 +408,11 @@ public class PokerGUI extends javax.swing.JFrame {
                 }
             }
             spieler.getKarten()[1] = karte;
-            System.out.println(spieler.getName() + ": " + spieler.getKarten()[1].getFarbe() + "\n");
 
-            lbDeckWert.setText("" + checkCombi(spieler));
+            if (!spieler.isComputer()) {
+                lbDeckWert.setText("" + checkCombi(spieler));
+            }
+
         }
 
     }
@@ -439,6 +441,7 @@ public class PokerGUI extends javax.swing.JFrame {
     }
 
     public Combi checkCombi(PokerSpieler spieler) { //Auf Combis prüfen
+
         HashMap<Integer, Integer> anzahl = new HashMap<>();
         Karte[] deck = spieler.getKarten();
         Karte[] alle = new Karte[7];
@@ -456,11 +459,11 @@ public class PokerGUI extends javax.swing.JFrame {
             anzahl.put(i + 1, 0);
         }
 
-        for (int i = 1; i < anzahl.size(); i++) {
+        for (int i = 0; i < anzahl.size(); i++) {
             for (int j = 0; j < alle.length; j++) {
                 if (alle[j] != null) {
                     if (i == alle[j].getWert()) {
-                        anzahl.put(i, anzahl.get(alle[j].getWert()) + 1);
+                        anzahl.put(i + 1, anzahl.get(i + 1) + 1);
                     }
 
                 }
@@ -471,19 +474,12 @@ public class PokerGUI extends javax.swing.JFrame {
         for (int i = 0; i < 10; i++) {
             if (anzahl.get(i + 1) == 4) {
                 combi = VIERLING;
-                System.out.println(spieler.getName() + ": " + combi);
                 return combi;
             } else if (anzahl.get(i + 1) == 3) {
                 combi = DRILLING;
-                System.out.println(spieler.getName() + ": " + combi);
                 return combi;
-            } else if ((anzahl.get(i + 1) == 2)) {
+            } else if (anzahl.get(i + 1) == 2) {
                 combi = PAAR;
-                System.out.println(spieler.getName() + ": " + combi);
-                return combi;
-            } else {
-                combi = HOHEKARTE;
-                System.out.println(spieler.getName() + ": " + combi);
                 return combi;
             }
         }
