@@ -8,9 +8,11 @@ package gui;
 import beans.Spieler;
 import database.DB_Access;
 import java.awt.Color;
+import java.io.File;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -23,6 +25,7 @@ public class LoginGUI extends javax.swing.JFrame {
     private DB_Access access;
     private LinkedList<Spieler> spieler = new LinkedList<>();
 
+    
     public LoginGUI() {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setUndecorated(true);
@@ -35,6 +38,8 @@ public class LoginGUI extends javax.swing.JFrame {
         } catch (Exception ex) {
             Logger.getLogger(LoginGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        
     }
 
     /**
@@ -68,6 +73,9 @@ public class LoginGUI extends javax.swing.JFrame {
         pfRegister = new javax.swing.JPasswordField();
         jLabel6 = new javax.swing.JLabel();
         pfRegister2 = new javax.swing.JPasswordField();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        cbImages = new javax.swing.JComboBox<>();
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -194,6 +202,17 @@ public class LoginGUI extends javax.swing.JFrame {
         paRegisterPanel.add(pfRegister2);
 
         paRegister.add(paRegisterPanel, java.awt.BorderLayout.CENTER);
+
+        jPanel4.setLayout(new java.awt.GridLayout(4, 1));
+
+        jLabel7.setFont(new java.awt.Font("Eras Bold ITC", 1, 48)); // NOI18N
+        jLabel7.setText("Icon:");
+        jPanel4.add(jLabel7);
+
+        cbImages.setFont(new java.awt.Font("Eras Bold ITC", 1, 48)); // NOI18N
+        jPanel4.add(cbImages);
+
+        paRegister.add(jPanel4, java.awt.BorderLayout.WEST);
 
         jPanel3.add(paRegister, "card3");
 
@@ -408,6 +427,7 @@ public class LoginGUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btLogin;
     private javax.swing.JButton btRegister;
+    private javax.swing.JComboBox<String> cbImages;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
@@ -417,9 +437,11 @@ public class LoginGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel paLogin;
     private javax.swing.JPanel paLoginPanel;
     private javax.swing.JPanel paRegister;
