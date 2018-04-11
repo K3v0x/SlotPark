@@ -40,11 +40,11 @@ public class PokerGUI extends javax.swing.JFrame {
     int mindesteinsatz = 10; //Minimaler Einsatz
     int flopedcards = 0; //Anzahl der aufgedeckten Karten
     int pot = 0; //Anzahl der Chips im Pot
-    PokerSpieler spieler = new PokerSpieler(new Karte[2], false, false, "Hans", "1", 100);
-    PokerSpieler com1 = new PokerSpieler(new Karte[2], false, true, "Mike", "1", 100);
-    PokerSpieler com2 = new PokerSpieler(new Karte[2], false, true, "Martin", "1", 100);
-    PokerSpieler com3 = new PokerSpieler(new Karte[2], false, true, "Sarah", "1", 100);
-    PokerSpieler com4 = new PokerSpieler(new Karte[2], false, true, "Tom", "1", 100);
+    PokerSpieler spieler = new PokerSpieler(new Karte[2], HOHEKARTE, false, false, "Hans", "1", 100);
+    PokerSpieler com1 = new PokerSpieler(new Karte[2], HOHEKARTE, false, true, "Mike", "1", 100);
+    PokerSpieler com2 = new PokerSpieler(new Karte[2], HOHEKARTE, false, true, "Martin", "1", 100);
+    PokerSpieler com3 = new PokerSpieler(new Karte[2], HOHEKARTE, false, true, "Sarah", "1", 100);
+    PokerSpieler com4 = new PokerSpieler(new Karte[2], HOHEKARTE, false, true, "Tom", "1", 100);
 
     Karte[] kartentisch = new Karte[5]; //Karten, die auf dem Tisch liegen
     boolean preflop = true; //Preflop-Phase
@@ -99,10 +99,16 @@ public class PokerGUI extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel14 = new javax.swing.JPanel();
+        jPanel12 = new javax.swing.JPanel();
         lbCom2 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jPanel15 = new javax.swing.JPanel();
         lbCom1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jPanel13 = new javax.swing.JPanel();
+        jPanel17 = new javax.swing.JPanel();
         lbCom3 = new javax.swing.JLabel();
+        jPanel16 = new javax.swing.JPanel();
         lbCom4 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         lbIcon = new javax.swing.JLabel();
@@ -138,29 +144,54 @@ public class PokerGUI extends javax.swing.JFrame {
 
         jPanel14.setLayout(new java.awt.GridLayout(2, 0));
 
+        jPanel12.setLayout(new java.awt.BorderLayout());
+
         lbCom2.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
         lbCom2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbCom2.setText("Spieler 3");
-        jPanel14.add(lbCom2);
+        lbCom2.setText("...");
+        jPanel12.add(lbCom2, java.awt.BorderLayout.SOUTH);
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jLabel2.setText("Spieler");
+        jPanel12.add(jLabel2, java.awt.BorderLayout.NORTH);
+
+        jPanel14.add(jPanel12);
+
+        jPanel15.setLayout(new java.awt.BorderLayout());
 
         lbCom1.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
         lbCom1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbCom1.setText("Spieler 2");
-        jPanel14.add(lbCom1);
+        lbCom1.setText("...");
+        lbCom1.setToolTipText("");
+        jPanel15.add(lbCom1, java.awt.BorderLayout.SOUTH);
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jLabel3.setText("Spieler");
+        jPanel15.add(jLabel3, java.awt.BorderLayout.NORTH);
+
+        jPanel14.add(jPanel15);
 
         getContentPane().add(jPanel14, java.awt.BorderLayout.WEST);
 
         jPanel13.setLayout(new java.awt.GridLayout(2, 0));
 
+        jPanel17.setLayout(new java.awt.BorderLayout());
+
         lbCom3.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
         lbCom3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbCom3.setText("Spieler 4");
-        jPanel13.add(lbCom3);
+        lbCom3.setText("...");
+        jPanel17.add(lbCom3, java.awt.BorderLayout.CENTER);
+
+        jPanel13.add(jPanel17);
+
+        jPanel16.setLayout(new java.awt.BorderLayout());
 
         lbCom4.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
         lbCom4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbCom4.setText("Spieler 5");
-        jPanel13.add(lbCom4);
+        lbCom4.setText("...");
+        jPanel16.add(lbCom4, java.awt.BorderLayout.CENTER);
+
+        jPanel13.add(jPanel16);
 
         getContentPane().add(jPanel13, java.awt.BorderLayout.EAST);
 
@@ -344,7 +375,7 @@ public class PokerGUI extends javax.swing.JFrame {
             letcomplay(com1, lbCom2);
             letcomplay(com1, lbCom3);
             letcomplay(com1, lbCom4);
-        
+
         } else {
             //Flop: 1 weitere Karte wird auf dem Tisch aufgedeckt
             if (flopedcards < 5 && !raisemode) {
@@ -357,14 +388,23 @@ public class PokerGUI extends javax.swing.JFrame {
                         break;
                 }
                 flopedcards++;
+                lbDeckWert.setText("" + checkCombi(spieler));
+                letcomplay(com1, lbCom1);
+                letcomplay(com2, lbCom2);
+                letcomplay(com3, lbCom3);
+                letcomplay(com4, lbCom4);
+            } else if (flopedcards == 5) {
+                Combi winnercombo = spieler.getCombo();
+                String winner = spieler.getName();
+                for (PokerSpieler pokerSpieler : spielerliste) {
+                    if (pokerSpieler.getCombo().getWert() > winnercombo.getWert()) {
+                        winnercombo = pokerSpieler.getCombo();
+
+                    }
+                }
+                System.out.println(winner + " hat das Spiel gewonnen! : " + winnercombo);
             }
 
-            lbDeckWert.setText("" + checkCombi(spieler));
-            letcomplay(com1, lbCom1);
-            letcomplay(com2, lbCom2);
-            letcomplay(com3, lbCom3);
-            letcomplay(com4, lbCom4);
-          
         }
 
     }//GEN-LAST:event_onCheck
@@ -390,7 +430,7 @@ public class PokerGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_onRaise
 
     private void onFold(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onFold
-    stapel.clear();
+        stapel.clear();
         newRound(spieler);
         for (PokerSpieler pokerSpieler : spielerliste) {
             newRound(pokerSpieler);
@@ -511,12 +551,15 @@ public class PokerGUI extends javax.swing.JFrame {
         for (int i = 0; i < 10; i++) {
             if (anzahl.get(i + 1) == 4) {
                 combi = VIERLING;
+                spieler.setCombo(combi);
                 return combi;
             } else if (anzahl.get(i + 1) == 3) {
                 combi = DRILLING;
+                spieler.setCombo(combi);
                 return combi;
             } else if (anzahl.get(i + 1) == 2) {
                 combi = PAAR;
+                spieler.setCombo(combi);
                 return combi;
             }
         }
@@ -527,19 +570,25 @@ public class PokerGUI extends javax.swing.JFrame {
     public void letcomplay(PokerSpieler spieler, JLabel lbComState) {
         //wenn jemand erhöht hat und 
         if (!spieler.isFolded()) {
-
             Combi combo = checkCombi(spieler);
-            if (raisemode && spieler.getGeld() >= mindesteinsatz * 2 && combo.getWert() > 1) {
-                lbComState.setText("Raised");
-                spieler.setGeld(spieler.getGeld() - mindesteinsatz * 2);
-                pot = (int) (pot + mindesteinsatz * 2);
-            } else if (combo.getWert() == 1 && raisemode) {
+            if (raisemode && combo == HOHEKARTE) {
                 lbComState.setText("Folded");
                 spieler.setFolded(true);
+            } else if (!raisemode && combo != HOHEKARTE) {
+                int chance = rand.nextInt(2 - 1 + 1) + 1;
+                switch (chance) {
+                    case 1:
+                        lbComState.setText("Raised");
+                        spieler.setGeld(spieler.getGeld() - mindesteinsatz * 2);
+                        pot = (int) (pot + mindesteinsatz * 2);
+                        break;
+                    case 2:
+                        lbComState.setText("Checked");
+                        break;
+                }
             } else {
                 lbComState.setText("Checked");
             }
-
             update();
         }
     }
@@ -598,11 +647,17 @@ public class PokerGUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel15;
+    private javax.swing.JPanel jPanel16;
+    private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;

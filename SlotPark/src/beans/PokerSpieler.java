@@ -9,14 +9,17 @@ package beans;
  *
  * @author Kevin
  */
-public class PokerSpieler extends Spieler{
-    private Karte [] karten;
+public class PokerSpieler extends Spieler {
+
+    private Karte[] karten;
+    private Combi combo;
     private boolean folded;
     private boolean computer;
 
-    public PokerSpieler(Karte[] karten, boolean folded, boolean computer, String name, String password, double geld) {
+    public PokerSpieler(Karte[] karten, Combi combo, boolean folded, boolean computer, String name, String password, double geld) {
         super(name, password, geld);
         this.karten = karten;
+        this.combo = combo;
         this.folded = folded;
         this.computer = computer;
     }
@@ -27,6 +30,14 @@ public class PokerSpieler extends Spieler{
 
     public void setKarten(Karte[] karten) {
         this.karten = karten;
+    }
+
+    public Combi getCombo() {
+        return combo;
+    }
+
+    public void setCombo(Combi combo) {
+        this.combo = combo;
     }
 
     public boolean isFolded() {
@@ -45,8 +56,6 @@ public class PokerSpieler extends Spieler{
         this.computer = computer;
     }
 
-   
-    
-   
-    
+  
+
 }
