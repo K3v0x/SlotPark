@@ -399,7 +399,7 @@ public class PokerGUI extends javax.swing.JFrame {
                 for (PokerSpieler pokerSpieler : spielerliste) {
                     if (pokerSpieler.getCombo().getWert() > winnercombo.getWert()) {
                         winnercombo = pokerSpieler.getCombo();
-
+                        winner = pokerSpieler.getName();
                     }
                 }
                 System.out.println(winner + " hat das Spiel gewonnen! : " + winnercombo);
