@@ -5,26 +5,10 @@
  */
 package gui;
 
-import beans.Combi;
-import static beans.Combi.*;
-import beans.Farbe;
-import static beans.Farbe.*;
-import beans.Karte;
-import beans.PokerSpieler;
-import beans.Spieler;
-import java.awt.Color;
+import bl.CasinoController;
 import java.io.File;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.Random;
-import java.util.Stack;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 
 /**
  *
@@ -34,22 +18,8 @@ public class PokerGUI extends javax.swing.JFrame {
 
     Random rand = new Random();
     String imagepath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "images" + File.separator + "karten" + File.separator;
-    LinkedList<PokerSpieler> spielerliste = new LinkedList<>(); //Spielerliste
-    Stack<Karte> stapel = new Stack<>(); //Kartenstapel
+    CasinoController cc = new CasinoController();
 
-    int mindesteinsatz = 10; //Minimaler Einsatz
-    int flopedcards = 0; //Anzahl der aufgedeckten Karten
-    int pot = 0; //Anzahl der Chips im Pot
-    private PokerSpieler spieler;
-    private PokerSpieler com1;
-    private PokerSpieler com2;
-    private PokerSpieler com3;
-    private PokerSpieler com4;
-
-    Karte[] kartentisch = new Karte[5]; //Karten, die auf dem Tisch liegen
-    boolean preflop = true; //Preflop-Phase
-    boolean flop = false; //Flop-Phase
-    boolean raisemode = false;
     private String username;
     private double geld;
 
@@ -68,20 +38,7 @@ public class PokerGUI extends javax.swing.JFrame {
 
     public void setGeld(double geld) {
         this.geld = geld;
-        spieler = new PokerSpieler(new Karte[2], HOHEKARTE, false, false, username, "1", geld);
-        com1 = new PokerSpieler(new Karte[2], HOHEKARTE, false, true, "Mike", "1", 100);
-        com2 = new PokerSpieler(new Karte[2], HOHEKARTE, false, true, "Martin", "1", 100);
-        com3 = new PokerSpieler(new Karte[2], HOHEKARTE, false, true, "Sarah", "1", 100);
-        com4 = new PokerSpieler(new Karte[2], HOHEKARTE, false, true, "Tom", "1", 100);
-        spielerliste.add(com1);
-        spielerliste.add(com2);
-        spielerliste.add(com3);
-        spielerliste.add(com4);
-        newRound(spieler);
-        newRound(com1);
-        newRound(com2);
-        newRound(com3);
-        newRound(com4);
+
         lbGeld.setText(String.format("Geld: %.0f Chips", geld));
     }
 
@@ -90,8 +47,6 @@ public class PokerGUI extends javax.swing.JFrame {
 //        this.setUndecorated(true);
 
         initComponents();
-        tfEinsatz.setText("" + mindesteinsatz);
-        lbPot.setText("Pot: " + pot);
     }
 
     /**
@@ -146,6 +101,11 @@ public class PokerGUI extends javax.swing.JFrame {
         lbDeckWert = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                onLoad(evt);
+            }
+        });
 
         jPanel14.setLayout(new java.awt.GridLayout(2, 0));
 
@@ -366,249 +326,61 @@ public class PokerGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_onBack
 
     private void onCheck(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onCheck
-        raisemode = false;
-        if (preflop) {
-            //Preflop: 3 Karten werden auf dem Tisch aufgedeckt
-            kartentisch[0] = flop(lbC1);
-            kartentisch[1] = flop(lbC2);
-            kartentisch[2] = flop(lbC3);
-            flopedcards = 3;
-            preflop = false;
-
-            lbDeckWert.setText("" + checkCombi(spieler));
-            letcomplay(com1, lbCom1);
-            letcomplay(com1, lbCom2);
-            letcomplay(com1, lbCom3);
-            letcomplay(com1, lbCom4);
-
-        } else {
-            //Flop: 1 weitere Karte wird auf dem Tisch aufgedeckt
-            if (flopedcards < 5 && !raisemode) {
-                switch (flopedcards) {
-                    case 3:
-                        kartentisch[3] = flop(lbC4);
-                        break;
-                    case 4:
-                        kartentisch[4] = flop(lbC5);
-                        break;
-                }
-                flopedcards++;
-                lbDeckWert.setText("" + checkCombi(spieler));
-                letcomplay(com1, lbCom1);
-                letcomplay(com2, lbCom2);
-                letcomplay(com3, lbCom3);
-                letcomplay(com4, lbCom4);
-            } else if (flopedcards == 5) {
-                Combi winnercombo = spieler.getCombo();
-                String winner = spieler.getName();
-                for (PokerSpieler pokerSpieler : spielerliste) {
-                    if (pokerSpieler.getCombo().getWert() > winnercombo.getWert()) {
-                        winnercombo = pokerSpieler.getCombo();
-                        winner = pokerSpieler.getName();
-                    }
-                }
-                System.out.println(winner + " hat das Spiel gewonnen! : " + winnercombo);
-            }
-
-        }
-
+        cc.check();
+        updateUI();
     }//GEN-LAST:event_onCheck
 
     private void onRaise(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onRaise
         try {
-            //Einsatz erhöhen
-            raisemode = true;
             int einsatz = Integer.parseInt(tfEinsatz.getText());
-            tfEinsatz.setBackground(Color.WHITE);
-            pot = pot + einsatz;
-            letcomplay(com1, lbCom1);
-            letcomplay(com2, lbCom2);
-            letcomplay(com3, lbCom3);
-            letcomplay(com4, lbCom4);
-
+            cc.raise(einsatz);
         } catch (NumberFormatException e) {
-            System.out.println("Einsatz muss eine Zahl sein!");
-            tfEinsatz.setBackground(Color.RED);
+            System.out.println("is keine zahl");
         }
-
+        updateUI();
 
     }//GEN-LAST:event_onRaise
 
     private void onFold(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onFold
-        stapel.clear();
-        newRound(spieler);
-        for (PokerSpieler pokerSpieler : spielerliste) {
-            newRound(pokerSpieler);
-        }
+        cc.fold();
+        lbC1.setIcon(new ImageIcon(imagepath + "red_back.png"));
+        lbC2.setIcon(new ImageIcon(imagepath + "red_back.png"));
+        lbC3.setIcon(new ImageIcon(imagepath + "red_back.png"));
+        lbC4.setIcon(new ImageIcon(imagepath + "red_back.png"));
+        lbC5.setIcon(new ImageIcon(imagepath + "red_back.png"));
+        cc.newRound();
+        updateUI();
     }//GEN-LAST:event_onFold
 
-    public void newRound(PokerSpieler spieler) { //Neue Runde starten
-        preflop = true;
+    private void onLoad(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_onLoad
+        cc.load();
+        updateUI();
+    }//GEN-LAST:event_onLoad
 
-        flopedcards = 0;
-        if (!spieler.isComputer()) {
-            createCards(HERZ);
-            createCards(PIK);
-            createCards(KARO);
-            createCards(KREUZ);
-            lbC1.setIcon(new ImageIcon(imagepath + "red_back.png"));
-            lbC2.setIcon(new ImageIcon(imagepath + "red_back.png"));
-            lbC3.setIcon(new ImageIcon(imagepath + "red_back.png"));
-            lbC4.setIcon(new ImageIcon(imagepath + "red_back.png"));
-            lbC5.setIcon(new ImageIcon(imagepath + "red_back.png"));
-        }
-        //Karte 1
-        Karte karte = stapel.pop();
-        if (stapel.size() - 1 > -1) {
-            if (!spieler.isComputer()) {
-                if (karte.getWert() == 1) {
-                    lbCard1.setIcon(new ImageIcon(imagepath + ("A" + karte.getFarbe().getName() + ".png")));
-                } else {
-                    lbCard1.setIcon(new ImageIcon(imagepath + (karte.getWert() + karte.getFarbe().getName() + ".png")));
-                }
-            }
-            spieler.getKarten()[0] = karte;
+    public void updateUI() {
+        lbPot.setText("Pot: " + cc.getPot());
+        lbDeckWert.setText(cc.getSpielerliste().getFirst().getCombo().getName());
 
-            //Karte 2
-            karte = stapel.pop();
-            if (!spieler.isComputer()) {
-                if (karte.getWert() == 1) {
-                    lbCard2.setIcon(new ImageIcon(imagepath + ("A" + karte.getFarbe().getName() + ".png")));
-                } else {
-                    lbCard2.setIcon(new ImageIcon(imagepath + (karte.getWert() + karte.getFarbe().getName() + ".png")));
-                }
-            }
-            spieler.getKarten()[1] = karte;
+        lbCard1.setIcon(new ImageIcon(imagepath + cc.getSpielerliste().getFirst().getKarten()[0].getWert() + "" + cc.getSpielerliste().getFirst().getKarten()[0].getFarbe().getName() + ".png"));
+        lbCard2.setIcon(new ImageIcon(imagepath + cc.getSpielerliste().getFirst().getKarten()[1].getWert() + "" + cc.getSpielerliste().getFirst().getKarten()[1].getFarbe().getName() + ".png"));
 
-            //Wert der Karten
-            if (!spieler.isComputer()) {
-                lbDeckWert.setText("" + checkCombi(spieler));
-            }
+        try {
+            if (cc.getFlopedcards() < 4) {
+                lbC1.setIcon(new ImageIcon(imagepath + cc.getKartentisch()[0].getWert() + "" + cc.getKartentisch()[0].getFarbe().getName() + ".png"));
+                lbC2.setIcon(new ImageIcon(imagepath + cc.getKartentisch()[1].getWert() + "" + cc.getKartentisch()[1].getFarbe().getName() + ".png"));
+                lbC3.setIcon(new ImageIcon(imagepath + cc.getKartentisch()[2].getWert() + "" + cc.getKartentisch()[2].getFarbe().getName() + ".png"));
+            } else if (cc.getFlopedcards() < 5) {
+                lbC4.setIcon(new ImageIcon(imagepath + cc.getKartentisch()[3].getWert() + "" + cc.getKartentisch()[3].getFarbe().getName() + ".png"));
 
-        }
-
-    }
-
-    //Karten erstellen
-    public void createCards(Farbe farbe) {
-        for (int i = 0; i < 10; i++) {
-            stapel.add(new Karte(i + 1, farbe));
-        }
-        Collections.shuffle(stapel);
-    }
-
-    //Karte aufdecken
-    public Karte flop(JLabel lb) {
-
-        if (stapel.size() - 1 > -1) {
-            Karte karte = stapel.pop();
-
-            if (karte.getWert() == 1) {
-                lb.setIcon(new ImageIcon(imagepath + ("A" + karte.getFarbe().getName() + ".png")));
             } else {
-                lb.setIcon(new ImageIcon(imagepath + (karte.getWert() + karte.getFarbe().getName() + ".png")));
+                lbC5.setIcon(new ImageIcon(imagepath + cc.getKartentisch()[4].getWert() + "" + cc.getKartentisch()[4].getFarbe().getName() + ".png"));
+
             }
 
-            return karte;
-        }
-        return null;
-    }
-
-    //Auf Combis prüfen
-    public Combi checkCombi(PokerSpieler spieler) {
-
-        HashMap<Integer, Integer> anzahl = new HashMap<>();
-        Karte[] deck = spieler.getKarten();
-        Karte[] alle = new Karte[7];
-        Combi combi = HOHEKARTE;
-
-        //Eigene Karten übertragen
-        for (int i = 0; i < deck.length; i++) {
-            alle[i] = deck[i];
-
+        } catch (NullPointerException e) {
+            System.out.println("karte nicht aufgedeckt");
         }
 
-        //Community-Karten übertragen
-        for (int i = 0; i < flopedcards; i++) {
-            alle[i + 2] = kartentisch[i];
-
-        }
-
-        //Hashmap setzen
-        for (int i = 0; i < 10; i++) {
-            anzahl.put(i + 1, 0);
-        }
-
-        //Anzahl der Karten im Deck zählen
-        for (int i = 0; i < anzahl.size(); i++) {
-            for (int j = 0; j < alle.length; j++) {
-                if (alle[j] != null) {
-                    if (i == alle[j].getWert()) {
-                        anzahl.put(i + 1, anzahl.get(i + 1) + 1);
-                    }
-
-                }
-            }
-
-        }
-
-        //Combo prüfen
-        for (int i = 0; i < 10; i++) {
-            if (anzahl.get(i + 1) == 4) {
-                combi = VIERLING;
-                spieler.setCombo(combi);
-                return combi;
-            } else if (anzahl.get(i + 1) == 3) {
-                combi = DRILLING;
-                spieler.setCombo(combi);
-                return combi;
-            } else if (anzahl.get(i + 1) == 2) {
-                combi = PAAR;
-                spieler.setCombo(combi);
-                return combi;
-            }
-        }
-
-        return combi;
-    }
-
-    public void letcomplay(PokerSpieler spieler, JLabel lbComState) {
-        //wenn jemand erhöht hat und 
-        if (!spieler.isFolded()) {
-            Combi combo = checkCombi(spieler);
-            if (raisemode && combo == HOHEKARTE) {
-                lbComState.setText("Folded");
-                spieler.setFolded(true);
-            } else if (!raisemode && combo != HOHEKARTE) {
-                int chance = rand.nextInt(2 - 1 + 1) + 1;
-                switch (chance) {
-                    case 1:
-                        lbComState.setText("Raised");
-                        spieler.setGeld(spieler.getGeld() - mindesteinsatz * 2);
-                        pot = (int) (pot + mindesteinsatz * 2);
-                        break;
-                    case 2:
-                        lbComState.setText("Checked");
-                        break;
-                }
-            } else {
-                lbComState.setText("Checked");
-            }
-            update();
-        }
-    }
-
-    public void update() {
-        lbPot.setText("POT: " + pot);
-        int anz = 0;
-        for (PokerSpieler pokerSpieler : spielerliste) {
-            if (pokerSpieler.isFolded()) {
-                anz++;
-            }
-        }
-        if (anz == 4) {
-            System.out.println("gewonnen!");
-        }
     }
 
     /**
