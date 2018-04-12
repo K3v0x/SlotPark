@@ -40,11 +40,11 @@ public class PokerGUI extends javax.swing.JFrame {
     int mindesteinsatz = 10; //Minimaler Einsatz
     int flopedcards = 0; //Anzahl der aufgedeckten Karten
     int pot = 0; //Anzahl der Chips im Pot
-    PokerSpieler spieler = new PokerSpieler(new Karte[2], HOHEKARTE, false, false, "Hans", "1", 100);
-    PokerSpieler com1 = new PokerSpieler(new Karte[2], HOHEKARTE, false, true, "Mike", "1", 100);
-    PokerSpieler com2 = new PokerSpieler(new Karte[2], HOHEKARTE, false, true, "Martin", "1", 100);
-    PokerSpieler com3 = new PokerSpieler(new Karte[2], HOHEKARTE, false, true, "Sarah", "1", 100);
-    PokerSpieler com4 = new PokerSpieler(new Karte[2], HOHEKARTE, false, true, "Tom", "1", 100);
+    private PokerSpieler spieler;
+    private PokerSpieler com1;
+    private PokerSpieler com2;
+    private PokerSpieler com3;
+    private PokerSpieler com4;
 
     Karte[] kartentisch = new Karte[5]; //Karten, die auf dem Tisch liegen
     boolean preflop = true; //Preflop-Phase
@@ -68,6 +68,20 @@ public class PokerGUI extends javax.swing.JFrame {
 
     public void setGeld(double geld) {
         this.geld = geld;
+        spieler = new PokerSpieler(new Karte[2], HOHEKARTE, false, false, username, "1", geld);
+        com1 = new PokerSpieler(new Karte[2], HOHEKARTE, false, true, "Mike", "1", 100);
+        com2 = new PokerSpieler(new Karte[2], HOHEKARTE, false, true, "Martin", "1", 100);
+        com3 = new PokerSpieler(new Karte[2], HOHEKARTE, false, true, "Sarah", "1", 100);
+        com4 = new PokerSpieler(new Karte[2], HOHEKARTE, false, true, "Tom", "1", 100);
+        spielerliste.add(com1);
+        spielerliste.add(com2);
+        spielerliste.add(com3);
+        spielerliste.add(com4);
+        newRound(spieler);
+        newRound(com1);
+        newRound(com2);
+        newRound(com3);
+        newRound(com4);
         lbGeld.setText(String.format("Geld: %.0f Chips", geld));
     }
 
@@ -76,17 +90,8 @@ public class PokerGUI extends javax.swing.JFrame {
 //        this.setUndecorated(true);
 
         initComponents();
-        spielerliste.add(com1);
-        spielerliste.add(com2);
-        spielerliste.add(com3);
-        spielerliste.add(com4);
         tfEinsatz.setText("" + mindesteinsatz);
         lbPot.setText("Pot: " + pot);
-        newRound(spieler);
-        newRound(com1);
-        newRound(com2);
-        newRound(com3);
-        newRound(com4);
     }
 
     /**
