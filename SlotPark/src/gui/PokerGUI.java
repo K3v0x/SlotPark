@@ -363,22 +363,23 @@ public class PokerGUI extends javax.swing.JFrame {
 
         lbCard1.setIcon(new ImageIcon(imagepath + cc.getSpielerliste().getFirst().getKarten()[0].getWert() + "" + cc.getSpielerliste().getFirst().getKarten()[0].getFarbe().getName() + ".png"));
         lbCard2.setIcon(new ImageIcon(imagepath + cc.getSpielerliste().getFirst().getKarten()[1].getWert() + "" + cc.getSpielerliste().getFirst().getKarten()[1].getFarbe().getName() + ".png"));
+        if (!cc.isPreflop()) {
+            try {
+                if (cc.getFlopedcards() < 4) {
+                    lbC1.setIcon(new ImageIcon(imagepath + cc.getKartentisch()[0].getWert() + "" + cc.getKartentisch()[0].getFarbe().getName() + ".png"));
+                    lbC2.setIcon(new ImageIcon(imagepath + cc.getKartentisch()[1].getWert() + "" + cc.getKartentisch()[1].getFarbe().getName() + ".png"));
+                    lbC3.setIcon(new ImageIcon(imagepath + cc.getKartentisch()[2].getWert() + "" + cc.getKartentisch()[2].getFarbe().getName() + ".png"));
+                } else if (cc.getFlopedcards() < 5) {
+                    lbC4.setIcon(new ImageIcon(imagepath + cc.getKartentisch()[3].getWert() + "" + cc.getKartentisch()[3].getFarbe().getName() + ".png"));
 
-        try {
-            if (cc.getFlopedcards() < 4) {
-                lbC1.setIcon(new ImageIcon(imagepath + cc.getKartentisch()[0].getWert() + "" + cc.getKartentisch()[0].getFarbe().getName() + ".png"));
-                lbC2.setIcon(new ImageIcon(imagepath + cc.getKartentisch()[1].getWert() + "" + cc.getKartentisch()[1].getFarbe().getName() + ".png"));
-                lbC3.setIcon(new ImageIcon(imagepath + cc.getKartentisch()[2].getWert() + "" + cc.getKartentisch()[2].getFarbe().getName() + ".png"));
-            } else if (cc.getFlopedcards() < 5) {
-                lbC4.setIcon(new ImageIcon(imagepath + cc.getKartentisch()[3].getWert() + "" + cc.getKartentisch()[3].getFarbe().getName() + ".png"));
+                } else {
+                    lbC5.setIcon(new ImageIcon(imagepath + cc.getKartentisch()[4].getWert() + "" + cc.getKartentisch()[4].getFarbe().getName() + ".png"));
 
-            } else {
-                lbC5.setIcon(new ImageIcon(imagepath + cc.getKartentisch()[4].getWert() + "" + cc.getKartentisch()[4].getFarbe().getName() + ".png"));
+                }
 
+            } catch (NullPointerException e) {
+                System.out.println("karte nicht aufgedeckt");
             }
-
-        } catch (NullPointerException e) {
-            System.out.println("karte nicht aufgedeckt");
         }
 
     }

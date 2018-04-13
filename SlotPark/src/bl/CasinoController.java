@@ -317,4 +317,14 @@ public class CasinoController {
         this.kartentisch = kartentisch;
     }
 
+    public boolean isPreflop() {
+        return preflop;
+    }
+
+    public void setPreflop(boolean preflop) {
+        this.preflop = preflop;
+    }
+    
+    
+
 }
