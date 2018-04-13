@@ -17,15 +17,12 @@ import static beans.Farbe.KREUZ;
 import static beans.Farbe.PIK;
 import beans.Karte;
 import beans.PokerSpieler;
-import java.awt.Color;
 import java.io.File;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Random;
 import java.util.Stack;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 
 /**
  *
@@ -79,6 +76,12 @@ public class CasinoController {
                 createCards(PIK);
                 createCards(KARO);
                 createCards(KREUZ);
+                for (int i = 0; i < kartentisch.length; i++) {
+                    if (stapel.size() - 1 > -1) {
+                        kartentisch[i] = stapel.pop();
+
+                    }
+                }
             }
             //Karte 1
             Karte karte = stapel.pop();
@@ -96,9 +99,7 @@ public class CasinoController {
                 pokerSpieler.setKarten(karten);
 
                 //Wert der Karten
-                if (!pokerSpieler.isComputer()) {
-                    // lbDeckWert.setText("" + checkCombi(spieler));
-                }
+                checkCombi();
 
             }
         }
@@ -113,77 +114,68 @@ public class CasinoController {
         Collections.shuffle(stapel);
     }
 
-    //Karte aufdecken
-    public Karte flop() {
-        if (stapel.size() - 1 > -1) {
-            Karte karte = stapel.pop();
-            return karte;
-        }
-        System.out.println("null");
-        return null;
-    }
-
     //Auf Combis prüfen
-    public void checkCombi(PokerSpieler spieler) {
-        HashMap<Integer, Integer> anzahl = new HashMap<>();
-        Karte[] deck = spieler.getKarten();
-        Karte[] alle = new Karte[7];
-        Combi combi = HOHEKARTE;
+    public void checkCombi() {
+        for (PokerSpieler pokerSpieler : spielerliste) {
+            HashMap<Integer, Integer> anzahl = new HashMap<>();
+            Karte[] deck = pokerSpieler.getKarten();
+            Karte[] alle = new Karte[7];
+            Combi combi = HOHEKARTE;
 
-        //Eigene Karten übertragen
-        for (int i = 0; i < deck.length; i++) {
-            alle[i] = deck[i];
+            //Eigene Karten übertragen
+            for (int i = 0; i < deck.length; i++) {
+                alle[i] = deck[i];
 
-        }
+            }
+            
+            //Community-Karten übertragen
+            for (int i = 0; i < flopedcards; i++) {
+                alle[i + 2] = kartentisch[i];
 
-        //Community-Karten übertragen
-        for (int i = 0; i < flopedcards; i++) {
-            alle[i + 2] = kartentisch[i];
+            }
 
-        }
+            //Hashmap setzen
+            for (int i = 0; i < 10; i++) {
+                anzahl.put(i + 1, 0);
+            }
 
-        //Hashmap setzen
-        for (int i = 0; i < 10; i++) {
-            anzahl.put(i + 1, 0);
-        }
+            //Anzahl der Karten im Deck zählen
+            for (int i = 0; i < anzahl.size(); i++) {
+                for (int j = 0; j < alle.length; j++) {
+                    if (alle[j] != null) {
+                        if (i == alle[j].getWert()) {
+                            anzahl.put(i + 1, anzahl.get(i + 1) + 1);
+                        }
 
-        //Anzahl der Karten im Deck zählen
-        for (int i = 0; i < anzahl.size(); i++) {
-            for (int j = 0; j < alle.length; j++) {
-                if (alle[j] != null) {
-                    if (i == alle[j].getWert()) {
-                        anzahl.put(i + 1, anzahl.get(i + 1) + 1);
                     }
+                }
+
+            }
+
+            //Combo prüfen
+            for (int i = 0; i < 10; i++) {
+                if (anzahl.get(i + 1) == 4) {
+                    combi = VIERLING;
+                    pokerSpieler.setCombo(combi);
+
+                } else if (anzahl.get(i + 1) == 3) {
+                    combi = DRILLING;
+                    pokerSpieler.setCombo(combi);
+
+                } else if (anzahl.get(i + 1) == 2) {
+                    combi = PAAR;
+                    pokerSpieler.setCombo(combi);
 
                 }
             }
-
         }
-
-        //Combo prüfen
-        for (int i = 0; i < 10; i++) {
-            if (anzahl.get(i + 1) == 4) {
-                combi = VIERLING;
-                spieler.setCombo(combi);
-
-            } else if (anzahl.get(i + 1) == 3) {
-                combi = DRILLING;
-                spieler.setCombo(combi);
-
-            } else if (anzahl.get(i + 1) == 2) {
-                combi = PAAR;
-                spieler.setCombo(combi);
-
-            }
-        }
-
     }
 
     public void letcomplay() {
         //wenn jemand erhöht hat und 
         for (PokerSpieler pokerSpieler : spielerliste) {
-
             if (!pokerSpieler.isFolded() && pokerSpieler.isComputer()) {
+                checkCombi();
                 if (raisemode && pokerSpieler.getCombo() == HOHEKARTE) {
 
                     pokerSpieler.setFolded(true);
@@ -191,12 +183,11 @@ public class CasinoController {
                     int chance = rand.nextInt(2 - 1 + 1) + 1;
                     switch (chance) {
                         case 1:
-
                             pokerSpieler.setGeld(pokerSpieler.getGeld() - mindesteinsatz * 2);
                             pot = (int) (pot + mindesteinsatz * 2);
                             break;
                         case 2:
-                      ;
+
                             break;
                     }
                 } else {
@@ -220,31 +211,29 @@ public class CasinoController {
     }
 
     public void fold() {
-    
+
     }
 
     public void check() {
         raisemode = false;
         if (preflop) {
             //Preflop: 3 Karten werden auf dem Tisch aufgedeckt
-            kartentisch[0] = flop();
-            kartentisch[1] = flop();
-            kartentisch[2] = flop();
             flopedcards = 3;
             preflop = false;
+            checkCombi();
             letcomplay();
         } else {
             //Flop: 1 weitere Karte wird auf dem Tisch aufgedeckt
             if (flopedcards < 5 && !raisemode) {
                 switch (flopedcards) {
                     case 3:
-                        kartentisch[3] = flop();
+                        flopedcards = 4;
                         break;
                     case 4:
-                        kartentisch[4] = flop();
+                        flopedcards = 5;
                         break;
                 }
-                flopedcards++;
+                checkCombi();
                 letcomplay();
 
             } else if (flopedcards == 5) {
@@ -324,7 +313,5 @@ public class CasinoController {
     public void setPreflop(boolean preflop) {
         this.preflop = preflop;
     }
-    
-    
 
 }
