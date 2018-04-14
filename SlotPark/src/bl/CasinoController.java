@@ -32,6 +32,8 @@ public class CasinoController {
 
     Random rand = new Random();
     String imagepath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "images" + File.separator + "karten" + File.separator;
+    SoundPlayer player = SoundPlayer.getInstance();
+
     LinkedList<PokerSpieler> spielerliste = new LinkedList<>(); //Spielerliste
     Stack<Karte> stapel = new Stack<>(); //Kartenstapel
 
@@ -39,10 +41,6 @@ public class CasinoController {
     int flopedcards = 0; //Anzahl der aufgedeckten Karten
     int pot = 0; //Anzahl der Chips im Pot
     private PokerSpieler spieler;
-    private PokerSpieler com1;
-    private PokerSpieler com2;
-    private PokerSpieler com3;
-    private PokerSpieler com4;
 
     Karte[] kartentisch = new Karte[5]; //Karten, die auf dem Tisch liegen
     boolean preflop = true; //Preflop-Phase
@@ -52,16 +50,23 @@ public class CasinoController {
     private double geld;
 
     public void load() {
+      player.play("music", "Poker.mp3", true);
         spieler = new PokerSpieler(new Karte[2], HOHEKARTE, false, false, "Hans", "1", geld);
-        com1 = new PokerSpieler(new Karte[2], HOHEKARTE, false, true, "Mike", "1", 100);
-        com2 = new PokerSpieler(new Karte[2], HOHEKARTE, false, true, "Martin", "1", 100);
-        com3 = new PokerSpieler(new Karte[2], HOHEKARTE, false, true, "Sarah", "1", 100);
-        com4 = new PokerSpieler(new Karte[2], HOHEKARTE, false, true, "Tom", "1", 100);
+        PokerSpieler com1 = new PokerSpieler(new Karte[2], HOHEKARTE, false, true, "Mike", "1", 100);
+        PokerSpieler com2 = new PokerSpieler(new Karte[2], HOHEKARTE, false, true, "Martin", "1", 100);
+        PokerSpieler com3 = new PokerSpieler(new Karte[2], HOHEKARTE, false, true, "Sarah", "1", 100);
+        PokerSpieler com4 = new PokerSpieler(new Karte[2], HOHEKARTE, false, true, "Tom", "1", 100);
+
         spielerliste.add(spieler);
+
         spielerliste.add(com1);
+
         spielerliste.add(com2);
+
         spielerliste.add(com3);
+
         spielerliste.add(com4);
+
         newRound();
     }
 
@@ -82,6 +87,7 @@ public class CasinoController {
 
                     }
                 }
+                pokerSpieler.setCombo(HOHEKARTE);
             }
             //Karte 1
             Karte karte = stapel.pop();
@@ -99,10 +105,9 @@ public class CasinoController {
                 pokerSpieler.setKarten(karten);
 
                 //Wert der Karten
-                checkCombi();
-
             }
         }
+        checkCombi();
 
     }
 
@@ -127,11 +132,10 @@ public class CasinoController {
                 alle[i] = deck[i];
 
             }
-            
+
             //Community-Karten übertragen
             for (int i = 0; i < flopedcards; i++) {
                 alle[i + 2] = kartentisch[i];
-
             }
 
             //Hashmap setzen
@@ -165,17 +169,20 @@ public class CasinoController {
                 } else if (anzahl.get(i + 1) == 2) {
                     combi = PAAR;
                     pokerSpieler.setCombo(combi);
-
                 }
             }
+            System.out.println(pokerSpieler.getName() + " " + pokerSpieler.getCombo());
+
         }
+        System.out.println("\n");
     }
 
     public void letcomplay() {
         //wenn jemand erhöht hat und 
+        checkCombi();
         for (PokerSpieler pokerSpieler : spielerliste) {
             if (!pokerSpieler.isFolded() && pokerSpieler.isComputer()) {
-                checkCombi();
+
                 if (raisemode && pokerSpieler.getCombo() == HOHEKARTE) {
 
                     pokerSpieler.setFolded(true);
@@ -196,6 +203,7 @@ public class CasinoController {
                 checkwin();
             }
         }
+
     }
 
     public void checkwin() {
@@ -220,8 +228,10 @@ public class CasinoController {
             //Preflop: 3 Karten werden auf dem Tisch aufgedeckt
             flopedcards = 3;
             preflop = false;
+
             checkCombi();
             letcomplay();
+            player.play("effect", "Flip.mp3", false);
         } else {
             //Flop: 1 weitere Karte wird auf dem Tisch aufgedeckt
             if (flopedcards < 5 && !raisemode) {
@@ -235,7 +245,7 @@ public class CasinoController {
                 }
                 checkCombi();
                 letcomplay();
-
+                player.play("effect", "Flip.mp3", false);
             } else if (flopedcards == 5) {
                 Combi winnercombo = HOHEKARTE;
                 String winner = "";
