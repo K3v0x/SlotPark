@@ -7,6 +7,7 @@ package gui;
 
 import beans.PokerSpieler;
 import bl.CasinoController;
+import bl.SoundPlayer;
 import java.io.File;
 import java.util.Random;
 import javax.swing.ImageIcon;
@@ -16,33 +17,34 @@ import javax.swing.ImageIcon;
  * @author Kevin
  */
 public class PokerGUI extends javax.swing.JFrame {
-
+    
     Random rand = new Random();
     String imagepath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "images" + File.separator + "karten" + File.separator;
     CasinoController cc = new CasinoController();
-
+    SoundPlayer player = SoundPlayer.getInstance();
+    
     private String username;
     private double geld;
-
+    
     public String getUsername() {
         return username;
     }
-
+    
     public void setUsername(String username) {
         this.username = username;
         lbName.setText("Name: " + username);
     }
-
+    
     public double getGeld() {
         return geld;
     }
-
+    
     public void setGeld(double geld) {
         this.geld = geld;
-
+        
         lbGeld.setText(String.format("Geld: %.0f Chips", geld));
     }
-
+    
     public PokerGUI() {
 //        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 //        this.setUndecorated(true);
@@ -353,6 +355,7 @@ public class PokerGUI extends javax.swing.JFrame {
         menugui.setUsername(username);
         menugui.setGeld((int) (geld / 5));
         menugui.setVisible(true);
+        player.close("music");
         this.dispose();
     }//GEN-LAST:event_onBack
 
@@ -383,20 +386,21 @@ public class PokerGUI extends javax.swing.JFrame {
 
     private void onFold(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onFold
         cc.fold();
-
+        
         cc.newRound();
         updateUI();
     }//GEN-LAST:event_onFold
 
     private void onLoad(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_onLoad
         cc.load();
+        player.play("music", "Poker.mp3", true);
         updateUI();
     }//GEN-LAST:event_onLoad
-
+    
     public void updateUI() {
         lbPot.setText("Pot: " + cc.getPot());
         lbDeckWert.setText(cc.getSpielerliste().getFirst().getCombo().getName());
-
+        
         lbCard1.setIcon(new ImageIcon(imagepath + cc.getSpielerliste().getFirst().getKarten()[0].getWert() + "" + cc.getSpielerliste().getFirst().getKarten()[0].getFarbe().getName() + ".png"));
         lbCard2.setIcon(new ImageIcon(imagepath + cc.getSpielerliste().getFirst().getKarten()[1].getWert() + "" + cc.getSpielerliste().getFirst().getKarten()[1].getFarbe().getName() + ".png"));
         lbCom1.setText(username);
@@ -422,7 +426,7 @@ public class PokerGUI extends javax.swing.JFrame {
                         lbC5.setIcon(new ImageIcon(imagepath + cc.getKartentisch()[4].getWert() + "" + cc.getKartentisch()[4].getFarbe().getName() + ".png"));
                         break;
                 }
-
+                
             } catch (NullPointerException e) {
                 System.out.println("karte nicht aufgedeckt");
             }
@@ -431,12 +435,11 @@ public class PokerGUI extends javax.swing.JFrame {
         lbCom2.setText("" + cc.getSpielerliste().get(2).getCombo());
         lbCom3.setText("" + cc.getSpielerliste().get(3).getCombo());
         lbCom4.setText("" + cc.getSpielerliste().get(4).getCombo());
-
+        
         lbStatus1.setText("" + cc.getSpielerliste().get(1).getStatus());
         lbStatus2.setText("" + cc.getSpielerliste().get(2).getStatus());
         lbStatus3.setText("" + cc.getSpielerliste().get(3).getStatus());
         lbStatus4.setText("" + cc.getSpielerliste().get(4).getStatus());
-
     }
 
     /**
