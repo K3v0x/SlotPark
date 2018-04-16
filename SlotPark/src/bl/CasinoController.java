@@ -82,8 +82,9 @@ public class CasinoController {
                         kartentisch[i] = stapel.pop();
                     }
                 }
-                pokerSpieler.setCombo(HOHEKARTE);
+
             }
+            pokerSpieler.setCombo(HOHEKARTE);
             //Karte 1
             Karte karte = stapel.pop();
             if (stapel.size() - 1 > -1) {
