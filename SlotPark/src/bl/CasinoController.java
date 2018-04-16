@@ -174,11 +174,8 @@ public class CasinoController {
     }
     
     public void letcomplay() {
-        //wenn jemand erhöht hat und 
-
         for (PokerSpieler pokerSpieler : spielerliste) {
             if (!pokerSpieler.isFolded() && pokerSpieler.isComputer()) {
-                
                 if (raisemode && pokerSpieler.getCombo() == HOHEKARTE) {
                     pokerSpieler.setFolded(true);
                     pokerSpieler.setStatus("Folded");
