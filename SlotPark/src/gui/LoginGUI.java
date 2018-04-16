@@ -8,11 +8,9 @@ package gui;
 import beans.Spieler;
 import database.DB_Access;
 import java.awt.Color;
-import java.io.File;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 

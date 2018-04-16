@@ -32,6 +32,7 @@ public class PokerGUI extends javax.swing.JFrame {
     
     public void setUsername(String username) {
         this.username = username;
+        cc.setUsername(username);
         lbName.setText("Name: " + username);
     }
     
@@ -365,6 +366,11 @@ public class PokerGUI extends javax.swing.JFrame {
             cc.newRound();
         } else if (cc.getFlopedcards() == 5) {
             PokerSpieler winner = cc.checkwin();
+            if(winner.getName().equals(username))
+            {
+                setGeld(geld+cc.getPot());
+                cc.setPot(0);
+            }
             System.out.println(winner.getName());
             btCheck.setText("Neue Runde");
         } else if (btCheck.getText().equals("Check")) {
