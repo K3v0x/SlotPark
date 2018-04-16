@@ -160,6 +160,7 @@ public class CasinoController {
                 } else if (anzahl.get(i + 1) == 3) {
                     combi = DRILLING;
                     pokerSpieler.setCombo(combi);
+                    pokerSpieler.setCombo(combi);
 
                 } else if (anzahl.get(i + 1) == 2) {
                     combi = PAAR;
