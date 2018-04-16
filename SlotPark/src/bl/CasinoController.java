@@ -67,7 +67,7 @@ public class CasinoController {
     }
 
     public void newRound() { //Neue Runde starten
-
+        pot = 0;
         stapel.clear();
         flopedcards = 0;
         preflop = true;
@@ -82,8 +82,9 @@ public class CasinoController {
                         kartentisch[i] = stapel.pop();
                     }
                 }
-                pokerSpieler.setCombo(HOHEKARTE);
+
             }
+            pokerSpieler.setCombo(HOHEKARTE);
             //Karte 1
             Karte karte = stapel.pop();
             if (stapel.size() - 1 > -1) {
@@ -183,7 +184,9 @@ public class CasinoController {
                     int chance = 10 - pokerSpieler.getCombo().getWert();
                     if (rand.nextInt(chance - 0 + 1) + 0 == 0) {
                         pokerSpieler.setStatus("Raised");
-
+                        int einsatz = (int) (rand.nextInt((int) (pokerSpieler.getGeld() / 2 - pokerSpieler.getGeld() / 4 + 1)) + pokerSpieler.getGeld());
+                        pokerSpieler.setGeld(pokerSpieler.getGeld() - einsatz);
+                        pot = pot + einsatz;
                     } else {
                         pokerSpieler.setStatus("Checked");
                     }
@@ -213,7 +216,11 @@ public class CasinoController {
                     winner = pokerSpieler;
                 }
             }
-            return winner;
+            for (PokerSpieler pokerSpieler : spielerliste) {
+                if (winner == pokerSpieler) {
+                    pokerSpieler.setGeld(pot + pokerSpieler.getGeld());
+                }
+            }
         }
         return winner;
 
