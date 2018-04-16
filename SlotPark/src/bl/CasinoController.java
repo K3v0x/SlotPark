@@ -206,7 +206,6 @@ public class CasinoController {
             winner = spielerliste.getFirst();
         } else {
             Combi winnercombo = HOHEKARTE;
-            winner = null;
             for (PokerSpieler pokerSpieler : spielerliste) {
                 if (pokerSpieler.getCombo().getWert() > winnercombo.getWert()) {
                     winnercombo = pokerSpieler.getCombo();
@@ -215,7 +214,7 @@ public class CasinoController {
             }
             return winner;
         }
-        return null;
+        return winner;
 
     }
 
