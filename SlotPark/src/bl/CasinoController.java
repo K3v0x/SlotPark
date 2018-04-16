@@ -200,11 +200,13 @@ public class CasinoController {
                 anz++;
             }
         }
+        PokerSpieler winner = null;
         if (anz == 4) {
             System.out.println("gewonnen!");
+            winner = spielerliste.getFirst();
         } else {
             Combi winnercombo = HOHEKARTE;
-            PokerSpieler winner = null;
+            winner = null;
             for (PokerSpieler pokerSpieler : spielerliste) {
                 if (pokerSpieler.getCombo().getWert() > winnercombo.getWert()) {
                     winnercombo = pokerSpieler.getCombo();
