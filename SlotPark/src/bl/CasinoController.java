@@ -64,6 +64,7 @@ public class CasinoController {
         spielerliste.add(com3);
         spielerliste.add(com4);
 
+        mindesteinsatz = (int) (spieler.getGeld() / 5);
         newRound();
     }
 
@@ -210,7 +211,7 @@ public class CasinoController {
         } else {
             Combi winnercombo = HOHEKARTE;
             for (PokerSpieler pokerSpieler : spielerliste) {
-                if (pokerSpieler.getCombo().getWert() > winnercombo.getWert()) {
+                if (pokerSpieler.getCombo().getWert() > winnercombo.getWert() && !pokerSpieler.isFolded()) {
                     winnercombo = pokerSpieler.getCombo();
                     winner = pokerSpieler;
                 }

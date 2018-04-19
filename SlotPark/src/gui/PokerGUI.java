@@ -32,6 +32,7 @@ public class PokerGUI extends javax.swing.JFrame {
     private JLabel[] kartenlabels;
     private String username;
     private double geld;
+    private int einsatz = 0;
 
     public String getUsername() {
         return username;
@@ -49,7 +50,6 @@ public class PokerGUI extends javax.swing.JFrame {
 
     public void setGeld(double geld) {
         this.geld = geld;
-
         lbGeld.setText(String.format("Geld: %.0f Chips", geld));
     }
 
@@ -58,9 +58,7 @@ public class PokerGUI extends javax.swing.JFrame {
 //        this.setUndecorated(true);
 
         initComponents();
-        thread.start();
-        labels = new JLabel[]{lbC1, lbC2, lbC3, lbC4, lbC5};
-        kartenlabels = new JLabel[]{lbCard1, lbCard2};
+
     }
 
     /**
@@ -99,7 +97,7 @@ public class PokerGUI extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
         tfEinsatz = new javax.swing.JTextField();
-        jSlider1 = new javax.swing.JSlider();
+        jsEinsatz = new javax.swing.JSlider();
         jPanel4 = new javax.swing.JPanel();
         btCheck = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -122,6 +120,7 @@ public class PokerGUI extends javax.swing.JFrame {
         lbCard1 = new javax.swing.JLabel();
         lbCard2 = new javax.swing.JLabel();
         jPanel14 = new javax.swing.JPanel();
+        lbWinner = new javax.swing.JLabel();
         lbPot = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -260,7 +259,13 @@ public class PokerGUI extends javax.swing.JFrame {
         tfEinsatz.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         tfEinsatz.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jPanel9.add(tfEinsatz);
-        jPanel9.add(jSlider1);
+
+        jsEinsatz.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                onChange(evt);
+            }
+        });
+        jPanel9.add(jsEinsatz);
 
         jPanel2.add(jPanel9, java.awt.BorderLayout.PAGE_START);
 
@@ -373,6 +378,12 @@ public class PokerGUI extends javax.swing.JFrame {
         jPanel13.add(jPanel8);
 
         jPanel14.setOpaque(false);
+        jPanel14.setLayout(new java.awt.GridLayout(2, 0));
+
+        lbWinner.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        lbWinner.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel14.add(lbWinner);
+
         jPanel13.add(jPanel14);
 
         jPanel11.add(jPanel13, java.awt.BorderLayout.CENTER);
@@ -393,8 +404,16 @@ public class PokerGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void onLoad(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_onLoad
+        thread.start();
         cc.load();
         player.play("music", "Poker.mp3", true);
+        tfEinsatz.setText(0 + "/" + (int) cc.getSpielerliste().getFirst().getGeld());
+        jsEinsatz.setMajorTickSpacing((int) cc.getSpielerliste().getFirst().getGeld() / 4);
+        jsEinsatz.setMinorTickSpacing((int) cc.getSpielerliste().getFirst().getGeld() / 10);
+
+        jsEinsatz.setMaximum((int) cc.getSpielerliste().getFirst().getGeld());
+        labels = new JLabel[]{lbC1, lbC2, lbC3, lbC4, lbC5};
+        kartenlabels = new JLabel[]{lbCard1, lbCard2};
         updateUI();
     }//GEN-LAST:event_onLoad
 
@@ -406,7 +425,7 @@ public class PokerGUI extends javax.swing.JFrame {
 
     private void onRaise(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onRaise
         try {
-            int einsatz = Integer.parseInt(tfEinsatz.getText());
+
             cc.raise(einsatz);
         } catch (NumberFormatException e) {
             System.out.println("is keine zahl");
@@ -416,13 +435,17 @@ public class PokerGUI extends javax.swing.JFrame {
 
     private void onCheck(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onCheck
         if (btCheck.getText().equals("Neue Runde")) {
+            lbWinner.setText("");
             btCheck.setText("Check");
             cc.newRound();
         } else if (cc.getFlopedcards() == 5) {
             btCheck.setText("Neue Runde");
+            lbWinner.setText(cc.checkwin().getName() + " hat gewonnen!");
         } else if (btCheck.getText().equals("Check")) {
             cc.check();
+            btCheck.setEnabled(false);
         }
+
         updateUI();
     }//GEN-LAST:event_onCheck
 
@@ -434,6 +457,11 @@ public class PokerGUI extends javax.swing.JFrame {
         player.close("music");
         this.dispose();
     }//GEN-LAST:event_onBack
+
+    private void onChange(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_onChange
+        einsatz = jsEinsatz.getValue();
+        tfEinsatz.setText(einsatz + "/" + (int) cc.getSpielerliste().getFirst().getGeld());
+    }//GEN-LAST:event_onChange
 
     public void updateUI() {
         lbPot.setText("Pot: " + cc.getPot());
@@ -478,7 +506,7 @@ public class PokerGUI extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
 
@@ -526,9 +554,9 @@ public class PokerGUI extends javax.swing.JFrame {
                             return;
                         }
                     }
-
+                    btCheck.setEnabled(true);
                 }
-               
+
             }
 
         }
@@ -565,7 +593,7 @@ public class PokerGUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JSlider jSlider1;
+    private javax.swing.JSlider jsEinsatz;
     private javax.swing.JLabel lbC1;
     private javax.swing.JLabel lbC2;
     private javax.swing.JLabel lbC3;
@@ -586,6 +614,7 @@ public class PokerGUI extends javax.swing.JFrame {
     private javax.swing.JLabel lbStatus2;
     private javax.swing.JLabel lbStatus3;
     private javax.swing.JLabel lbStatus4;
+    private javax.swing.JLabel lbWinner;
     private javax.swing.JTextField tfEinsatz;
     // End of variables declaration//GEN-END:variables
 }
