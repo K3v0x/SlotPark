@@ -51,11 +51,12 @@ public class CasinoController {
 
     public void load() {
 
-        spieler = new PokerSpieler(new Karte[2], HOHEKARTE, "...", false, false, username, "1", geld);
-        PokerSpieler com1 = new PokerSpieler(new Karte[2], HOHEKARTE, "...", false, true, "Mike", "1", geld);
-        PokerSpieler com2 = new PokerSpieler(new Karte[2], HOHEKARTE, "...", false, true, "Martin", "1", geld);
-        PokerSpieler com3 = new PokerSpieler(new Karte[2], HOHEKARTE, "...", false, true, "Sarah", "1", geld);
-        PokerSpieler com4 = new PokerSpieler(new Karte[2], HOHEKARTE, "...", false, true, "Tom", "1", geld);
+        //spieler = new PokerSpieler(new Karte[2], HOHEKARTE, "...", false, false, username, "1", geld);
+        spieler = new PokerSpieler(new Karte[2], HOHEKARTE, "...", false, false, "Sido", "1", 1000);
+        PokerSpieler com1 = new PokerSpieler(new Karte[2], HOHEKARTE, "...", false, true, "Mike", "1", 1000);
+        PokerSpieler com2 = new PokerSpieler(new Karte[2], HOHEKARTE, "...", false, true, "Martin", "1", 1000);
+        PokerSpieler com3 = new PokerSpieler(new Karte[2], HOHEKARTE, "...", false, true, "Sarah", "1", 1000);
+        PokerSpieler com4 = new PokerSpieler(new Karte[2], HOHEKARTE, "...", false, true, "Tom", "1", 1000);
 
         spielerliste.add(spieler);
         spielerliste.add(com1);
@@ -99,8 +100,6 @@ public class CasinoController {
                 karten = pokerSpieler.getKarten();
                 karten[1] = karte;
                 pokerSpieler.setKarten(karten);
-
-                //Wert der Karten
             }
         }
         checkCombi();
@@ -184,7 +183,7 @@ public class CasinoController {
                     int chance = 10 - pokerSpieler.getCombo().getWert();
                     if (rand.nextInt(chance - 0 + 1) + 0 == 0) {
                         pokerSpieler.setStatus("Raised");
-                        int einsatz = (int) (rand.nextInt((int) (pokerSpieler.getGeld() / 2 - pokerSpieler.getGeld() / 4 + 1)) + pokerSpieler.getGeld());
+                        int einsatz = (int) (rand.nextInt((int) (pokerSpieler.getGeld() / 2 - pokerSpieler.getGeld() / 4 + 1)));
                         pokerSpieler.setGeld(pokerSpieler.getGeld() - einsatz);
                         pot = pot + einsatz;
                     } else {
