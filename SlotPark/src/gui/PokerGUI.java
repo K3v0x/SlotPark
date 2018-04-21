@@ -5,14 +5,11 @@
  */
 package gui;
 
-import beans.PokerSpieler;
 import bl.CasinoController;
 import bl.SoundPlayer;
 import java.awt.Image;
 import java.io.File;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -24,7 +21,7 @@ public class PokerGUI extends javax.swing.JFrame {
 
     private Random rand = new Random();
     private String imagepath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "images" + File.separator + "karten" + File.separator;
-    private CasinoController cc = new CasinoController();
+    private CasinoController cc;
     private SoundPlayer player = SoundPlayer.getInstance();
     private TurnThread tt = new TurnThread();
     private Thread thread = new Thread(tt);
@@ -50,6 +47,7 @@ public class PokerGUI extends javax.swing.JFrame {
 
     public void setGeld(double geld) {
         this.geld = geld;
+        cc.setGeld(geld);
         lbGeld.setText(String.format("Geld: %.0f Chips", geld));
     }
 
@@ -58,7 +56,7 @@ public class PokerGUI extends javax.swing.JFrame {
 //        this.setUndecorated(true);
 
         initComponents();
-
+        cc = new CasinoController();
     }
 
     /**
@@ -405,8 +403,12 @@ public class PokerGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void onLoad(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_onLoad
-        thread.start();
+
+        if (username == null) {
+            cc.setGeld(500);
+        }
         cc.load();
+
         player.play("music", "Poker.mp3", true);
         tfEinsatz.setText(0 + "/" + (int) cc.getSpielerliste().getFirst().getGeld());
         jsEinsatz.setMajorTickSpacing((int) cc.getSpielerliste().getFirst().getGeld() / 4);
@@ -416,6 +418,7 @@ public class PokerGUI extends javax.swing.JFrame {
         labels = new JLabel[]{lbC1, lbC2, lbC3, lbC4, lbC5};
         kartenlabels = new JLabel[]{lbCard1, lbCard2};
         updateUI();
+
     }//GEN-LAST:event_onLoad
 
     private void onFold(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onFold
@@ -428,7 +431,7 @@ public class PokerGUI extends javax.swing.JFrame {
         try {
 
             cc.raise(einsatz);
-          
+
         } catch (NumberFormatException e) {
             System.out.println("is keine zahl");
         }
@@ -436,18 +439,20 @@ public class PokerGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_onRaise
 
     private void onCheck(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onCheck
+        thread.start();
         if (btCheck.getText().equals("Neue Runde")) {
             lbWinner.setText("");
             btCheck.setText("Check");
             cc.newRound();
+
         } else if (cc.getFlopedcards() == 5) {
             btCheck.setText("Neue Runde");
             lbWinner.setText(cc.checkwin().getName() + " hat gewonnen!");
         } else if (btCheck.getText().equals("Check")) {
-            cc.check();
             btCheck.setEnabled(false);
-        }
+            cc.check();
 
+        }
         updateUI();
     }//GEN-LAST:event_onCheck
 
@@ -487,15 +492,20 @@ public class PokerGUI extends javax.swing.JFrame {
             lbC5.setIcon(new ImageIcon(imagepath + "red_back.png"));
         }
 
-        lbCom1.setText("" + cc.getSpielerliste().get(1).getCombo());
-        lbCom2.setText("" + cc.getSpielerliste().get(2).getCombo());
-        lbCom3.setText("" + cc.getSpielerliste().get(3).getCombo());
-        lbCom4.setText("" + cc.getSpielerliste().get(4).getCombo());
+        try {
+            lbCom1.setText("" + cc.getSpielerliste().get(1).getCombo());
+            lbCom2.setText("" + cc.getSpielerliste().get(2).getCombo());
+            lbCom3.setText("" + cc.getSpielerliste().get(3).getCombo());
+            lbCom4.setText("" + cc.getSpielerliste().get(4).getCombo());
 
-        lbStatus1.setText("" + cc.getSpielerliste().get(1).getStatus());
-        lbStatus2.setText("" + cc.getSpielerliste().get(2).getStatus());
-        lbStatus3.setText("" + cc.getSpielerliste().get(3).getStatus());
-        lbStatus4.setText("" + cc.getSpielerliste().get(4).getStatus());
+            lbStatus1.setText("" + cc.getSpielerliste().get(1).getStatus());
+            lbStatus2.setText("" + cc.getSpielerliste().get(2).getStatus());
+            lbStatus3.setText("" + cc.getSpielerliste().get(3).getStatus());
+            lbStatus4.setText("" + cc.getSpielerliste().get(4).getStatus());
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("ein spieler ist bankrott");
+        }
+
     }
 
     /**
@@ -551,14 +561,22 @@ public class PokerGUI extends javax.swing.JFrame {
                 if (!cc.isPreflop()) {
                     for (int i = 0; i < cc.getFlopedcards(); i++) {
                         labels[i].setIcon(new ImageIcon(imagepath + cc.getKartentisch()[i].getWert() + "" + cc.getKartentisch()[i].getFarbe().getName() + ".png"));
+                        System.out.println(i);
                         try {
                             Thread.sleep(500);
                         } catch (InterruptedException ex) {
                             return;
                         }
                     }
-                    btCheck.setEnabled(true);
+                } else {
+
                 }
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException ex) {
+                    System.out.println("fehler");
+                }
+                btCheck.setEnabled(true);
 
             }
 

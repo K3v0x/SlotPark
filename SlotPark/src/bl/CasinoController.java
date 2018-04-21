@@ -6,15 +6,10 @@
 package bl;
 
 import beans.Combi;
-import static beans.Combi.DRILLING;
-import static beans.Combi.HOHEKARTE;
-import static beans.Combi.PAAR;
-import static beans.Combi.VIERLING;
+
+import static beans.Combi.*;
 import beans.Farbe;
-import static beans.Farbe.HERZ;
-import static beans.Farbe.KARO;
-import static beans.Farbe.KREUZ;
-import static beans.Farbe.PIK;
+import static beans.Farbe.*;
 import beans.Karte;
 import beans.PokerSpieler;
 import java.io.File;
@@ -36,12 +31,10 @@ public class CasinoController {
 
     LinkedList<PokerSpieler> spielerliste = new LinkedList<>(); //Spielerliste
     Stack<Karte> stapel = new Stack<>(); //Kartenstapel
-
     private int mindesteinsatz = 0; //Minimaler Einsatz
     int flopedcards = 0; //Anzahl der aufgedeckten Karten
     int pot = 0; //Anzahl der Chips im Pot
     private PokerSpieler spieler;
-
     Karte[] kartentisch = new Karte[5]; //Karten, die auf dem Tisch liegen
     boolean preflop = true; //Preflop-Phase
     boolean flop = false; //Flop-Phase
@@ -51,12 +44,12 @@ public class CasinoController {
 
     public void load() {
 
-        //spieler = new PokerSpieler(new Karte[2], HOHEKARTE, "...", false, false, username, "1", geld);
-        spieler = new PokerSpieler(new Karte[2], HOHEKARTE, "...", false, false, "Sido", "1", 1000);
-        PokerSpieler com1 = new PokerSpieler(new Karte[2], HOHEKARTE, "...", false, true, "Mike", "1", 1000);
-        PokerSpieler com2 = new PokerSpieler(new Karte[2], HOHEKARTE, "...", false, true, "Martin", "1", 1000);
-        PokerSpieler com3 = new PokerSpieler(new Karte[2], HOHEKARTE, "...", false, true, "Sarah", "1", 1000);
-        PokerSpieler com4 = new PokerSpieler(new Karte[2], HOHEKARTE, "...", false, true, "Tom", "1", 1000);
+        spieler = new PokerSpieler(new Karte[2], HOHEKARTE, "...", false, false, username, "1", geld);
+        // spieler = new PokerSpieler(new Karte[2], HOHEKARTE, "...", false, false, "Sido", "1", 1000);
+        PokerSpieler com1 = new PokerSpieler(new Karte[2], HOHEKARTE, "...", false, true, "Mike", "1", geld);
+        PokerSpieler com2 = new PokerSpieler(new Karte[2], HOHEKARTE, "...", false, true, "Martin", "1", geld);
+        PokerSpieler com3 = new PokerSpieler(new Karte[2], HOHEKARTE, "...", false, true, "Sarah", "1", geld);
+        PokerSpieler com4 = new PokerSpieler(new Karte[2], HOHEKARTE, "...", false, true, "Tom", "1", geld);
 
         spielerliste.add(spieler);
         spielerliste.add(com1);
@@ -164,11 +157,19 @@ public class CasinoController {
             }
 
             //Combo prüfen
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < anzahl.size(); i++) {
                 if (anzahl.get(i + 1) == 4) {
                     combi = VIERLING;
                     pokerSpieler.setCombo(combi);
 
+                } else if (anzahl.get(i + 1) == 3) {
+                    for (int j = 0; j < anzahl.size(); i++) {
+                        if (anzahl.get(j + 1) == 2 && j != i) {
+                            combi = FULLHOUSE;
+                            pokerSpieler.setCombo(combi);
+                            pokerSpieler.setCombo(combi);
+                        }
+                    }
                 } else if (anzahl.get(i + 1) == 3) {
                     combi = DRILLING;
                     pokerSpieler.setCombo(combi);
@@ -248,9 +249,6 @@ public class CasinoController {
             //Preflop: 3 Karten werden auf dem Tisch aufgedeckt
             flopedcards = 3;
             preflop = false;
-
-            letcomplay();
-            checkCombi();
             player.play("effect", "Flip.mp3", false);
         } else {
             //Flop: 1 weitere Karte wird auf dem Tisch aufgedeckt
@@ -263,15 +261,12 @@ public class CasinoController {
                         flopedcards = 5;
                         break;
                 }
-
-                letcomplay();
-                checkCombi();
                 player.play("effect", "Flip.mp3", false);
-            } else if (flopedcards == 5) {
-
             }
 
         }
+        letcomplay();
+        checkCombi();
     }
 
     public void raise(int einsatz) {
@@ -339,6 +334,14 @@ public class CasinoController {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public double getGeld() {
+        return geld;
+    }
+
+    public void setGeld(double geld) {
+        this.geld = geld;
     }
 
 }
