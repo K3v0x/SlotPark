@@ -100,9 +100,11 @@ public class CasinoController {
 
         for (PokerSpieler pokerSpieler : spielerliste) {
             if (pokerSpieler.getGeld() >= mindesteinsatz) {
+
                 pokerSpieler.setGeld(pokerSpieler.getGeld() - mindesteinsatz);
                 pot = pot + mindesteinsatz;
             } else {
+                System.out.println("bankrott");
                 pokerSpieler.isFolded();
                 spielerliste.remove(pokerSpieler);
             }

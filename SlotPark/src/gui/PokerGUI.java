@@ -30,6 +30,7 @@ public class PokerGUI extends javax.swing.JFrame {
     private String username;
     private double geld;
     private int einsatz = 0;
+    boolean aufdecken = false;
 
     public String getUsername() {
         return username;
@@ -403,7 +404,7 @@ public class PokerGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void onLoad(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_onLoad
-
+        thread.start();
         if (username == null) {
             cc.setGeld(500);
         }
@@ -439,19 +440,18 @@ public class PokerGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_onRaise
 
     private void onCheck(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onCheck
-        thread.start();
+
         if (btCheck.getText().equals("Neue Runde")) {
             lbWinner.setText("");
             btCheck.setText("Check");
             cc.newRound();
-
         } else if (cc.getFlopedcards() == 5) {
             btCheck.setText("Neue Runde");
             lbWinner.setText(cc.checkwin().getName() + " hat gewonnen!");
         } else if (btCheck.getText().equals("Check")) {
             btCheck.setEnabled(false);
             cc.check();
-
+            aufdecken = true;
         }
         updateUI();
     }//GEN-LAST:event_onCheck
@@ -556,30 +556,31 @@ public class PokerGUI extends javax.swing.JFrame {
 
         @Override
         public void run() {
-
-            while (!Thread.interrupted()) {
-                if (!cc.isPreflop()) {
-                    for (int i = 0; i < cc.getFlopedcards(); i++) {
-                        labels[i].setIcon(new ImageIcon(imagepath + cc.getKartentisch()[i].getWert() + "" + cc.getKartentisch()[i].getFarbe().getName() + ".png"));
-                        System.out.println(i);
-                        try {
-                            Thread.sleep(500);
-                        } catch (InterruptedException ex) {
-                            return;
+            synchronized (cc) {
+                while (!Thread.interrupted()) {
+                    if (!cc.isPreflop() && aufdecken) {
+                        if (cc.getFlopedcards() == 3) {
+                            System.out.println("PREFLOP");
+                            for (int i = 0; i < cc.getFlopedcards(); i++) {
+                                labels[i].setIcon(new ImageIcon(imagepath + cc.getKartentisch()[i].getWert() + "" + cc.getKartentisch()[i].getFarbe().getName() + ".png"));
+                                System.out.println(i);
+                                try {
+                                    Thread.sleep(1000);
+                                } catch (InterruptedException ex) {
+                                    return;
+                                }
+                            }
+                        } else {
+                            System.out.println("FLOP");
+                            labels[cc.getFlopedcards() - 1].setIcon(new ImageIcon(imagepath + cc.getKartentisch()[cc.getFlopedcards() - 1].getWert() + "" + cc.getKartentisch()[cc.getFlopedcards() - 1].getFarbe().getName() + ".png"));
                         }
+                        aufdecken = false;
+                        btCheck.setEnabled(true);
                     }
-                } else {
 
                 }
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException ex) {
-                    System.out.println("fehler");
-                }
-                btCheck.setEnabled(true);
-
             }
-
+            return;
         }
 
     }
