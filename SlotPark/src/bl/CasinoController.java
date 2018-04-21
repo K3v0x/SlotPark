@@ -37,7 +37,7 @@ public class CasinoController {
     LinkedList<PokerSpieler> spielerliste = new LinkedList<>(); //Spielerliste
     Stack<Karte> stapel = new Stack<>(); //Kartenstapel
 
-    int mindesteinsatz = 10; //Minimaler Einsatz
+    private int mindesteinsatz = 0; //Minimaler Einsatz
     int flopedcards = 0; //Anzahl der aufgedeckten Karten
     int pot = 0; //Anzahl der Chips im Pot
     private PokerSpieler spieler;
@@ -104,6 +104,17 @@ public class CasinoController {
             }
         }
         checkCombi();
+
+        for (PokerSpieler pokerSpieler : spielerliste) {
+            if (pokerSpieler.getGeld() >= mindesteinsatz) {
+                pokerSpieler.setGeld(pokerSpieler.getGeld() - mindesteinsatz);
+                pot = pot + mindesteinsatz;
+            } else {
+                pokerSpieler.isFolded();
+                spielerliste.remove(pokerSpieler);
+            }
+
+        }
 
     }
 
@@ -218,7 +229,7 @@ public class CasinoController {
             }
             for (PokerSpieler pokerSpieler : spielerliste) {
                 if (winner == pokerSpieler) {
-                    pokerSpieler.setGeld(pot + pokerSpieler.getGeld());
+                    pokerSpieler.setGeld(pokerSpieler.getGeld() + pot);
                 }
             }
         }
@@ -329,4 +340,5 @@ public class CasinoController {
     public void setUsername(String username) {
         this.username = username;
     }
+
 }

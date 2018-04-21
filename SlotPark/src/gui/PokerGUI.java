@@ -114,7 +114,7 @@ public class PokerGUI extends javax.swing.JFrame {
         jPanel11 = new javax.swing.JPanel();
         jPanel20 = new javax.swing.JPanel();
         lbDeckWert = new javax.swing.JLabel();
-        jPanel21 = new javax.swing.JPanel();
+        lbMindesteinsatz = new javax.swing.JLabel();
         jPanel13 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         lbCard1 = new javax.swing.JLabel();
@@ -354,8 +354,9 @@ public class PokerGUI extends javax.swing.JFrame {
         lbDeckWert.setText("Checking...");
         jPanel20.add(lbDeckWert);
 
-        jPanel21.setOpaque(false);
-        jPanel20.add(jPanel21);
+        lbMindesteinsatz.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        lbMindesteinsatz.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel20.add(lbMindesteinsatz);
 
         jPanel11.add(jPanel20, java.awt.BorderLayout.SOUTH);
 
@@ -427,6 +428,7 @@ public class PokerGUI extends javax.swing.JFrame {
         try {
 
             cc.raise(einsatz);
+          
         } catch (NumberFormatException e) {
             System.out.println("is keine zahl");
         }
@@ -461,14 +463,16 @@ public class PokerGUI extends javax.swing.JFrame {
     private void onChange(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_onChange
         einsatz = jsEinsatz.getValue();
         tfEinsatz.setText(einsatz + "/" + (int) cc.getSpielerliste().getFirst().getGeld());
+
     }//GEN-LAST:event_onChange
 
     public void updateUI() {
         lbPot.setText("Pot: " + cc.getPot());
         lbDeckWert.setText(cc.getSpielerliste().getFirst().getCombo().getName());
+        lbMindesteinsatz.setText("Min.: " + cc.getMindesteinsatz());
+        tfEinsatz.setText(einsatz + "/" + (int) cc.getSpielerliste().getFirst().getGeld());
 
         for (int i = 0; i < kartenlabels.length; i++) {
-            JLabel label = kartenlabels[i];
             ImageIcon imageIcon = new ImageIcon(imagepath + cc.getSpielerliste().getFirst().getKarten()[i].getWert() + "" + cc.getSpielerliste().getFirst().getKarten()[i].getFarbe().getName() + ".png"); // load the image to a imageIcon
             Image image = imageIcon.getImage(); // transform it 
             Image newimg = image.getScaledInstance(100, 150, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
@@ -477,7 +481,6 @@ public class PokerGUI extends javax.swing.JFrame {
         }
         if (cc.getFlopedcards() == 0) {
             lbC1.setIcon(new ImageIcon(imagepath + "red_back.png"));
-
             lbC2.setIcon(new ImageIcon(imagepath + "red_back.png"));
             lbC3.setIcon(new ImageIcon(imagepath + "red_back.png"));
             lbC4.setIcon(new ImageIcon(imagepath + "red_back.png"));
@@ -585,7 +588,6 @@ public class PokerGUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
-    private javax.swing.JPanel jPanel21;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -608,6 +610,7 @@ public class PokerGUI extends javax.swing.JFrame {
     private javax.swing.JLabel lbDeckWert;
     private javax.swing.JLabel lbGeld;
     private javax.swing.JLabel lbIcon;
+    private javax.swing.JLabel lbMindesteinsatz;
     private javax.swing.JLabel lbName;
     private javax.swing.JLabel lbPot;
     private javax.swing.JLabel lbStatus1;
