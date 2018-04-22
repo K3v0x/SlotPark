@@ -86,7 +86,9 @@ public class SlotsGUI extends javax.swing.JFrame {
         lb12 = new javax.swing.JLabel();
         lb22 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        jToggleButton1 = new javax.swing.JToggleButton();
+        jToggleButton2 = new javax.swing.JToggleButton();
+        jToggleButton3 = new javax.swing.JToggleButton();
         jPanel3 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -180,10 +182,17 @@ public class SlotsGUI extends javax.swing.JFrame {
 
         jPanel6.setLayout(new java.awt.GridLayout(1, 3));
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("???");
-        jPanel6.add(jLabel3);
+        jToggleButton1.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jToggleButton1.setText("10%");
+        jPanel6.add(jToggleButton1);
+
+        jToggleButton2.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jToggleButton2.setText("25%");
+        jPanel6.add(jToggleButton2);
+
+        jToggleButton3.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jToggleButton3.setText("50%");
+        jPanel6.add(jToggleButton3);
 
         jPanel5.add(jPanel6, java.awt.BorderLayout.SOUTH);
 
@@ -269,7 +278,6 @@ public class SlotsGUI extends javax.swing.JFrame {
                     for (int j = 0; j < labels.length; j++) {
                         labels[i][j].setIcon(new ImageIcon(imagepath + slots[rand.nextInt((slots.length - 1) - 0 + 1) + 0] + "Slot.png"));
                     }
-
                 }
                 try {
                     Thread.sleep(100);
@@ -323,7 +331,6 @@ public class SlotsGUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -333,6 +340,9 @@ public class SlotsGUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JToggleButton jToggleButton2;
+    private javax.swing.JToggleButton jToggleButton3;
     private javax.swing.JLabel lb00;
     private javax.swing.JLabel lb01;
     private javax.swing.JLabel lb02;

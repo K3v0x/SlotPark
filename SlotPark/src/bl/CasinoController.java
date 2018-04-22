@@ -24,11 +24,11 @@ import java.util.Stack;
  * @author Kevin
  */
 public class CasinoController {
-
+    
     Random rand = new Random();
     String imagepath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "images" + File.separator + "karten" + File.separator;
     SoundPlayer player = SoundPlayer.getInstance();
-
+    
     LinkedList<PokerSpieler> spielerliste = new LinkedList<>(); //Spielerliste
     Stack<Karte> stapel = new Stack<>(); //Kartenstapel
     private int mindesteinsatz = 0; //Minimaler Einsatz
@@ -41,14 +41,14 @@ public class CasinoController {
     boolean raisemode = false;
     private String username;
     private double geld;
-
+    
     public void load() {
         spieler = new PokerSpieler(new Karte[2], HOHEKARTE, "...", false, false, false, username, "1", geld);
         PokerSpieler com1 = new PokerSpieler(new Karte[2], HOHEKARTE, "...", false, false, true, "Mike", "1", geld);
         PokerSpieler com2 = new PokerSpieler(new Karte[2], HOHEKARTE, "...", false, false, true, "Martin", "1", geld);
         PokerSpieler com3 = new PokerSpieler(new Karte[2], HOHEKARTE, "...", false, false, true, "Sarah", "1", geld);
         PokerSpieler com4 = new PokerSpieler(new Karte[2], HOHEKARTE, "...", false, false, true, "Tom", "1", geld);
-
+        
         spielerliste.add(spieler);
         spielerliste.add(com1);
         spielerliste.add(com2);
@@ -57,7 +57,7 @@ public class CasinoController {
         mindesteinsatz = (int) (spieler.getGeld() / 5);
         newRound();
     }
-
+    
     public void newRound() { //Neue Runde starten
         pot = 0;
         stapel.clear();
@@ -75,25 +75,25 @@ public class CasinoController {
                             kartentisch[i] = stapel.pop();
                         }
                     }
-
+                    
                 }
                 pokerSpieler.setCombo(HOHEKARTE);
                 //Karte 1
                 Karte karte = stapel.pop();
                 if (stapel.size() - 1 > -1) {
-
+                    
                     Karte[] karten = pokerSpieler.getKarten();
                     karten[0] = karte;
                     pokerSpieler.setKarten(karten);
 
                     //Karte 2
                     karte = stapel.pop();
-
+                    
                     karten = pokerSpieler.getKarten();
                     karten[1] = karte;
                     pokerSpieler.setKarten(karten);
                 }
-
+                
                 if (pokerSpieler.getGeld() >= mindesteinsatz) {
                     pokerSpieler.setGeld(pokerSpieler.getGeld() - mindesteinsatz);
                     pot = pot + mindesteinsatz;
@@ -101,12 +101,12 @@ public class CasinoController {
                     pokerSpieler.setFolded(true);
                     System.out.println(pokerSpieler.getName() + " ist bankrott");
                     pokerSpieler.setBankrott(true);
-              
+                    
                 }
                 checkCombi(pokerSpieler);
             }
         }
-
+        
     }
 
     //Karten erstellen
@@ -119,7 +119,7 @@ public class CasinoController {
 
     //Auf Combis prüfen
     public void checkCombi(PokerSpieler pokerSpieler) {
-
+        
         HashMap<Integer, Integer> anzahl = new HashMap<>();
         Karte[] deck = pokerSpieler.getKarten();
         Karte[] alle = new Karte[7];
@@ -127,7 +127,7 @@ public class CasinoController {
         //Eigene Karten übertragen
         for (int i = 0; i < deck.length; i++) {
             alle[i] = deck[i];
-
+            
         }
 
         //Community-Karten übertragen
@@ -147,10 +147,10 @@ public class CasinoController {
                     if (i == alle[j].getWert()) {
                         anzahl.put(i + 1, anzahl.get(i + 1) + 1);
                     }
-
+                    
                 }
             }
-
+            
         }
 
         //Combo prüfen
@@ -181,7 +181,7 @@ public class CasinoController {
                 pokerSpieler.setCombo(combi);
             }
         }
-
+        
         for (int i = 0; i < anzahl.size() - 1; i++) {
             for (int j = 0; j < 3; j++) {
                 if (anzahl.get(j + 1) > 0
@@ -194,11 +194,11 @@ public class CasinoController {
                 }
             }
         }
-
+        
     }
-
+    
     public void letcomplay(PokerSpieler pokerSpieler) {
-
+        
         if (!pokerSpieler.isFolded() && pokerSpieler.isComputer() && !pokerSpieler.isBankrott()) {
             if (raisemode && pokerSpieler.getCombo() == HOHEKARTE) {
                 pokerSpieler.setFolded(true);
@@ -214,29 +214,41 @@ public class CasinoController {
                     pokerSpieler.setStatus("Checked");
                 }
             }
-
+            
         }
-
+        
     }
-
+    
     public PokerSpieler checkwin() {
         PokerSpieler winner = spielerliste.getFirst();
         Combi winnercombo = HOHEKARTE;
+        
+        int anz = 0;
         for (PokerSpieler pokerSpieler : spielerliste) {
-            if (pokerSpieler.getCombo().getWert() > winnercombo.getWert() && !pokerSpieler.isFolded()) {
-                winnercombo = pokerSpieler.getCombo();
-                winner = pokerSpieler;
+            if (pokerSpieler.isBankrott()) {
+                anz++;
             }
         }
-        for (PokerSpieler pokerSpieler : spielerliste) {
-            if (winner == pokerSpieler) {
-                pokerSpieler.setGeld(pokerSpieler.getGeld() + pot);
+        if (anz == 4) {
+            spielerliste.getFirst().setStatus("WINNER");
+        } else {
+            for (PokerSpieler pokerSpieler : spielerliste) {
+                if (pokerSpieler.getCombo().getWert() > winnercombo.getWert() && !pokerSpieler.isFolded()) {
+                    winnercombo = pokerSpieler.getCombo();
+                    winner = pokerSpieler;
+                }
+            }
+            for (PokerSpieler pokerSpieler : spielerliste) {
+                if (winner == pokerSpieler) {
+                    pokerSpieler.setGeld(pokerSpieler.getGeld() + pot);
+                }
             }
         }
+        
         return winner;
-
+        
     }
-
+    
     public void check() {
         player.play("effect", "Check.mp3", false);
         raisemode = false;
@@ -258,14 +270,14 @@ public class CasinoController {
                 }
                 player.play("effect", "Flip.mp3", false);
             }
-
+            
         }
         for (PokerSpieler pokerSpieler : spielerliste) {
             letcomplay(pokerSpieler);
             checkCombi(pokerSpieler);
         }
     }
-
+    
     public void raise(int einsatz) {
         //Einsatz erhöhen
         raisemode = true;
@@ -274,73 +286,73 @@ public class CasinoController {
             letcomplay(pokerSpieler);
         }
     }
-
+    
     public LinkedList<PokerSpieler> getSpielerliste() {
         return spielerliste;
     }
-
+    
     public void setSpielerliste(LinkedList<PokerSpieler> spielerliste) {
         this.spielerliste = spielerliste;
     }
-
+    
     public Stack<Karte> getStapel() {
         return stapel;
     }
-
+    
     public void setStapel(Stack<Karte> stapel) {
         this.stapel = stapel;
     }
-
+    
     public int getMindesteinsatz() {
         return mindesteinsatz;
     }
-
+    
     public void setMindesteinsatz(int mindesteinsatz) {
         this.mindesteinsatz = mindesteinsatz;
     }
-
+    
     public int getFlopedcards() {
         return flopedcards;
     }
-
+    
     public void setFlopedcards(int flopedcards) {
         this.flopedcards = flopedcards;
     }
-
+    
     public int getPot() {
         return pot;
     }
-
+    
     public void setPot(int pot) {
         this.pot = pot;
     }
-
+    
     public Karte[] getKartentisch() {
         return kartentisch;
     }
-
+    
     public void setKartentisch(Karte[] kartentisch) {
         this.kartentisch = kartentisch;
     }
-
+    
     public boolean isPreflop() {
         return preflop;
     }
-
+    
     public void setPreflop(boolean preflop) {
         this.preflop = preflop;
     }
-
+    
     public void setUsername(String username) {
         this.username = username;
     }
-
+    
     public double getGeld() {
         return geld;
     }
-
+    
     public void setGeld(double geld) {
         this.geld = geld;
     }
-
+    
 }

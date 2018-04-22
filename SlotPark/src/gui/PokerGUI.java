@@ -14,6 +14,7 @@ import java.util.LinkedList;
 import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -105,8 +106,8 @@ public class PokerGUI extends javax.swing.JFrame {
         jsEinsatz = new javax.swing.JSlider();
         jPanel4 = new javax.swing.JPanel();
         btCheck = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btRaise = new javax.swing.JButton();
+        btFold = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
@@ -281,23 +282,23 @@ public class PokerGUI extends javax.swing.JFrame {
         });
         jPanel4.add(btCheck);
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        jButton2.setText("Erhöhen");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btRaise.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        btRaise.setText("Erhöhen");
+        btRaise.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 onRaise(evt);
             }
         });
-        jPanel4.add(jButton2);
+        jPanel4.add(btRaise);
 
-        jButton4.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        jButton4.setText("Fold");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btFold.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        btFold.setText("Fold");
+        btFold.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 onFold(evt);
             }
         });
-        jPanel4.add(jButton4);
+        jPanel4.add(btFold);
 
         jPanel2.add(jPanel4, java.awt.BorderLayout.CENTER);
 
@@ -415,7 +416,6 @@ public class PokerGUI extends javax.swing.JFrame {
         tfEinsatz.setText(0 + "/" + (int) cc.getSpielerliste().getFirst().getGeld());
         jsEinsatz.setMajorTickSpacing((int) cc.getSpielerliste().getFirst().getGeld() / 4);
         jsEinsatz.setMinorTickSpacing((int) cc.getSpielerliste().getFirst().getGeld() / 10);
-
         jsEinsatz.setMaximum((int) cc.getSpielerliste().getFirst().getGeld());
         labels = new JLabel[]{lbC1, lbC2, lbC3, lbC4, lbC5};
         kartenlabels = new JLabel[]{lbCard1, lbCard2};
@@ -432,12 +432,19 @@ public class PokerGUI extends javax.swing.JFrame {
 
     private void onRaise(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onRaise
         try {
-
-            cc.raise(einsatz);
+            if (einsatz == cc.getSpielerliste().getFirst().getGeld()) {
+                int antwort = JOptionPane.showConfirmDialog(this, "Wollen Sie wirklich All-in gehen?");
+                if (antwort == 0) {
+                    cc.raise(einsatz);
+                }
+            } else {
+                cc.raise(einsatz);
+            }
 
         } catch (NumberFormatException e) {
             System.out.println("is keine zahl");
         }
+
         updateUI();
     }//GEN-LAST:event_onRaise
 
@@ -446,9 +453,13 @@ public class PokerGUI extends javax.swing.JFrame {
         if (btCheck.getText().equals("Neue Runde")) {
             lbWinner.setText("");
             btCheck.setText("Check");
+            btFold.setEnabled(true);
+            btRaise.setEnabled(true);
             cc.newRound();
         } else if (cc.getFlopedcards() == 5) {
             btCheck.setText("Neue Runde");
+            btFold.setEnabled(false);
+            btRaise.setEnabled(false);
             lbWinner.setText(cc.checkwin().getName() + " hat gewonnen!");
         } else if (btCheck.getText().equals("Check")) {
             btCheck.setEnabled(false);
@@ -480,6 +491,10 @@ public class PokerGUI extends javax.swing.JFrame {
         lbMindesteinsatz.setText("Min.: " + cc.getMindesteinsatz());
         tfEinsatz.setText(einsatz + "/" + (int) spielerliste.getFirst().getGeld());
 
+        jsEinsatz.setMajorTickSpacing((int) cc.getSpielerliste().getFirst().getGeld() / 4);
+        jsEinsatz.setMinorTickSpacing((int) cc.getSpielerliste().getFirst().getGeld() / 10);
+        jsEinsatz.setMaximum((int) cc.getSpielerliste().getFirst().getGeld());
+
         for (int i = 0; i < kartenlabels.length; i++) {
             ImageIcon imageIcon = new ImageIcon(imagepath + spielerliste.getFirst().getKarten()[i].getWert() + "" + spielerliste.getFirst().getKarten()[i].getFarbe().getName() + ".png"); // load the image to a imageIcon
             Image image = imageIcon.getImage(); // transform it 
@@ -495,7 +510,10 @@ public class PokerGUI extends javax.swing.JFrame {
             lbC5.setIcon(new ImageIcon(imagepath + "red_back.png"));
         }
         dispayCombo(comlabels, statuslabels);
-
+        if (spielerliste.getFirst().getStatus().equals("WINNER")) {
+            btRaise.setEnabled(false);
+            btFold.setEnabled(false);
+        }
     }
 
     public void dispayCombo(JLabel[] lbCom, JLabel[] lbStatus) {
@@ -599,9 +617,9 @@ public class PokerGUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCheck;
+    private javax.swing.JButton btFold;
+    private javax.swing.JButton btRaise;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
