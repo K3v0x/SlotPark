@@ -506,8 +506,8 @@ public class PokerGUI extends javax.swing.JFrame {
                 lbCom[i - 1].setText("" + cc.getSpielerliste().get(i).getCombo());
                 lbStatus[i - 1].setText("" + cc.getSpielerliste().get(i).getStatus());
             } else {
-                lbCom[i - 1].setText("---");
                 lbStatus[i - 1].setText("Bankrott");
+                lbCom[i - 1].setText("---");
 
             }
         }

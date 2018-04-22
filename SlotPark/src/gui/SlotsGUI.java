@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 /**
  *
@@ -25,6 +26,7 @@ public class SlotsGUI extends javax.swing.JFrame {
     private String username;
     private double geld;
     private String imagepath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "images" + File.separator;
+    JLabel[][] labels;
     SlotController sc;
 
     SlotThread st;
@@ -56,8 +58,13 @@ public class SlotsGUI extends javax.swing.JFrame {
         initComponents();
         st = new SlotThread();
         thread = new Thread(st);
-        thread.start();
+
         sc = new SlotController();
+        labels = new JLabel[][]{
+            {lb00, lb01, lb02},
+            {lb10, lb11, lb12},
+            {lb20, lb21, lb22}};
+        thread.start();
     }
 
     @SuppressWarnings("unchecked")
@@ -71,13 +78,13 @@ public class SlotsGUI extends javax.swing.JFrame {
         lb10 = new javax.swing.JLabel();
         lb20 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        lb01 = new javax.swing.JLabel();
+        lb11 = new javax.swing.JLabel();
+        lb21 = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        lb02 = new javax.swing.JLabel();
+        lb12 = new javax.swing.JLabel();
+        lb22 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -126,46 +133,46 @@ public class SlotsGUI extends javax.swing.JFrame {
         jPanel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel8.setLayout(new java.awt.GridLayout(3, 0));
 
-        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/CherrySlot.png"))); // NOI18N
-        jLabel4.setOpaque(true);
-        jPanel8.add(jLabel4);
+        lb01.setBackground(new java.awt.Color(255, 255, 255));
+        lb01.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb01.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/CherrySlot.png"))); // NOI18N
+        lb01.setOpaque(true);
+        jPanel8.add(lb01);
 
-        jLabel5.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/CherrySlot.png"))); // NOI18N
-        jLabel5.setOpaque(true);
-        jPanel8.add(jLabel5);
+        lb11.setBackground(new java.awt.Color(255, 255, 255));
+        lb11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/CherrySlot.png"))); // NOI18N
+        lb11.setOpaque(true);
+        jPanel8.add(lb11);
 
-        jLabel6.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/CherrySlot.png"))); // NOI18N
-        jLabel6.setOpaque(true);
-        jPanel8.add(jLabel6);
+        lb21.setBackground(new java.awt.Color(255, 255, 255));
+        lb21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/CherrySlot.png"))); // NOI18N
+        lb21.setOpaque(true);
+        jPanel8.add(lb21);
 
         jPanel2.add(jPanel8);
 
         jPanel9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel9.setLayout(new java.awt.GridLayout(3, 0));
 
-        jLabel7.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/DiamondSlot.png"))); // NOI18N
-        jLabel7.setOpaque(true);
-        jPanel9.add(jLabel7);
+        lb02.setBackground(new java.awt.Color(255, 255, 255));
+        lb02.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb02.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/DiamondSlot.png"))); // NOI18N
+        lb02.setOpaque(true);
+        jPanel9.add(lb02);
 
-        jLabel8.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/DiamondSlot.png"))); // NOI18N
-        jLabel8.setOpaque(true);
-        jPanel9.add(jLabel8);
+        lb12.setBackground(new java.awt.Color(255, 255, 255));
+        lb12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/DiamondSlot.png"))); // NOI18N
+        lb12.setOpaque(true);
+        jPanel9.add(lb12);
 
-        jLabel9.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/DiamondSlot.png"))); // NOI18N
-        jLabel9.setOpaque(true);
-        jPanel9.add(jLabel9);
+        lb22.setBackground(new java.awt.Color(255, 255, 255));
+        lb22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/DiamondSlot.png"))); // NOI18N
+        lb22.setOpaque(true);
+        jPanel9.add(lb22);
 
         jPanel2.add(jPanel9);
 
@@ -236,7 +243,13 @@ public class SlotsGUI extends javax.swing.JFrame {
 
     private void onSpin(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onSpin
         sc.spin();
+        Symbol[][] symbole = sc.getSlotdisplay();
+        for (int i = 0; i < symbole.length; i++) {
+            for (int j = 0; j < symbole.length; j++) {
+                labels[i][j].setIcon(new ImageIcon(imagepath + symbole[i][j].getName() + "Slot.png"));
+            }
 
+        }
     }//GEN-LAST:event_onSpin
 
     private void onBack(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onBack
@@ -252,9 +265,12 @@ public class SlotsGUI extends javax.swing.JFrame {
         @Override
         public void run() {
             while (!Thread.interrupted()) {
-                lb00.setIcon(new ImageIcon(imagepath + slots[rand.nextInt((slots.length - 1) - 0 + 1) + 0] + "Slot.png"));
-                lb10.setIcon(new ImageIcon(imagepath + slots[rand.nextInt((slots.length - 1) - 0 + 1) + 0] + "Slot.png"));
-                lb20.setIcon(new ImageIcon(imagepath + slots[rand.nextInt((slots.length - 1) - 0 + 1) + 0] + "Slot.png"));
+                for (int i = 0; i < labels.length; i++) {
+                    for (int j = 0; j < labels.length; j++) {
+                        labels[i][j].setIcon(new ImageIcon(imagepath + slots[rand.nextInt((slots.length - 1) - 0 + 1) + 0] + "Slot.png"));
+                    }
+
+                }
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException ex) {
@@ -265,9 +281,6 @@ public class SlotsGUI extends javax.swing.JFrame {
                     break;
                 }
             }
-            lb00.setIcon(new ImageIcon(imagepath + slots[rand.nextInt((slots.length - 1) - 0 + 1) + 0] + "Slot.png"));
-            lb10.setIcon(new ImageIcon(imagepath + slots[rand.nextInt((slots.length - 1) - 0 + 1) + 0] + "Slot.png"));
-            lb20.setIcon(new ImageIcon(imagepath + slots[rand.nextInt((slots.length - 1) - 0 + 1) + 0] + "Slot.png"));
 
         }
 
@@ -311,12 +324,6 @@ public class SlotsGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -327,8 +334,14 @@ public class SlotsGUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JLabel lb00;
+    private javax.swing.JLabel lb01;
+    private javax.swing.JLabel lb02;
     private javax.swing.JLabel lb10;
+    private javax.swing.JLabel lb11;
+    private javax.swing.JLabel lb12;
     private javax.swing.JLabel lb20;
+    private javax.swing.JLabel lb21;
+    private javax.swing.JLabel lb22;
     private javax.swing.JLabel lbGeld;
     private javax.swing.JLabel lbIcon;
     private javax.swing.JLabel lbName;

@@ -22,7 +22,7 @@ public class SlotController {
     Symbol[][] slotdisplay = new Symbol[3][3];
     Random rand = new Random();
 
-    public Symbol[][] spin() {
+    public void spin() {
 
         for (int i = 0; i < slotdisplay.length; i++) {
             for (int j = 0; j < slotdisplay.length; j++) {
@@ -32,6 +32,16 @@ public class SlotController {
             }
             System.out.println("\n");
         }
+
+    }
+
+    public Symbol[][] getSlotdisplay() {
         return slotdisplay;
     }
+
+    public void setSlotdisplay(Symbol[][] slotdisplay) {
+        this.slotdisplay = slotdisplay;
+    }
+    
+    
 }
