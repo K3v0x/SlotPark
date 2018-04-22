@@ -15,14 +15,16 @@ public class PokerSpieler extends Spieler {
     private Combi combo;
     private String status;
     private boolean folded;
+    private boolean bankrott;
     private boolean computer;
 
-    public PokerSpieler(Karte[] karten, Combi combo, String status, boolean folded, boolean computer, String name, String password, double geld) {
+    public PokerSpieler(Karte[] karten, Combi combo, String status, boolean folded, boolean bankrott, boolean computer, String name, String password, double geld) {
         super(name, password, geld);
         this.karten = karten;
         this.combo = combo;
         this.status = status;
         this.folded = folded;
+        this.bankrott = bankrott;
         this.computer = computer;
     }
 
@@ -58,6 +60,14 @@ public class PokerSpieler extends Spieler {
         this.folded = folded;
     }
 
+    public boolean isBankrott() {
+        return bankrott;
+    }
+
+    public void setBankrott(boolean bankrott) {
+        this.bankrott = bankrott;
+    }
+
     public boolean isComputer() {
         return computer;
     }
@@ -66,6 +76,6 @@ public class PokerSpieler extends Spieler {
         this.computer = computer;
     }
 
-  
+   
 
 }

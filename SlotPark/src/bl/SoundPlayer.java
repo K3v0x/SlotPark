@@ -45,10 +45,10 @@ public class SoundPlayer {
         soundThreads.putIfAbsent(identifier, new SoundThread(pfad, loop));
         SoundThread soundThread = soundThreads.getOrDefault(identifier, null);
         if (soundThread.isPlaying()) {
-            System.out.println("Sound \"" + identifier + "\" is being replaced!");
+            //System.out.println("Sound \"" + identifier + "\" is being replaced!");
             soundThread.close();
         } else {
-            System.out.println("Sound \"" + identifier + "\" is being played!");
+            //System.out.println("Sound \"" + identifier + "\" is being played!");
         }
         soundThread = new SoundThread(pfad, loop);
         soundThreads.put(identifier, soundThread);
@@ -74,15 +74,15 @@ public class SoundPlayer {
     public void close(String identifier) {
         SoundThread soundThread = soundThreads.getOrDefault(identifier, null);
         if (soundThread == null) {
-            System.out.println("There is no Sound that can be closed with identifier \"" + identifier + "\"");
+            //System.out.println("There is no Sound that can be closed with identifier \"" + identifier + "\"");
             return;
         }
 
         if (soundThread.isPlaying()) {
             soundThread.close();
-            System.out.println("Sound \"" + identifier + "\" was stopped!");
+            //System.out.println("Sound \"" + identifier + "\" was stopped!");
         } else {
-            System.out.println("Sound \"" + identifier + "\" is not being played right now!");
+            //System.out.println("Sound \"" + identifier + "\" is not being played right now!");
         }
     }
 
