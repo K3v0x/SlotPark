@@ -11,14 +11,15 @@ package beans;
  */
 public enum Combi {
     HOHEKARTE("Hohe Karte", 1),
-    PAAR("Paar", 2),
-    DRILLING("Drilling", 3),
-    FLUSH("Flush", 4),
-    STRASSE("Strasse", 5),
-    FULLHOUSE("FullHouse", 6),
-    VIERLING("Vierling", 7),
-    STRAIGHTFLUSH("StraightFlush", 8),
-    ROYALFLUSH("RoyalFlush", 9);
+    PAAR("Ein Paar", 2),
+    ZWEIPAARE("Zwei Paare", 3),
+    DRILLING("Drilling", 4),
+    FLUSH("Flush", 5),
+    STRASSE("Strasse", 6),
+    FULLHOUSE("FullHouse", 7),
+    VIERLING("Vierling", 8),
+    STRAIGHTFLUSH("StraightFlush", 9),
+    ROYALFLUSH("RoyalFlush", 10);
 
     private Combi(String name, int wert) {
         this.name = name;

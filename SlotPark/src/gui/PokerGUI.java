@@ -565,12 +565,17 @@ public class PokerGUI extends javax.swing.JFrame {
                                 labels[i].setIcon(new ImageIcon(imagepath + cc.getKartentisch()[i].getWert() + "" + cc.getKartentisch()[i].getFarbe().getName() + ".png"));
                                 System.out.println(i);
                                 try {
-                                    Thread.sleep(1000);
+                                    Thread.sleep(200);
                                 } catch (InterruptedException ex) {
                                     return;
                                 }
                             }
                         } else {
+                            try {
+                                Thread.sleep(200);
+                            } catch (InterruptedException ex) {
+                                return;
+                            }
                             System.out.println("FLOP");
                             labels[cc.getFlopedcards() - 1].setIcon(new ImageIcon(imagepath + cc.getKartentisch()[cc.getFlopedcards() - 1].getWert() + "" + cc.getKartentisch()[cc.getFlopedcards() - 1].getFarbe().getName() + ".png"));
                         }

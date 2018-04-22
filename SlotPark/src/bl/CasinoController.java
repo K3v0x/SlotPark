@@ -99,7 +99,7 @@ public class CasinoController {
         checkCombi();
 
         for (PokerSpieler pokerSpieler : spielerliste) {
-            if (pokerSpieler.getGeld() >= mindesteinsatz) {
+            if (pokerSpieler.getGeld() >= mindesteinsatz && pokerSpieler != null) {
 
                 pokerSpieler.setGeld(pokerSpieler.getGeld() - mindesteinsatz);
                 pot = pot + mindesteinsatz;
@@ -165,16 +165,24 @@ public class CasinoController {
                     pokerSpieler.setCombo(combi);
 
                 } else if (anzahl.get(i + 1) == 3) {
-                    for (int j = 0; j < anzahl.size(); i++) {
+                    for (int j = 0; j < anzahl.size(); j++) {
                         if (anzahl.get(j + 1) == 2 && j != i) {
                             combi = FULLHOUSE;
-                            pokerSpieler.setCombo(combi);
                             pokerSpieler.setCombo(combi);
                         }
                     }
                 } else if (anzahl.get(i + 1) == 3) {
                     combi = DRILLING;
                     pokerSpieler.setCombo(combi);
+                    pokerSpieler.setCombo(combi);
+                } else if (anzahl.get(i + 1) == 2) {
+                    for (int j = 0; j < anzahl.size(); j++) {
+                        if (anzahl.get(j + 1) == 2 && j != i) {
+                            combi = ZWEIPAARE;
+                            pokerSpieler.setCombo(combi);
+                        }
+                    }
+
                     pokerSpieler.setCombo(combi);
 
                 } else if (anzahl.get(i + 1) == 2) {
