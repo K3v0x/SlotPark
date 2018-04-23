@@ -22,11 +22,11 @@ import javax.swing.JLabel;
  */
 public class SlotsGUI extends javax.swing.JFrame {
 
-    private Symbol[] slots = {DIAMOND, LUCK, TREE, CHERRY};
+    private Symbol[] slots = {Symbol.CHERRY, Symbol.TREE, Symbol.LUCK, Symbol.DIAMOND};
     private String imagepath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "images" + File.separator;
     JLabel[][] labels;
     SlotController sc;
-    
+
     private Spieler s;
 
     SlotThread st;
@@ -250,14 +250,11 @@ public class SlotsGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void onSpin(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onSpin
+        SlotThread st = new SlotThread();
+        Thread thread = new Thread(st);
+        thread.start();
         sc.spin();
-        Symbol[][] symbole = sc.getSlotdisplay();
-        for (int i = 0; i < symbole.length; i++) {
-            for (int j = 0; j < symbole.length; j++) {
-                labels[i][j].setIcon(new ImageIcon(imagepath + symbole[i][j].getName() + "Slot.png"));
-            }
-
-        }
+        spins = 0;
     }//GEN-LAST:event_onSpin
 
     private void onBack(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onBack
@@ -274,20 +271,24 @@ public class SlotsGUI extends javax.swing.JFrame {
             while (!Thread.interrupted()) {
                 for (int i = 0; i < labels.length; i++) {
                     for (int j = 0; j < labels.length; j++) {
-                        labels[i][j].setIcon(new ImageIcon(imagepath + slots[rand.nextInt((slots.length - 1) - 0 + 1) + 0] + "Slot.png"));
+                        int zz = rand.nextInt(slots.length - 1) - 0 + 1;
+                        labels[i][j].setIcon(new ImageIcon(imagepath + slots[zz] + "Slot.png"));
+                        System.out.print(zz + 1 + " ");
                     }
+                    System.out.println("\n");
                 }
+                System.out.println("\n");
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException ex) {
-                    Logger.getLogger(SlotsGUI.class.getName()).log(Level.SEVERE, null, ex);
+                    return;
                 }
                 spins++;
                 if (spins == 20) {
+
                     break;
                 }
             }
-
         }
 
     }

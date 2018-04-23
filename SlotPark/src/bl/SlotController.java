@@ -18,7 +18,7 @@ import java.util.Random;
  */
 public class SlotController {
 
-    Symbol[] slots = {DIAMOND, LUCK, TREE, CHERRY};
+   Symbol[] slots = {CHERRY,TREE,LUCK,DIAMOND};
     Symbol[][] slotdisplay = new Symbol[3][3];
     Random rand = new Random();
 
@@ -26,11 +26,8 @@ public class SlotController {
 
         for (int i = 0; i < slotdisplay.length; i++) {
             for (int j = 0; j < slotdisplay.length; j++) {
-
                 slotdisplay[i][j] = slots[rand.nextInt(3) + 0];
-                System.out.print(slotdisplay[i][j].getWert() + " ");
             }
-            System.out.println("\n");
         }
 
     }
@@ -42,6 +39,7 @@ public class SlotController {
     public void setSlotdisplay(Symbol[][] slotdisplay) {
         this.slotdisplay = slotdisplay;
     }
+
     
     
 }
