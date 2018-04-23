@@ -202,7 +202,7 @@ public class MenuGUI extends javax.swing.JFrame {
                 break;
             case "Poker":
                 PokerGUI pokergui = new PokerGUI();
-                pokergui.setS(s);
+           
                 pokergui.setVisible(true);
                 this.dispose();
                 break;

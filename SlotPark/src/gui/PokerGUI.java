@@ -507,8 +507,6 @@ public class PokerGUI extends javax.swing.JFrame {
 
     private void onBack(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onBack
         MenuGUI menugui = new MenuGUI();
-        menugui.setUsername(cc.getSpielerliste().getFirst().getName());
-        menugui.setGeld(cc.getSpielerliste().getFirst().getGeld() / 5);
         menugui.setVisible(true);
         player.close("music");
         this.dispose();
