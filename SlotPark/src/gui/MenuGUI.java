@@ -5,6 +5,7 @@
  */
 package gui;
 
+import beans.Spieler;
 import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -17,25 +18,17 @@ import javax.swing.border.LineBorder;
 public class MenuGUI extends javax.swing.JFrame {
 
     private String selgame = "Poker"; //Ausgewähltes Spiel
-    private String username;
-    private double geld;
+    private Spieler s;
 
-    public String getUsername() {
-        return username;
+    public Spieler getS() {
+        return s;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-        lbName.setText("Name: "+username);
-    }
-
-    public double getGeld() {
-        return geld;
-    }
-
-    public void setGeld(double geld) {
-        this.geld = geld;
-        lbGeld.setText("Geld: "+String.format("%,.02f €", geld));
+    public void setS(Spieler s) {
+        this.s = s;
+        lbName.setText("Name: "+s.getName());
+        lbGeld.setText("Geld: "+String.format("%,.02f €", s.getGeld()));
+        lbIcon.setIcon(s.getIcon().getIcon());
     }
 
     public MenuGUI() {
@@ -172,7 +165,6 @@ public class MenuGUI extends javax.swing.JFrame {
         jPanel6.setLayout(new java.awt.BorderLayout());
 
         lbIcon.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
-        lbIcon.setText("ICON");
         jPanel6.add(lbIcon, java.awt.BorderLayout.WEST);
 
         jPanel7.setLayout(new java.awt.GridLayout(2, 1));
@@ -204,15 +196,13 @@ public class MenuGUI extends javax.swing.JFrame {
         switch (selgame) {
             case "Slots":
                 SlotsGUI slotsgui = new SlotsGUI();
-                slotsgui.setUsername(username);
-                slotsgui.setGeld((int)(geld*5));
+                slotsgui.setS(s);
                 slotsgui.setVisible(true);
                 this.dispose();
                 break;
             case "Poker":
                 PokerGUI pokergui = new PokerGUI();
-                pokergui.setUsername(username);
-                pokergui.setGeld((int)(geld*5));
+                pokergui.setS(s);
                 pokergui.setVisible(true);
                 this.dispose();
                 break;

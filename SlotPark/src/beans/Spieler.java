@@ -15,11 +15,13 @@ public class Spieler {
     private String name;
     private String password;
     private double geld;
+    private Icon icon;
 
-    public Spieler(String name, String password, double geld) {
+    public Spieler(String name, String password, double geld, Icon icon) {
         this.name = name;
         this.password = password;
         this.geld = geld;
+        this.icon = icon;
     }
 
     public String getName() {
@@ -45,6 +47,16 @@ public class Spieler {
     public void setGeld(double geld) {
         this.geld = geld;
     }
+
+    public Icon getIcon() {
+        return icon;
+    }
+
+    public void setIcon(Icon icon) {
+        this.icon = icon;
+    }
+
+    
 
     @Override
     public int hashCode() {
