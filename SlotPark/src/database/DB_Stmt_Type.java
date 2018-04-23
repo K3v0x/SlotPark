@@ -12,7 +12,10 @@ package database;
 public enum DB_Stmt_Type {
     AddNewUser("INSERT INTO public.spieler(\n"
             + "	name, passwort, geld)\n"
-            + "	VALUES (?, ?, ?);");
+            + "	VALUES (?, ?, ?);"),
+    GetIconOfUser("SELECT pfad\n"
+            + "FROM icons\n"
+            + "WHERE name = ?;");
 
     private DB_Stmt_Type(String pStatString) {
         this.pStatString = pStatString;

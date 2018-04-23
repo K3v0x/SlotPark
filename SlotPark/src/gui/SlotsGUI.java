@@ -5,6 +5,7 @@
  */
 package gui;
 
+import beans.Spieler;
 import beans.Symbol;
 import static beans.Symbol.*;
 import bl.SlotController;
@@ -23,33 +24,26 @@ import javax.swing.JLabel;
 public class SlotsGUI extends javax.swing.JFrame {
 
     private Symbol[] slots = {DIAMOND, LUCK, TREE, CHERRY};
-    private String username;
-    private double geld;
     private String imagepath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "images" + File.separator;
     JLabel[][] labels;
     SlotController sc;
+    
+    private Spieler s;
 
     SlotThread st;
     Thread thread;
     Random rand = new Random();
     int spins = 0;
 
-    public String getUsername() {
-        return username;
+    public Spieler getS() {
+        return s;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-        lbName.setText("Name: " + username);
-    }
-
-    public double getGeld() {
-        return geld;
-    }
-
-    public void setGeld(double geld) {
-        this.geld = geld;
-        lbGeld.setText(String.format("Geld: %.0f Chips", geld));
+    public void setS(Spieler s) {
+        this.s = s;
+        lbName.setText("Name: " + s.getName());
+        lbGeld.setText(String.format("Geld: %.0f Chips", s.getGeld()));
+        lbIcon.setIcon(s.getIcon().getIcon());
     }
 
     public SlotsGUI() {
@@ -230,7 +224,6 @@ public class SlotsGUI extends javax.swing.JFrame {
         jPanel1.setLayout(new java.awt.BorderLayout());
 
         lbIcon.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
-        lbIcon.setText("Icon");
         jPanel1.add(lbIcon, java.awt.BorderLayout.WEST);
 
         jPanel4.setLayout(new java.awt.GridLayout(2, 0));
@@ -263,8 +256,7 @@ public class SlotsGUI extends javax.swing.JFrame {
 
     private void onBack(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onBack
         MenuGUI menugui = new MenuGUI();
-        menugui.setUsername(username);
-        menugui.setGeld((int) (geld / 5));
+        menugui.setS(s);
         menugui.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_onBack

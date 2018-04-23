@@ -6,6 +6,7 @@
 package gui;
 
 import beans.PokerSpieler;
+import beans.Spieler;
 import bl.CasinoController;
 import bl.SoundPlayer;
 import java.awt.Image;
@@ -34,29 +35,21 @@ public class PokerGUI extends javax.swing.JFrame {
     private JLabel[] comlabels;
     private JLabel[] statuslabels;
 
-    private String username;
-    private double geld;
+    private Spieler s;
     private int einsatz = 0;
     boolean aufdecken = false;
 
-    public String getUsername() {
-        return username;
+    public Spieler getS() {
+        return s;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-        cc.setUsername(username);
-        lbName.setText("Name: " + username);
-    }
-
-    public double getGeld() {
-        return geld;
-    }
-
-    public void setGeld(double geld) {
-        this.geld = geld;
-        cc.setGeld(geld);
-        lbGeld.setText(String.format("Geld: %.0f Chips", geld));
+    public void setS(Spieler s) {
+        this.s = s;
+        cc.setUsername(s.getName());
+        lbName.setText("Name: " + s.getName());
+        cc.setGeld(s.getGeld());
+        lbGeld.setText(String.format("Geld: %.0f Chips", s.getGeld()));
+        lbIcon.setIcon(s.getIcon().getIcon());
     }
 
     public PokerGUI() {
@@ -141,7 +134,6 @@ public class PokerGUI extends javax.swing.JFrame {
         jPanel1.setLayout(new java.awt.BorderLayout());
 
         lbIcon.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        lbIcon.setText("Icon");
         jPanel1.add(lbIcon, java.awt.BorderLayout.WEST);
 
         jPanel7.setLayout(new java.awt.GridLayout(2, 0));
@@ -408,7 +400,7 @@ public class PokerGUI extends javax.swing.JFrame {
 
     private void onLoad(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_onLoad
         thread.start();
-        if (username == null) {
+        if (s.getName() == null) {
             cc.setGeld(500);
         }
         cc.load();
@@ -486,8 +478,7 @@ public class PokerGUI extends javax.swing.JFrame {
 
     private void onBack(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onBack
         MenuGUI menugui = new MenuGUI();
-        menugui.setUsername(username);
-        menugui.setGeld((int) (geld / 5));
+        menugui.setS(s);
         menugui.setVisible(true);
         player.close("music");
         this.dispose();

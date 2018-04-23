@@ -5,7 +5,9 @@
  */
 package database;
 
+import beans.Icon;
 import beans.Spieler;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -33,8 +35,9 @@ public class DB_Access {
 
     public List<Spieler> getAllUsers() throws Exception {
         Connection conn = connections.getConnection();
-        String sqlString = "SELECT name, passwort, geld\n"
+        String sqlString = "SELECT name, passwort, geld, icon\n"
                 + "FROM spieler;";
+        PreparedStatement pStat = pool.getPreparedStatement(conn, DB_Stmt_Type.GetIconOfUser);
         Statement stat = conn.createStatement();
         ResultSet rs = stat.executeQuery(sqlString);
         List<Spieler> spieler = new LinkedList<>();
@@ -42,7 +45,16 @@ public class DB_Access {
             String name = rs.getString(1);
             String passwort = rs.getString(2);
             double geld = rs.getDouble(3);
-            spieler.add(new Spieler(name, passwort, geld));
+            String iconS = rs.getString(4);
+            pStat.setString(1, iconS);
+            ResultSet rsIcon = pStat.executeQuery();
+            String pfad = null;
+            while(rsIcon.next())
+            {
+                pfad = rsIcon.getString(1);
+            }
+            Icon icon = new Icon(iconS, pfad);
+            spieler.add(new Spieler(name, passwort, geld, icon));
         }
         connections.releaseConnection(conn);
         return spieler;
@@ -60,5 +72,23 @@ public class DB_Access {
             return true;
         }
         return false;
+    }
+
+    public List<Icon> getIcons() throws Exception {
+        Connection conn = connections.getConnection();
+        String sqlString = "SELECT name, pfad\n"
+                + "FROM icons";
+        Statement stat = conn.createStatement();
+        ResultSet rs = stat.executeQuery(sqlString);
+        List<Icon> icons = new LinkedList<>();
+        while(rs.next())
+        {
+         String name = rs.getString(1);
+         String pfad = rs.getString(2);
+         pfad = System.getProperty("user.dir") + File.separator + pfad;
+         icons.add(new Icon(name, pfad));
+        }
+        connections.releaseConnection(conn);
+        return icons;
     }
 }

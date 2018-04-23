@@ -18,8 +18,8 @@ public class PokerSpieler extends Spieler {
     private boolean bankrott;
     private boolean computer;
 
-    public PokerSpieler(Karte[] karten, Combi combo, String status, boolean folded, boolean bankrott, boolean computer, String name, String password, double geld) {
-        super(name, password, geld);
+    public PokerSpieler(Karte[] karten, Combi combo, String status, boolean folded, boolean bankrott, boolean computer, String name, String password, double geld, Icon icon) {
+        super(name, password, geld, icon);
         this.karten = karten;
         this.combo = combo;
         this.status = status;

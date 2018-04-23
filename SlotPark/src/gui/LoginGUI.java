@@ -5,7 +5,9 @@
  */
 package gui;
 
+import beans.Icon;
 import beans.Spieler;
+import bl.ComboboxRenderer;
 import database.DB_Access;
 import java.awt.Color;
 import java.util.LinkedList;
@@ -22,6 +24,7 @@ public class LoginGUI extends javax.swing.JFrame {
 
     private DB_Access access;
     private LinkedList<Spieler> spieler = new LinkedList<>();
+    private LinkedList<Icon> icons = new LinkedList<>();
 
     
     public LoginGUI() {
@@ -36,8 +39,15 @@ public class LoginGUI extends javax.swing.JFrame {
         } catch (Exception ex) {
             Logger.getLogger(LoginGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
+        cbImages.setRenderer(new ComboboxRenderer());
+        try {
+            icons = (LinkedList<Icon>) access.getIcons();
+            for (Icon i : icons) {
+            cbImages.addItem(i);
+        }
+        } catch (Exception ex) {
+            Logger.getLogger(LoginGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -201,14 +211,14 @@ public class LoginGUI extends javax.swing.JFrame {
 
         paRegister.add(paRegisterPanel, java.awt.BorderLayout.CENTER);
 
-        jPanel4.setLayout(new java.awt.GridLayout(4, 1));
+        jPanel4.setLayout(new java.awt.BorderLayout());
 
         jLabel7.setFont(new java.awt.Font("Eras Bold ITC", 1, 48)); // NOI18N
         jLabel7.setText("Icon:");
-        jPanel4.add(jLabel7);
+        jPanel4.add(jLabel7, java.awt.BorderLayout.NORTH);
 
         cbImages.setFont(new java.awt.Font("Eras Bold ITC", 1, 48)); // NOI18N
-        jPanel4.add(cbImages);
+        jPanel4.add(cbImages, java.awt.BorderLayout.CENTER);
 
         paRegister.add(jPanel4, java.awt.BorderLayout.WEST);
 
@@ -249,8 +259,7 @@ public class LoginGUI extends javax.swing.JFrame {
             for (Spieler s : spieler) {
                 if (s.getName().equals(user) && s.getPassword().equals(password)) {
                     MenuGUI menugui = new MenuGUI();
-                    menugui.setGeld(s.getGeld());
-                    menugui.setUsername(s.getName());
+                    menugui.setS(s);
                     menugui.setVisible(true);
                     this.dispose();
                     return;
@@ -264,6 +273,7 @@ public class LoginGUI extends javax.swing.JFrame {
     private void onRealRegister(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onRealRegister
         boolean checkuser = false;
         boolean checkpassword = false;
+        Icon icon = (Icon) cbImages.getSelectedItem();
         String user = tfRegister.getText();
         String password = pfRegister.getText();
         String password2 = pfRegister2.getText();
@@ -294,13 +304,12 @@ public class LoginGUI extends javax.swing.JFrame {
         }
 
         if (checkpassword && checkuser) {
-            Spieler s = new Spieler(user, password, 100.0);
+            Spieler s = new Spieler(user, password, 100.0, icon);
             try {
                 boolean erfolg = access.addUser(s);
                 if (erfolg) {
                     MenuGUI menugui = new MenuGUI();
-                    menugui.setGeld(s.getGeld());
-                    menugui.setUsername(s.getName());
+                    menugui.setS(s);
                     menugui.setVisible(true);
                     this.dispose();
                 }
@@ -326,8 +335,7 @@ public class LoginGUI extends javax.swing.JFrame {
             for (Spieler s : spieler) {
                 if (s.getName().equals(user) && s.getPassword().equals(password)) {
                     MenuGUI menugui = new MenuGUI();
-                    menugui.setGeld(s.getGeld());
-                    menugui.setUsername(s.getName());
+                    menugui.setS(s);
                     menugui.setVisible(true);
                     this.dispose();
                     return;
@@ -341,6 +349,7 @@ public class LoginGUI extends javax.swing.JFrame {
     private void onRegisterEnter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onRegisterEnter
         boolean checkuser = false;
         boolean checkpassword = false;
+        Icon icon = (Icon) cbImages.getSelectedItem();
         String user = tfRegister.getText();
         String password = pfRegister.getText();
         String password2 = pfRegister2.getText();
@@ -371,13 +380,12 @@ public class LoginGUI extends javax.swing.JFrame {
         }
 
         if (checkpassword && checkuser) {
-            Spieler s = new Spieler(user, password, 100.0);
+            Spieler s = new Spieler(user, password, 100.0, icon);
             try {
                 boolean erfolg = access.addUser(s);
                 if (erfolg) {
                     MenuGUI menugui = new MenuGUI();
-                    menugui.setGeld(s.getGeld());
-                    menugui.setUsername(s.getName());
+                    menugui.setS(s);
                     menugui.setVisible(true);
                     this.dispose();
                 }
@@ -425,7 +433,7 @@ public class LoginGUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btLogin;
     private javax.swing.JButton btRegister;
-    private javax.swing.JComboBox<String> cbImages;
+    private javax.swing.JComboBox<Icon> cbImages;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
