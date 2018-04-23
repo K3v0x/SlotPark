@@ -49,6 +49,7 @@ public class CasinoController {
         PokerSpieler com3 = new PokerSpieler(new Karte[2], HOHEKARTE, "...", false, false, true, "Sarah", "1", geld);
         PokerSpieler com4 = new PokerSpieler(new Karte[2], HOHEKARTE, "...", false, false, true, "Tom", "1", geld);
         
+        spielerliste.clear();
         spielerliste.add(spieler);
         spielerliste.add(com1);
         spielerliste.add(com2);
@@ -206,8 +207,9 @@ public class CasinoController {
             } else if (!raisemode) {
                 int chance = 10 - pokerSpieler.getCombo().getWert();
                 if (rand.nextInt(chance - 0 + 1) + 0 == 0) {
-                    pokerSpieler.setStatus("Raised");
+                    
                     int einsatz = (int) (rand.nextInt((int) (pokerSpieler.getGeld() / 2 - pokerSpieler.getGeld() / 4 + 1)));
+                    pokerSpieler.setStatus("Raised " + einsatz);
                     pokerSpieler.setGeld(pokerSpieler.getGeld() - einsatz);
                     pot = pot + einsatz;
                 } else {
@@ -282,9 +284,7 @@ public class CasinoController {
         //Einsatz erhöhen
         raisemode = true;
         pot = pot + einsatz;
-        for (PokerSpieler pokerSpieler : spielerliste) {
-            letcomplay(pokerSpieler);
-        }
+        spielerliste.getFirst().setGeld(spielerliste.getFirst().getGeld() - einsatz);
     }
     
     public LinkedList<PokerSpieler> getSpielerliste() {

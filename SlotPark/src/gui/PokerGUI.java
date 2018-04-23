@@ -436,21 +436,31 @@ public class PokerGUI extends javax.swing.JFrame {
                 int antwort = JOptionPane.showConfirmDialog(this, "Wollen Sie wirklich All-in gehen?");
                 if (antwort == 0) {
                     cc.raise(einsatz);
+                    cc.check();
+                    aufdecken = true;
                 }
             } else {
                 cc.raise(einsatz);
+                cc.check();
+                aufdecken = true;
             }
 
         } catch (NumberFormatException e) {
             System.out.println("is keine zahl");
         }
-
         updateUI();
     }//GEN-LAST:event_onRaise
 
     private void onCheck(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onCheck
 
-        if (btCheck.getText().equals("Neue Runde")) {
+        if (btCheck.getText().equals("Neues Spiel")) {
+            lbWinner.setText("");
+            btCheck.setText("Check");
+            btFold.setEnabled(true);
+            btRaise.setEnabled(true);
+            cc.load();
+            cc.newRound();
+        } else if (btCheck.getText().equals("Neue Runde")) {
             lbWinner.setText("");
             btCheck.setText("Check");
             btFold.setEnabled(true);
@@ -460,7 +470,12 @@ public class PokerGUI extends javax.swing.JFrame {
             btCheck.setText("Neue Runde");
             btFold.setEnabled(false);
             btRaise.setEnabled(false);
-            lbWinner.setText(cc.checkwin().getName() + " hat gewonnen!");
+            if (cc.getSpielerliste().getFirst().getStatus().equals("WINNER")) {
+                lbWinner.setText(cc.checkwin().getName() + " hat das ganze Spiel gewonnen!");
+                btCheck.setText("Neues Spiel");
+            } else {
+                lbWinner.setText(cc.checkwin().getName() + " hat gewonnen!");
+            }
         } else if (btCheck.getText().equals("Check")) {
             btCheck.setEnabled(false);
             cc.check();
@@ -494,6 +509,7 @@ public class PokerGUI extends javax.swing.JFrame {
         jsEinsatz.setMajorTickSpacing((int) cc.getSpielerliste().getFirst().getGeld() / 4);
         jsEinsatz.setMinorTickSpacing((int) cc.getSpielerliste().getFirst().getGeld() / 10);
         jsEinsatz.setMaximum((int) cc.getSpielerliste().getFirst().getGeld());
+        jsEinsatz.setMinimum((int) cc.getMindesteinsatz());
 
         for (int i = 0; i < kartenlabels.length; i++) {
             ImageIcon imageIcon = new ImageIcon(imagepath + spielerliste.getFirst().getKarten()[i].getWert() + "" + spielerliste.getFirst().getKarten()[i].getFarbe().getName() + ".png"); // load the image to a imageIcon
