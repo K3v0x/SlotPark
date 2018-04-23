@@ -8,6 +8,7 @@ package gui;
 import beans.PokerSpieler;
 import bl.CasinoController;
 import bl.SoundPlayer;
+import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
 import java.util.LinkedList;
@@ -15,6 +16,7 @@ import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
  *
@@ -33,6 +35,7 @@ public class PokerGUI extends javax.swing.JFrame {
     private JLabel[] kartenlabels;
     private JLabel[] comlabels;
     private JLabel[] statuslabels;
+    private JPanel[] panels;
 
     private String username;
     private double geld;
@@ -56,7 +59,7 @@ public class PokerGUI extends javax.swing.JFrame {
     public void setGeld(double geld) {
         this.geld = geld;
         cc.setGeld(geld);
-        lbGeld.setText(String.format("Geld: %.0f Chips", geld));
+        lbGeld.setText("Geld: " + geld + " Chips");
     }
 
     public PokerGUI() {
@@ -140,16 +143,22 @@ public class PokerGUI extends javax.swing.JFrame {
 
         jPanel1.setLayout(new java.awt.BorderLayout());
 
-        lbIcon.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lbIcon.setBackground(new java.awt.Color(0, 204, 204));
+        lbIcon.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         lbIcon.setText("Icon");
+        lbIcon.setOpaque(true);
         jPanel1.add(lbIcon, java.awt.BorderLayout.WEST);
 
         jPanel7.setLayout(new java.awt.GridLayout(2, 0));
 
-        lbName.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lbName.setBackground(new java.awt.Color(0, 204, 204));
+        lbName.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
+        lbName.setOpaque(true);
         jPanel7.add(lbName);
 
-        lbGeld.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lbGeld.setBackground(new java.awt.Color(0, 204, 204));
+        lbGeld.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
+        lbGeld.setOpaque(true);
         jPanel7.add(lbGeld);
 
         jPanel1.add(jPanel7, java.awt.BorderLayout.CENTER);
@@ -159,6 +168,7 @@ public class PokerGUI extends javax.swing.JFrame {
         jPanel19.setForeground(new java.awt.Color(153, 102, 0));
         jPanel19.setLayout(new java.awt.GridLayout(1, 4));
 
+        paCom1.setBackground(new java.awt.Color(255, 255, 255));
         paCom1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         paCom1.setLayout(new java.awt.GridLayout(3, 0));
 
@@ -180,6 +190,7 @@ public class PokerGUI extends javax.swing.JFrame {
 
         jPanel19.add(paCom1);
 
+        paCom2.setBackground(new java.awt.Color(255, 255, 255));
         paCom2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         paCom2.setLayout(new java.awt.GridLayout(3, 0));
 
@@ -200,6 +211,7 @@ public class PokerGUI extends javax.swing.JFrame {
 
         jPanel19.add(paCom2);
 
+        paCom3.setBackground(new java.awt.Color(255, 255, 255));
         paCom3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         paCom3.setLayout(new java.awt.GridLayout(3, 0));
 
@@ -220,6 +232,7 @@ public class PokerGUI extends javax.swing.JFrame {
 
         jPanel19.add(paCom3);
 
+        paCom4.setBackground(new java.awt.Color(255, 255, 255));
         paCom4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         paCom4.setLayout(new java.awt.GridLayout(3, 0));
 
@@ -246,7 +259,7 @@ public class PokerGUI extends javax.swing.JFrame {
 
         jPanel2.setLayout(new java.awt.BorderLayout());
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jButton1.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         jButton1.setText("Zurück");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -258,7 +271,7 @@ public class PokerGUI extends javax.swing.JFrame {
         jPanel9.setLayout(new java.awt.GridLayout(2, 0));
 
         tfEinsatz.setEditable(false);
-        tfEinsatz.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        tfEinsatz.setFont(new java.awt.Font("Eras Bold ITC", 0, 24)); // NOI18N
         tfEinsatz.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jPanel9.add(tfEinsatz);
 
@@ -273,7 +286,7 @@ public class PokerGUI extends javax.swing.JFrame {
 
         jPanel4.setLayout(new java.awt.GridLayout(1, 3));
 
-        btCheck.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        btCheck.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         btCheck.setText("Check");
         btCheck.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -282,7 +295,7 @@ public class PokerGUI extends javax.swing.JFrame {
         });
         jPanel4.add(btCheck);
 
-        btRaise.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        btRaise.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         btRaise.setText("Erhöhen");
         btRaise.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -291,7 +304,7 @@ public class PokerGUI extends javax.swing.JFrame {
         });
         jPanel4.add(btRaise);
 
-        btFold.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        btFold.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         btFold.setText("Fold");
         btFold.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -351,12 +364,12 @@ public class PokerGUI extends javax.swing.JFrame {
         jPanel20.setOpaque(false);
         jPanel20.setLayout(new java.awt.GridLayout(1, 2));
 
-        lbDeckWert.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        lbDeckWert.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         lbDeckWert.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbDeckWert.setText("Checking...");
         jPanel20.add(lbDeckWert);
 
-        lbMindesteinsatz.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        lbMindesteinsatz.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         lbMindesteinsatz.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jPanel20.add(lbMindesteinsatz);
 
@@ -392,7 +405,7 @@ public class PokerGUI extends javax.swing.JFrame {
         jPanel11.add(jPanel13, java.awt.BorderLayout.CENTER);
 
         lbPot.setBackground(new java.awt.Color(153, 102, 0));
-        lbPot.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        lbPot.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         lbPot.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbPot.setText("POT: 0 Chips");
         jPanel11.add(lbPot, java.awt.BorderLayout.NORTH);
@@ -421,6 +434,7 @@ public class PokerGUI extends javax.swing.JFrame {
         kartenlabels = new JLabel[]{lbCard1, lbCard2};
         comlabels = new JLabel[]{lbCom1, lbCom2, lbCom3, lbCom4};
         statuslabels = new JLabel[]{lbStatus1, lbStatus2, lbStatus3, lbStatus4};
+        panels = new JPanel[]{paCom1, paCom2, paCom3, paCom4};
         updateUI();
 
     }//GEN-LAST:event_onLoad
@@ -460,6 +474,10 @@ public class PokerGUI extends javax.swing.JFrame {
             btRaise.setEnabled(true);
             cc.load();
             cc.newRound();
+            paCom1.setBackground(Color.WHITE);
+            paCom2.setBackground(Color.WHITE);
+            paCom3.setBackground(Color.WHITE);
+            paCom4.setBackground(Color.WHITE);
         } else if (btCheck.getText().equals("Neue Runde")) {
             lbWinner.setText("");
             btCheck.setText("Check");
@@ -478,16 +496,19 @@ public class PokerGUI extends javax.swing.JFrame {
             }
         } else if (btCheck.getText().equals("Check")) {
             btCheck.setEnabled(false);
+            btFold.setEnabled(false);
+            btRaise.setEnabled(false);
             cc.check();
             aufdecken = true;
         }
+
         updateUI();
     }//GEN-LAST:event_onCheck
 
     private void onBack(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onBack
         MenuGUI menugui = new MenuGUI();
-        menugui.setUsername(username);
-        menugui.setGeld((int) (geld / 5));
+        menugui.setUsername(cc.getSpielerliste().getFirst().getName());
+        menugui.setGeld(cc.getSpielerliste().getFirst().getGeld() / 5);
         menugui.setVisible(true);
         player.close("music");
         this.dispose();
@@ -496,14 +517,16 @@ public class PokerGUI extends javax.swing.JFrame {
     private void onChange(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_onChange
         einsatz = jsEinsatz.getValue();
         tfEinsatz.setText(einsatz + "/" + (int) cc.getSpielerliste().getFirst().getGeld());
-
     }//GEN-LAST:event_onChange
 
     public void updateUI() {
+
         LinkedList<PokerSpieler> spielerliste = cc.getSpielerliste();
         lbPot.setText("Pot: " + cc.getPot());
         lbDeckWert.setText(spielerliste.getFirst().getCombo().getName());
         lbMindesteinsatz.setText("Min.: " + cc.getMindesteinsatz());
+        lbGeld.setText("Geld: " + (int) cc.getSpielerliste().getFirst().getGeld() + " Chips");
+
         tfEinsatz.setText(einsatz + "/" + (int) spielerliste.getFirst().getGeld());
 
         jsEinsatz.setMajorTickSpacing((int) cc.getSpielerliste().getFirst().getGeld() / 4);
@@ -525,6 +548,11 @@ public class PokerGUI extends javax.swing.JFrame {
             lbC4.setIcon(new ImageIcon(imagepath + "red_back.png"));
             lbC5.setIcon(new ImageIcon(imagepath + "red_back.png"));
         }
+        if (cc.getSpielerliste().getFirst().getGeld() <= 0) {
+            btFold.setEnabled(false);
+            btRaise.setEnabled(false);
+            btCheck.setEnabled(false);
+        }
         dispayCombo(comlabels, statuslabels);
         if (spielerliste.getFirst().getStatus().equals("WINNER")) {
             btRaise.setEnabled(false);
@@ -542,7 +570,7 @@ public class PokerGUI extends javax.swing.JFrame {
             } else {
                 lbStatus[i - 1].setText("Bankrott");
                 lbCom[i - 1].setText("---");
-
+                panels[i - 1].setBackground(Color.GRAY);
             }
         }
         System.out.println("\n");
@@ -622,6 +650,8 @@ public class PokerGUI extends javax.swing.JFrame {
                         }
                         aufdecken = false;
                         btCheck.setEnabled(true);
+                        btFold.setEnabled(true);
+                        btRaise.setEnabled(true);
                     }
 
                 }

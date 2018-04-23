@@ -13,7 +13,6 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 /**
@@ -229,18 +228,24 @@ public class SlotsGUI extends javax.swing.JFrame {
 
         jPanel1.setLayout(new java.awt.BorderLayout());
 
+        lbIcon.setBackground(new java.awt.Color(0, 153, 153));
         lbIcon.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         lbIcon.setText("Icon");
+        lbIcon.setOpaque(true);
         jPanel1.add(lbIcon, java.awt.BorderLayout.WEST);
 
         jPanel4.setLayout(new java.awt.GridLayout(2, 0));
 
+        lbName.setBackground(new java.awt.Color(0, 153, 153));
         lbName.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         lbName.setText("Name:");
+        lbName.setOpaque(true);
         jPanel4.add(lbName);
 
+        lbGeld.setBackground(new java.awt.Color(0, 153, 153));
         lbGeld.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         lbGeld.setText("Geld:");
+        lbGeld.setOpaque(true);
         jPanel4.add(lbGeld);
 
         jPanel1.add(jPanel4, java.awt.BorderLayout.CENTER);
