@@ -21,44 +21,44 @@ import javax.swing.JLabel;
  * @author Kevin
  */
 public class SlotsGUI extends javax.swing.JFrame {
-
+    
     private Symbol[] slots = {Symbol.CHERRY, Symbol.TREE, Symbol.LUCK, Symbol.DIAMOND};
     private String imagepath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "images" + File.separator;
     JLabel[][] labels;
     SlotController sc;
-
+    
     private Spieler s;
-
+    
     SlotThread st;
     Thread thread;
     Random rand = new Random();
     int spins = 0;
-
+    
     public Spieler getS() {
         return s;
     }
-
+    
     public void setS(Spieler s) {
         this.s = s;
         lbName.setText("Name: " + s.getName());
-        lbGeld.setText(String.format("Geld: %.0f Chips", s.getGeld()*5));
+        lbGeld.setText(String.format("Geld: %.0f Chips", s.getGeld() * 5));
         lbIcon.setIcon(s.getIcon().getIcon());
     }
-
+    
     public SlotsGUI() {
 //        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 //        this.setUndecorated(true);
         initComponents();
         st = new SlotThread();
-
+        
         sc = new SlotController();
         labels = new JLabel[][]{
             {lb00, lb01, lb02},
             {lb10, lb11, lb12},
             {lb20, lb21, lb22}};
-      
+        
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -82,7 +82,7 @@ public class SlotsGUI extends javax.swing.JFrame {
         jToggleButton2 = new javax.swing.JToggleButton();
         jToggleButton3 = new javax.swing.JToggleButton();
         jPanel3 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        btSpielen = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -192,14 +192,14 @@ public class SlotsGUI extends javax.swing.JFrame {
 
         jPanel3.setLayout(new java.awt.GridLayout(2, 0));
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        jButton1.setText("Spielen");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btSpielen.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        btSpielen.setText("Spielen");
+        btSpielen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 onSpin(evt);
             }
         });
-        jPanel3.add(jButton1);
+        jPanel3.add(btSpielen);
 
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
         jButton2.setText("Zurück");
@@ -252,6 +252,7 @@ public class SlotsGUI extends javax.swing.JFrame {
         Thread thread = new Thread(st);
         thread.start();
         sc.spin();
+        btSpielen.setEnabled(false);
         spins = 0;
     }//GEN-LAST:event_onSpin
 
@@ -261,9 +262,9 @@ public class SlotsGUI extends javax.swing.JFrame {
         menugui.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_onBack
-
+    
     public class SlotThread implements Runnable {
-
+        
         @Override
         public void run() {
             while (!Thread.interrupted()) {
@@ -283,14 +284,14 @@ public class SlotsGUI extends javax.swing.JFrame {
                 }
                 spins++;
                 if (spins == 20) {
-
+                    btSpielen.setEnabled(true);
                     break;
                 }
             }
         }
-
+        
     }
-
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -324,7 +325,7 @@ public class SlotsGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btSpielen;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

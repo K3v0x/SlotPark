@@ -49,7 +49,9 @@ public class CasinoController {
         spieler = new PokerSpieler(new Karte[2], HOHEKARTE, "...", false, false, false, name, "1", geld, null);
     }
 
-   
+    /**
+     * Begint ein neues Spiel
+     */
     public void load() {
         PokerSpieler com1 = new PokerSpieler(new Karte[2], HOHEKARTE, "...", false, false, true, "Mike", "1", geld, null);
         PokerSpieler com2 = new PokerSpieler(new Karte[2], HOHEKARTE, "...", false, false, true, "Martin", "1", geld, null);
@@ -66,8 +68,10 @@ public class CasinoController {
         newRound();
     }
 
-    public void newRound() { //Neue Runde starten
-        pot = 0;
+    /**
+     * Beginnt eine neue Runde
+     */
+    public void newRound() {
         stapel.clear();
         flopedcards = 0;
         preflop = true;
@@ -117,7 +121,11 @@ public class CasinoController {
 
     }
 
-    //Karten erstellen
+    /**
+     * Erstellt die Karten des Kartenstapels
+     *
+     * @param farbe Die Farbe der Karten, die erstellt werden sollen
+     */
     public void createCards(Farbe farbe) {
         for (int i = 0; i < 10; i++) {
             stapel.add(new Karte(i + 1, farbe));
@@ -125,30 +133,27 @@ public class CasinoController {
         Collections.shuffle(stapel);
     }
 
-    //Auf Combis prüfen
+    /**
+     * Prüft auf die Combo des Pokerspielers
+     *
+     * @param pokerSpieler Das Objekt vom Pokerspieler
+     */
     public void checkCombi(PokerSpieler pokerSpieler) {
 
         HashMap<Integer, Integer> anzahl = new HashMap<>();
         Karte[] deck = pokerSpieler.getKarten();
         Karte[] alle = new Karte[7];
         Combi combi = HOHEKARTE;
-        //Eigene Karten übertragen
         for (int i = 0; i < deck.length; i++) {
             alle[i] = deck[i];
 
         }
-
-        //Community-Karten übertragen
         for (int i = 0; i < flopedcards; i++) {
             alle[i + 2] = kartentisch[i];
         }
-
-        //Hashmap setzen
         for (int i = 0; i < 10; i++) {
             anzahl.put(i + 1, 0);
         }
-
-        //Anzahl der Karten im Deck zählen
         for (int i = 0; i < anzahl.size(); i++) {
             for (int j = 0; j < alle.length; j++) {
                 if (alle[j] != null) {
@@ -161,7 +166,6 @@ public class CasinoController {
 
         }
 
-        //Combo prüfen
         for (int i = 0; i < anzahl.size(); i++) {
             if (anzahl.get(i + 1) == 4) {
                 combi = VIERLING;
@@ -205,8 +209,12 @@ public class CasinoController {
 
     }
 
+    /**
+     * Lässt den Computer spielen
+     *
+     * @param pokerSpieler Das Objekt vom Pokerspieler
+     */
     public void letcomplay(PokerSpieler pokerSpieler) {
-
         if (!pokerSpieler.isFolded() && pokerSpieler.isComputer() && !pokerSpieler.isBankrott()) {
             if (raisemode && pokerSpieler.getCombo() == HOHEKARTE) {
                 pokerSpieler.setFolded(true);
@@ -214,7 +222,6 @@ public class CasinoController {
             } else if (!raisemode) {
                 int chance = 10 - pokerSpieler.getCombo().getWert();
                 if (rand.nextInt(chance - 0 + 1) + 0 == 0) {
-
                     int einsatz = (int) (rand.nextInt((int) (pokerSpieler.getGeld() / 2 - pokerSpieler.getGeld() / 4 + 1)));
                     pokerSpieler.setStatus("Raised " + einsatz);
                     pokerSpieler.setGeld(pokerSpieler.getGeld() - einsatz);
@@ -228,6 +235,10 @@ public class CasinoController {
 
     }
 
+    /**
+     * Wählt den Gewinner aus
+     * @return Der gewinner der Runde
+     */
     public PokerSpieler checkwin() {
         PokerSpieler winner = spielerliste.getFirst();
         Combi winnercombo = HOHEKARTE;
@@ -258,6 +269,9 @@ public class CasinoController {
 
     }
 
+    /**
+     * Check-Zug
+     */
     public void check() {
         player.play("effect", "Check.mp3", false);
         raisemode = false;
@@ -287,6 +301,10 @@ public class CasinoController {
         }
     }
 
+    /**
+     * Erhöht den Pot
+     * @param einsatz Einsatz des Pokerspielers
+     */
     public void raise(int einsatz) {
         //Einsatz erhöhen
         raisemode = true;
