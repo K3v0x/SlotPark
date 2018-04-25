@@ -6,6 +6,7 @@
 package gui;
 
 import beans.PokerSpieler;
+import beans.Spieler;
 import bl.CasinoController;
 import bl.SoundPlayer;
 import java.awt.Color;
@@ -37,29 +38,19 @@ public class PokerGUI extends javax.swing.JFrame {
     private JLabel[] statuslabels;
     private JPanel[] panels;
 
-    private String username;
-    private double geld;
+    private Spieler s;
     private int einsatz = 0;
     boolean aufdecken = false;
 
-    public String getUsername() {
-        return username;
+    public Spieler getS() {
+        return s;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-        cc.setUsername(username);
-        lbName.setText("Name: " + username);
-    }
-
-    public double getGeld() {
-        return geld;
-    }
-
-    public void setGeld(double geld) {
-        this.geld = geld;
-        cc.setGeld(geld);
-        lbGeld.setText("Geld: " + geld + " Chips");
+    public void setS(Spieler s) {
+        this.s = s;
+        lbName.setText("Name: " + s.getName());
+        lbGeld.setText(String.format("Geld: %.0f Chips", s.getGeld()*5));
+        lbIcon.setIcon(s.getIcon().getIcon());
     }
 
     public PokerGUI() {
@@ -421,7 +412,7 @@ public class PokerGUI extends javax.swing.JFrame {
 
     private void onLoad(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_onLoad
         thread.start();
-        if (username == null) {
+        if (s.getName() == null) {
             cc.setGeld(500);
         }
         cc.load();

@@ -41,7 +41,7 @@ public class SlotsGUI extends javax.swing.JFrame {
     public void setS(Spieler s) {
         this.s = s;
         lbName.setText("Name: " + s.getName());
-        lbGeld.setText(String.format("Geld: %.0f Chips", s.getGeld()));
+        lbGeld.setText(String.format("Geld: %.0f Chips", s.getGeld()*5));
         lbIcon.setIcon(s.getIcon().getIcon());
     }
 
