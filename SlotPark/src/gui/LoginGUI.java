@@ -59,6 +59,8 @@ public class LoginGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel6 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -87,11 +89,15 @@ public class LoginGUI extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new java.awt.GridLayout(1, 2));
+        getContentPane().add(jPanel6);
+
+        jPanel5.setLayout(new java.awt.BorderLayout());
 
         jLabel1.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("SlotPark");
-        getContentPane().add(jLabel1, java.awt.BorderLayout.PAGE_START);
+        jPanel5.add(jLabel1, java.awt.BorderLayout.PAGE_START);
 
         jPanel1.setLayout(new java.awt.GridLayout(3, 0));
 
@@ -235,7 +241,9 @@ public class LoginGUI extends javax.swing.JFrame {
         });
         jPanel1.add(jButton3);
 
-        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
+        jPanel5.add(jPanel1, java.awt.BorderLayout.CENTER);
+
+        getContentPane().add(jPanel5);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -448,6 +456,8 @@ public class LoginGUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel paLogin;
     private javax.swing.JPanel paLoginPanel;
     private javax.swing.JPanel paRegister;
