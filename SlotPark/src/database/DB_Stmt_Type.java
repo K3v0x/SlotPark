@@ -11,10 +11,13 @@ package database;
  */
 public enum DB_Stmt_Type {
     AddNewUser("INSERT INTO public.spieler(\n"
-            + "	name, passwort, geld)\n"
-            + "	VALUES (?, ?, ?);"),
+            + "	name, passwort, geld, icon)\n"
+            + "	VALUES (?, ?, ?, ?);"),
+    UpdateUser("UPDATE public.spieler\n"
+            + "	SET geld = ?\n"
+            + "	WHERE name = ?;"),
     GetIconOfUser("SELECT pfad\n"
-            + "FROM icons\n"
+            + "FROM public.icons\n"
             + "WHERE name = ?;");
 
     private DB_Stmt_Type(String pStatString) {

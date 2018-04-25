@@ -6,7 +6,10 @@
 package gui;
 
 import beans.Spieler;
+import database.DB_Access;
 import java.awt.Color;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.border.LineBorder;
@@ -19,6 +22,7 @@ public class MenuGUI extends javax.swing.JFrame {
 
     private String selgame = "Poker"; //Ausgewähltes Spiel
     private Spieler s;
+    private DB_Access access = DB_Access.getInstance();
 
     public Spieler getS() {
         return s;
@@ -26,8 +30,8 @@ public class MenuGUI extends javax.swing.JFrame {
 
     public void setS(Spieler s) {
         this.s = s;
-        lbName.setText("Name: "+s.getName());
-        lbGeld.setText("Geld: "+String.format("%,.02f €", s.getGeld()));
+        lbName.setText("Name: " + s.getName());
+        lbGeld.setText("Geld: " + String.format("%,.02f €", s.getGeld()));
         lbIcon.setIcon(s.getIcon().getIcon());
     }
 
@@ -187,9 +191,14 @@ public class MenuGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void onLogout(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onLogout
-        LoginGUI logingui = new LoginGUI();
-        logingui.setVisible(true);
-        this.dispose();
+        try {
+            access.updateUser(s);
+            LoginGUI logingui = new LoginGUI();
+            logingui.setVisible(true);
+            this.dispose();
+        } catch (Exception ex) {
+            Logger.getLogger(MenuGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_onLogout
 
     private void onPlay(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_onPlay
