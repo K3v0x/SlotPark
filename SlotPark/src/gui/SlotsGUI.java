@@ -50,14 +50,13 @@ public class SlotsGUI extends javax.swing.JFrame {
 //        this.setUndecorated(true);
         initComponents();
         st = new SlotThread();
-        thread = new Thread(st);
 
         sc = new SlotController();
         labels = new JLabel[][]{
             {lb00, lb01, lb02},
             {lb10, lb11, lb12},
             {lb20, lb21, lb22}};
-        thread.start();
+      
     }
 
     @SuppressWarnings("unchecked")
