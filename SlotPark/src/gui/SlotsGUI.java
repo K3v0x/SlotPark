@@ -224,7 +224,6 @@ public class SlotsGUI extends javax.swing.JFrame {
 
         lbIcon.setBackground(new java.awt.Color(0, 153, 153));
         lbIcon.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
-        lbIcon.setText("Icon");
         lbIcon.setOpaque(true);
         jPanel1.add(lbIcon, java.awt.BorderLayout.WEST);
 
