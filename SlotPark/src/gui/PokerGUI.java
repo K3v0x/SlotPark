@@ -38,7 +38,7 @@ public class PokerGUI extends javax.swing.JFrame {
     private JLabel[] statuslabels;
     private JPanel[] panels;
 
-    private Spieler s;
+    private Spieler s = null;
     private int einsatz = 0;
     boolean aufdecken = false;
 
@@ -49,7 +49,7 @@ public class PokerGUI extends javax.swing.JFrame {
     public void setS(Spieler s) {
         this.s = s;
         lbName.setText("Name: " + s.getName());
-        lbGeld.setText(String.format("Geld: %.0f Chips", s.getGeld()*5));
+        lbGeld.setText(String.format("Geld: %.0f Chips", s.getGeld() * 5));
         lbIcon.setIcon(s.getIcon().getIcon());
     }
 
@@ -58,7 +58,7 @@ public class PokerGUI extends javax.swing.JFrame {
 //        this.setUndecorated(true);
 
         initComponents();
-        cc = new CasinoController();
+
     }
 
     /**
@@ -410,10 +410,13 @@ public class PokerGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void onLoad(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_onLoad
-        thread.start();
-        if (s.getName() == null) {
-            cc.setGeld(500);
+        if (s == null) {
+            s = new Spieler("Testspieler", "123", 500, null);
         }
+        cc = new CasinoController(s.getName(), (int) (s.getGeld() * 5));
+
+        thread.start();
+
         cc.load();
         player.play("music", "Poker.mp3", true);
         tfEinsatz.setText(0 + "/" + (int) cc.getSpielerliste().getFirst().getGeld());
@@ -497,6 +500,8 @@ public class PokerGUI extends javax.swing.JFrame {
 
     private void onBack(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onBack
         MenuGUI menugui = new MenuGUI();
+        s.setGeld(cc.getSpielerliste().getFirst().getGeld() / 5);
+        s.setName(cc.getSpielerliste().getFirst().getName());
         menugui.setS(s);
         menugui.setVisible(true);
         player.close("music");
