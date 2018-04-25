@@ -206,6 +206,7 @@ public class CasinoController {
                 }
             }
         }
+    
 
     }
 
@@ -237,6 +238,7 @@ public class CasinoController {
 
     /**
      * Wählt den Gewinner aus
+     *
      * @return Der gewinner der Runde
      */
     public PokerSpieler checkwin() {
@@ -303,6 +305,7 @@ public class CasinoController {
 
     /**
      * Erhöht den Pot
+     *
      * @param einsatz Einsatz des Pokerspielers
      */
     public void raise(int einsatz) {
