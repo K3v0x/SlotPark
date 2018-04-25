@@ -103,7 +103,6 @@ public class LoginGUI extends javax.swing.JFrame {
 
         btLogin.setBackground(new java.awt.Color(0, 0, 0));
         btLogin.setFont(new java.awt.Font("Eras Bold ITC", 1, 48)); // NOI18N
-        btLogin.setForeground(new java.awt.Color(255, 255, 255));
         btLogin.setText("Login");
         btLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -160,7 +159,6 @@ public class LoginGUI extends javax.swing.JFrame {
 
         btRegister.setBackground(new java.awt.Color(0, 0, 0));
         btRegister.setFont(new java.awt.Font("Eras Bold ITC", 1, 48)); // NOI18N
-        btRegister.setForeground(new java.awt.Color(255, 255, 255));
         btRegister.setText("Register");
         btRegister.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -237,7 +235,6 @@ public class LoginGUI extends javax.swing.JFrame {
 
         jButton3.setBackground(new java.awt.Color(0, 0, 0));
         jButton3.setFont(new java.awt.Font("Eras Bold ITC", 1, 48)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setText("Exit");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -104,6 +104,7 @@ public class PokerGUI extends javax.swing.JFrame {
         btFold = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         lbC1 = new javax.swing.JLabel();
         lbC2 = new javax.swing.JLabel();
@@ -312,6 +313,10 @@ public class PokerGUI extends javax.swing.JFrame {
 
         jPanel10.setOpaque(false);
         jPanel10.setLayout(new java.awt.BorderLayout());
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setPreferredSize(new java.awt.Dimension(0, 20));
+        jPanel10.add(jLabel1, java.awt.BorderLayout.PAGE_START);
 
         jPanel5.setOpaque(false);
         jPanel5.setLayout(new java.awt.GridLayout(1, 5));
@@ -672,6 +677,7 @@ public class PokerGUI extends javax.swing.JFrame {
     private javax.swing.JButton btFold;
     private javax.swing.JButton btRaise;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

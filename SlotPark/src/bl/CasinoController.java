@@ -69,11 +69,12 @@ public class CasinoController {
     }
 
     /**
-     * Beginnt eine neue Runde
+     * Startet eine neue Runde
      */
     public void newRound() {
         stapel.clear();
         flopedcards = 0;
+        pot = 0;
         preflop = true;
         for (PokerSpieler pokerSpieler : spielerliste) {
             if (!pokerSpieler.isBankrott()) {
@@ -186,14 +187,14 @@ public class CasinoController {
                     if (anzahl.get(j + 1) == 2 && j != i) {
                         combi = ZWEIPAARE;
                         pokerSpieler.setCombo(combi);
+                    } else {
+                        combi = PAAR;
+                        pokerSpieler.setCombo(combi);
                     }
                 }
-            } else if (anzahl.get(i + 1) == 2) {
-                combi = PAAR;
-                pokerSpieler.setCombo(combi);
+
             }
         }
-
         for (int i = 0; i < anzahl.size() - 1; i++) {
             for (int j = 0; j < 3; j++) {
                 if (anzahl.get(j + 1) > 0
@@ -206,7 +207,6 @@ public class CasinoController {
                 }
             }
         }
-    
 
     }
 
