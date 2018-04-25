@@ -241,7 +241,7 @@ public class LoginGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void onExit(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onExit
-        this.dispose();
+        System.exit(0);
     }//GEN-LAST:event_onExit
 
     private void onLogin(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onLogin

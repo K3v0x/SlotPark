@@ -171,7 +171,7 @@ public class MenuGUI extends javax.swing.JFrame {
         lbIcon.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         jPanel6.add(lbIcon, java.awt.BorderLayout.WEST);
 
-        jPanel7.setLayout(new java.awt.GridLayout(2, 1));
+        jPanel7.setLayout(new java.awt.GridLayout(2, 1, 10, 0));
 
         lbName.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         lbName.setText("Name:");
