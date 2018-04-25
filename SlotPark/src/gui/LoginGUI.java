@@ -59,9 +59,8 @@ public class LoginGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel6 = new javax.swing.JPanel();
+        lbMenu = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         btLogin = new javax.swing.JButton();
@@ -90,20 +89,21 @@ public class LoginGUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridLayout(1, 2));
-        getContentPane().add(jPanel6);
 
+        lbMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Menu.jpg.jpg"))); // NOI18N
+        getContentPane().add(lbMenu);
+
+        jPanel5.setBackground(new java.awt.Color(0, 0, 0));
         jPanel5.setLayout(new java.awt.BorderLayout());
-
-        jLabel1.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("SlotPark");
-        jPanel5.add(jLabel1, java.awt.BorderLayout.PAGE_START);
 
         jPanel1.setLayout(new java.awt.GridLayout(3, 0));
 
+        jPanel2.setBackground(new java.awt.Color(0, 0, 0));
         jPanel2.setLayout(new java.awt.CardLayout());
 
+        btLogin.setBackground(new java.awt.Color(0, 0, 0));
         btLogin.setFont(new java.awt.Font("Eras Bold ITC", 1, 48)); // NOI18N
+        btLogin.setForeground(new java.awt.Color(255, 255, 255));
         btLogin.setText("Login");
         btLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -155,9 +155,12 @@ public class LoginGUI extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2);
 
+        jPanel3.setBackground(new java.awt.Color(0, 0, 0));
         jPanel3.setLayout(new java.awt.CardLayout());
 
+        btRegister.setBackground(new java.awt.Color(0, 0, 0));
         btRegister.setFont(new java.awt.Font("Eras Bold ITC", 1, 48)); // NOI18N
+        btRegister.setForeground(new java.awt.Color(255, 255, 255));
         btRegister.setText("Register");
         btRegister.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -232,7 +235,9 @@ public class LoginGUI extends javax.swing.JFrame {
 
         jPanel1.add(jPanel3);
 
+        jButton3.setBackground(new java.awt.Color(0, 0, 0));
         jButton3.setFont(new java.awt.Font("Eras Bold ITC", 1, 48)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setText("Exit");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -445,7 +450,6 @@ public class LoginGUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -457,7 +461,7 @@ public class LoginGUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
+    private javax.swing.JLabel lbMenu;
     private javax.swing.JPanel paLogin;
     private javax.swing.JPanel paLoginPanel;
     private javax.swing.JPanel paRegister;
