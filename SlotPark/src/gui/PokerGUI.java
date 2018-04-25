@@ -136,7 +136,6 @@ public class PokerGUI extends javax.swing.JFrame {
 
         lbIcon.setBackground(new java.awt.Color(0, 204, 204));
         lbIcon.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
-        lbIcon.setText("Icon");
         lbIcon.setOpaque(true);
         jPanel1.add(lbIcon, java.awt.BorderLayout.WEST);
 
@@ -498,6 +497,7 @@ public class PokerGUI extends javax.swing.JFrame {
 
     private void onBack(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onBack
         MenuGUI menugui = new MenuGUI();
+        menugui.setS(s);
         menugui.setVisible(true);
         player.close("music");
         this.dispose();
