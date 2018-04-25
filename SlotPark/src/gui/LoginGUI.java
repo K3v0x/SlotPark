@@ -26,7 +26,6 @@ public class LoginGUI extends javax.swing.JFrame {
     private LinkedList<Spieler> spieler = new LinkedList<>();
     private LinkedList<Icon> icons = new LinkedList<>();
 
-    
     public LoginGUI() {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setUndecorated(true);
@@ -43,8 +42,8 @@ public class LoginGUI extends javax.swing.JFrame {
         try {
             icons = (LinkedList<Icon>) access.getIcons();
             for (Icon i : icons) {
-            cbImages.addItem(i);
-        }
+                cbImages.addItem(i);
+            }
         } catch (Exception ex) {
             Logger.getLogger(LoginGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -347,6 +346,8 @@ public class LoginGUI extends javax.swing.JFrame {
             LinkedList<Spieler> spieler = (LinkedList<Spieler>) access.getAllUsers();
             for (Spieler s : spieler) {
                 if (s.getName().equals(user) && s.getPassword().equals(password)) {
+                    tfLogin.setBackground(Color.white);
+                    pfLogin.setBackground(Color.white);
                     MenuGUI menugui = new MenuGUI();
                     menugui.setS(s);
                     menugui.setVisible(true);
@@ -354,6 +355,8 @@ public class LoginGUI extends javax.swing.JFrame {
                     return;
                 }
             }
+            tfLogin.setBackground(Color.red);
+            pfLogin.setBackground(Color.red);
         } catch (Exception ex) {
             System.out.println(ex.toString());
         }
@@ -372,6 +375,15 @@ public class LoginGUI extends javax.swing.JFrame {
         } else {
             tfRegister.setBackground(Color.red);
         }
+        
+        if(user.length() == user.trim().length())
+        {
+            tfRegister.setBackground(Color.WHITE);
+            checkuser = true;
+        }
+        else{
+            tfRegister.setBackground(Color.red);
+        }
 
         if (!password.isEmpty() && !password.contains(" ") && password.equals(password2)) {
             pfRegister.setBackground(Color.white);
@@ -379,6 +391,15 @@ public class LoginGUI extends javax.swing.JFrame {
         } else {
             pfRegister.setBackground(Color.red);
             pfRegister2.setBackground(Color.RED);
+        }
+        
+        if(password.length() == password.trim().length())
+        {
+            pfRegister.setBackground(Color.WHITE);
+            checkuser = true;
+        }
+        else{
+            pfRegister.setBackground(Color.red);
         }
 
         for (Spieler sp : spieler) {
