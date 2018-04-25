@@ -75,6 +75,8 @@ public class LoginGUI extends javax.swing.JFrame {
         paRegister = new javax.swing.JPanel();
         jButton5 = new javax.swing.JButton();
         paRegisterPanel = new javax.swing.JPanel();
+        cbImages = new javax.swing.JComboBox<>();
+        jPanel6 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         tfRegister = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -82,8 +84,7 @@ public class LoginGUI extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         pfRegister2 = new javax.swing.JPasswordField();
         jPanel4 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
-        cbImages = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -102,7 +103,7 @@ public class LoginGUI extends javax.swing.JFrame {
 
         btLogin.setBackground(new java.awt.Color(0, 0, 0));
         btLogin.setFont(new java.awt.Font("Eras Bold ITC", 1, 48)); // NOI18N
-        btLogin.setText("Login");
+        btLogin.setText("Anmelden");
         btLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 onLogin(evt);
@@ -113,7 +114,8 @@ public class LoginGUI extends javax.swing.JFrame {
         paLogin.setLayout(new java.awt.BorderLayout());
 
         jButton4.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
-        jButton4.setText("Login");
+        jButton4.setText("Anmelden");
+        jButton4.setToolTipText("");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 onRealLogin(evt);
@@ -123,8 +125,8 @@ public class LoginGUI extends javax.swing.JFrame {
 
         paLoginPanel.setLayout(new java.awt.GridLayout(2, 1));
 
-        jLabel2.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
-        jLabel2.setText("User:");
+        jLabel2.setFont(new java.awt.Font("Eras Bold ITC", 0, 36)); // NOI18N
+        jLabel2.setText("Benutzername:");
         paLoginPanel.add(jLabel2);
 
         tfLogin.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
@@ -135,8 +137,8 @@ public class LoginGUI extends javax.swing.JFrame {
         });
         paLoginPanel.add(tfLogin);
 
-        jLabel3.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
-        jLabel3.setText("Password:");
+        jLabel3.setFont(new java.awt.Font("Eras Bold ITC", 0, 36)); // NOI18N
+        jLabel3.setText("Passwort:");
         paLoginPanel.add(jLabel3);
 
         pfLogin.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
@@ -158,7 +160,7 @@ public class LoginGUI extends javax.swing.JFrame {
 
         btRegister.setBackground(new java.awt.Color(0, 0, 0));
         btRegister.setFont(new java.awt.Font("Eras Bold ITC", 1, 48)); // NOI18N
-        btRegister.setText("Register");
+        btRegister.setText("Registrieren");
         btRegister.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 onRegister(evt);
@@ -177,11 +179,17 @@ public class LoginGUI extends javax.swing.JFrame {
         });
         paRegister.add(jButton5, java.awt.BorderLayout.SOUTH);
 
-        paRegisterPanel.setLayout(new java.awt.GridLayout(3, 1));
+        paRegisterPanel.setLayout(new java.awt.BorderLayout());
 
-        jLabel4.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
-        jLabel4.setText("User:");
-        paRegisterPanel.add(jLabel4);
+        cbImages.setFont(new java.awt.Font("Eras Bold ITC", 1, 48)); // NOI18N
+        paRegisterPanel.add(cbImages, java.awt.BorderLayout.SOUTH);
+
+        jPanel6.setLayout(new java.awt.GridLayout(3, 2));
+
+        jLabel4.setFont(new java.awt.Font("Eras Bold ITC", 0, 36)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel4.setText("Benutzername:");
+        jPanel6.add(jLabel4);
 
         tfRegister.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         tfRegister.addActionListener(new java.awt.event.ActionListener() {
@@ -189,11 +197,12 @@ public class LoginGUI extends javax.swing.JFrame {
                 onRegisterEnter(evt);
             }
         });
-        paRegisterPanel.add(tfRegister);
+        jPanel6.add(tfRegister);
 
-        jLabel5.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
-        jLabel5.setText("Password:");
-        paRegisterPanel.add(jLabel5);
+        jLabel5.setFont(new java.awt.Font("Eras Bold ITC", 0, 36)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel5.setText("Passwort:");
+        jPanel6.add(jLabel5);
 
         pfRegister.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         pfRegister.addActionListener(new java.awt.event.ActionListener() {
@@ -201,11 +210,12 @@ public class LoginGUI extends javax.swing.JFrame {
                 onRegisterEnter(evt);
             }
         });
-        paRegisterPanel.add(pfRegister);
+        jPanel6.add(pfRegister);
 
-        jLabel6.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
-        jLabel6.setText("Password bestätigen:");
-        paRegisterPanel.add(jLabel6);
+        jLabel6.setFont(new java.awt.Font("Eras Bold ITC", 0, 36)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel6.setText("Passwort bestätigen:");
+        jPanel6.add(jLabel6);
 
         pfRegister2.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         pfRegister2.addActionListener(new java.awt.event.ActionListener() {
@@ -213,18 +223,14 @@ public class LoginGUI extends javax.swing.JFrame {
                 onRegisterEnter(evt);
             }
         });
-        paRegisterPanel.add(pfRegister2);
+        jPanel6.add(pfRegister2);
+
+        paRegisterPanel.add(jPanel6, java.awt.BorderLayout.CENTER);
 
         paRegister.add(paRegisterPanel, java.awt.BorderLayout.CENTER);
 
-        jPanel4.setLayout(new java.awt.BorderLayout());
-
-        jLabel7.setFont(new java.awt.Font("Eras Bold ITC", 1, 48)); // NOI18N
-        jLabel7.setText("Icon:");
-        jPanel4.add(jLabel7, java.awt.BorderLayout.NORTH);
-
-        cbImages.setFont(new java.awt.Font("Eras Bold ITC", 1, 48)); // NOI18N
-        jPanel4.add(cbImages, java.awt.BorderLayout.CENTER);
+        jPanel4.setLayout(new java.awt.GridLayout(3, 1));
+        jPanel4.add(jLabel1);
 
         paRegister.add(jPanel4, java.awt.BorderLayout.WEST);
 
@@ -234,7 +240,7 @@ public class LoginGUI extends javax.swing.JFrame {
 
         jButton3.setBackground(new java.awt.Color(0, 0, 0));
         jButton3.setFont(new java.awt.Font("Eras Bold ITC", 1, 48)); // NOI18N
-        jButton3.setText("Exit");
+        jButton3.setText("Beenden");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 onExit(evt);
@@ -366,7 +372,7 @@ public class LoginGUI extends javax.swing.JFrame {
         String user = tfRegister.getText();
         String password = pfRegister.getText();
         String password2 = pfRegister2.getText();
-        if (!user.isEmpty() && !user.contains(" ")) {
+        if (!user.isEmpty() || !user.contains(" ")) {
             tfRegister.setBackground(Color.WHITE);
             checkuser = true;
         } else {
@@ -382,7 +388,7 @@ public class LoginGUI extends javax.swing.JFrame {
             tfRegister.setBackground(Color.red);
         }
 
-        if (!password.isEmpty() && !password.contains(" ") && password.equals(password2)) {
+        if (!password.isEmpty() || !password.contains(" ") || password.equals(password2)) {
             pfRegister.setBackground(Color.white);
             checkpassword = true;
         } else {
@@ -468,17 +474,18 @@ public class LoginGUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JLabel lbMenu;
     private javax.swing.JPanel paLogin;
     private javax.swing.JPanel paLoginPanel;

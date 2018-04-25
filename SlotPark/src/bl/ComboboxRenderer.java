@@ -30,7 +30,7 @@ public class ComboboxRenderer extends DefaultListCellRenderer {
 //        this.setText(icons.getName());
         try {
             Image img = ImageIO.read(new File(icons.getPfad()));
-            img = img.getScaledInstance(80, 80, Image.SCALE_SMOOTH);
+            img = img.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
             ImageIcon icon = new ImageIcon(img);
             this.setIcon(icon);
             this.setHorizontalAlignment(CENTER);

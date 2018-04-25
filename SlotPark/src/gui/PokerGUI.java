@@ -133,7 +133,7 @@ public class PokerGUI extends javax.swing.JFrame {
 
         jPanel18.setLayout(new java.awt.GridLayout(2, 0));
 
-        jPanel1.setLayout(new java.awt.BorderLayout());
+        jPanel1.setLayout(new java.awt.BorderLayout(40, 0));
 
         lbIcon.setBackground(new java.awt.Color(0, 204, 204));
         lbIcon.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N

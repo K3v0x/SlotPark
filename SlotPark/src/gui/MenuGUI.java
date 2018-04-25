@@ -166,12 +166,12 @@ public class MenuGUI extends javax.swing.JFrame {
         jLabel1.setText("Willkommen!");
         jPanel3.add(jLabel1, java.awt.BorderLayout.CENTER);
 
-        jPanel6.setLayout(new java.awt.BorderLayout());
+        jPanel6.setLayout(new java.awt.BorderLayout(40, 0));
 
         lbIcon.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         jPanel6.add(lbIcon, java.awt.BorderLayout.WEST);
 
-        jPanel7.setLayout(new java.awt.GridLayout(2, 1, 10, 0));
+        jPanel7.setLayout(new java.awt.GridLayout(2, 1, 10, 10));
 
         lbName.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         lbName.setText("Name:");

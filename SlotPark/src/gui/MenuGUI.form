@@ -206,7 +206,9 @@
             </Constraint>
           </Constraints>
 
-          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
+          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout">
+            <Property name="horizontalGap" type="int" value="40"/>
+          </Layout>
           <SubComponents>
             <Component class="javax.swing.JLabel" name="lbIcon">
               <Properties>
@@ -231,6 +233,7 @@
                 <Property name="columns" type="int" value="1"/>
                 <Property name="horizontalGap" type="int" value="10"/>
                 <Property name="rows" type="int" value="2"/>
+                <Property name="verticalGap" type="int" value="10"/>
               </Layout>
               <SubComponents>
                 <Component class="javax.swing.JLabel" name="lbName">

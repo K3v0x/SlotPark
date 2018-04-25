@@ -319,7 +319,9 @@
         </Constraint>
       </Constraints>
 
-      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout">
+        <Property name="horizontalGap" type="int" value="40"/>
+      </Layout>
       <SubComponents>
         <Component class="javax.swing.JLabel" name="lbIcon">
           <Properties>

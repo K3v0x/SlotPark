@@ -219,7 +219,7 @@ public class SlotsGUI extends javax.swing.JFrame {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Pillar.png"))); // NOI18N
         getContentPane().add(jLabel2, java.awt.BorderLayout.LINE_START);
 
-        jPanel1.setLayout(new java.awt.BorderLayout());
+        jPanel1.setLayout(new java.awt.BorderLayout(40, 0));
 
         lbIcon.setBackground(new java.awt.Color(0, 153, 153));
         lbIcon.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
