@@ -133,6 +133,7 @@ public class PokerGUI extends javax.swing.JFrame {
 
         jPanel18.setLayout(new java.awt.GridLayout(2, 0));
 
+        jPanel1.setBackground(new java.awt.Color(0, 153, 153));
         jPanel1.setLayout(new java.awt.BorderLayout(40, 0));
 
         lbIcon.setBackground(new java.awt.Color(0, 204, 204));
@@ -140,16 +141,13 @@ public class PokerGUI extends javax.swing.JFrame {
         lbIcon.setOpaque(true);
         jPanel1.add(lbIcon, java.awt.BorderLayout.WEST);
 
+        jPanel7.setOpaque(false);
         jPanel7.setLayout(new java.awt.GridLayout(2, 0, 10, 0));
 
-        lbName.setBackground(new java.awt.Color(0, 204, 204));
         lbName.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
-        lbName.setOpaque(true);
         jPanel7.add(lbName);
 
-        lbGeld.setBackground(new java.awt.Color(0, 204, 204));
         lbGeld.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
-        lbGeld.setOpaque(true);
         jPanel7.add(lbGeld);
 
         jPanel1.add(jPanel7, java.awt.BorderLayout.CENTER);

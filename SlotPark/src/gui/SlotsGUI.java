@@ -21,44 +21,44 @@ import javax.swing.JLabel;
  * @author Kevin
  */
 public class SlotsGUI extends javax.swing.JFrame {
-    
+
     private Symbol[] slots = {Symbol.CHERRY, Symbol.TREE, Symbol.LUCK, Symbol.DIAMOND};
     private String imagepath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "images" + File.separator;
     JLabel[][] labels;
     SlotController sc;
-    
+
     private Spieler s;
-    
+
     SlotThread st;
     Thread thread;
     Random rand = new Random();
     int spins = 0;
-    
+
     public Spieler getS() {
         return s;
     }
-    
+
     public void setS(Spieler s) {
         this.s = s;
         lbName.setText("Name: " + s.getName());
         lbGeld.setText(String.format("Geld: %.0f Chips", s.getGeld() * 5));
         lbIcon.setIcon(s.getIcon().getIcon());
     }
-    
+
     public SlotsGUI() {
 //        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 //        this.setUndecorated(true);
         initComponents();
         st = new SlotThread();
-        
+
         sc = new SlotController();
         labels = new JLabel[][]{
             {lb00, lb01, lb02},
             {lb10, lb11, lb12},
             {lb20, lb21, lb22}};
-        
+
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -213,12 +213,17 @@ public class SlotsGUI extends javax.swing.JFrame {
 
         getContentPane().add(jPanel3, java.awt.BorderLayout.SOUTH);
 
+        jLabel1.setBackground(new java.awt.Color(102, 51, 0));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Pillar.png"))); // NOI18N
+        jLabel1.setOpaque(true);
         getContentPane().add(jLabel1, java.awt.BorderLayout.LINE_END);
 
+        jLabel2.setBackground(new java.awt.Color(102, 51, 0));
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Pillar.png"))); // NOI18N
+        jLabel2.setOpaque(true);
         getContentPane().add(jLabel2, java.awt.BorderLayout.LINE_START);
 
+        jPanel1.setBackground(new java.awt.Color(0, 153, 153));
         jPanel1.setLayout(new java.awt.BorderLayout(40, 0));
 
         lbIcon.setBackground(new java.awt.Color(0, 153, 153));
@@ -226,18 +231,15 @@ public class SlotsGUI extends javax.swing.JFrame {
         lbIcon.setOpaque(true);
         jPanel1.add(lbIcon, java.awt.BorderLayout.WEST);
 
+        jPanel4.setOpaque(false);
         jPanel4.setLayout(new java.awt.GridLayout(2, 0, 10, 0));
 
-        lbName.setBackground(new java.awt.Color(0, 153, 153));
         lbName.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         lbName.setText("Name:");
-        lbName.setOpaque(true);
         jPanel4.add(lbName);
 
-        lbGeld.setBackground(new java.awt.Color(0, 153, 153));
         lbGeld.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         lbGeld.setText("Geld:");
-        lbGeld.setOpaque(true);
         jPanel4.add(lbGeld);
 
         jPanel1.add(jPanel4, java.awt.BorderLayout.CENTER);
@@ -262,23 +264,29 @@ public class SlotsGUI extends javax.swing.JFrame {
         menugui.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_onBack
-    
+
     public class SlotThread implements Runnable {
-        
+
         @Override
         public void run() {
             while (!Thread.interrupted()) {
-                for (int i = 0; i < labels.length; i++) {
+                for (int i = labels.length - 1; i > -1; i--) {
                     for (int j = 0; j < labels.length; j++) {
-                        int zz = rand.nextInt(slots.length - 1) - 0 + 1;
-                        labels[i][j].setIcon(new ImageIcon(imagepath + slots[zz] + "Slot.png"));
-                        System.out.print(zz + 1 + " ");
+                        if (i == 0) {
+                            int zz = rand.nextInt(slots.length - 1) - 0 + 1;
+                            labels[i][j].setIcon(new ImageIcon(imagepath + slots[zz] + "Slot.png"));
+                            System.out.print(zz + 1 + " ");
+                        } else {
+                            labels[i][j].setIcon(labels[i - 1][j].getIcon());
+
+                        }
+
                     }
                     System.out.println("\n");
                 }
                 System.out.println("\n");
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(150);
                 } catch (InterruptedException ex) {
                     return;
                 }
@@ -289,9 +297,9 @@ public class SlotsGUI extends javax.swing.JFrame {
                 }
             }
         }
-        
+
     }
-    
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
