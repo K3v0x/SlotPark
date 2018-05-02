@@ -500,7 +500,6 @@ public class PokerGUI extends javax.swing.JFrame {
             cc.check();
             aufdecken = true;
         }
-        
         updateUI();
     }//GEN-LAST:event_onCheck
 
