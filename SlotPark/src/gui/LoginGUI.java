@@ -8,6 +8,7 @@ package gui;
 import beans.Icon;
 import beans.Spieler;
 import bl.ComboboxRenderer;
+import bl.LoginController;
 import database.DB_Access;
 import java.awt.Color;
 import java.util.LinkedList;
@@ -25,6 +26,8 @@ public class LoginGUI extends javax.swing.JFrame {
     private DB_Access access;
     private LinkedList<Spieler> spieler = new LinkedList<>();
     private LinkedList<Icon> icons = new LinkedList<>();
+
+    private LoginController login = new LoginController();
 
     public LoginGUI() {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -270,15 +273,15 @@ public class LoginGUI extends javax.swing.JFrame {
         String user = tfLogin.getText();
         String password = new String(pfLogin.getPassword());
         try {
-            LinkedList<Spieler> spieler = (LinkedList<Spieler>) access.getAllUsers();
-            for (Spieler s : spieler) {
-                if (s.getName().equals(user) && s.getPassword().equals(password)) {
-                    MenuGUI menugui = new MenuGUI();
-                    menugui.setS(s);
-                    menugui.setVisible(true);
-                    this.dispose();
-                    return;
-                }
+            Spieler s = login.checkLogin(user, password);
+            if (s != null) {
+                MenuGUI menugui = new MenuGUI();
+                menugui.setS(s);
+                menugui.setVisible(true);
+                this.dispose();
+            } else {
+                tfLogin.setBackground(Color.red);
+                pfLogin.setBackground(Color.red);
             }
         } catch (Exception ex) {
             System.out.println(ex.toString());
@@ -286,52 +289,26 @@ public class LoginGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_onRealLogin
 
     private void onRealRegister(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onRealRegister
-        boolean checkuser = false;
-        boolean checkpassword = false;
-        Icon icon = (Icon) cbImages.getSelectedItem();
-        String user = tfRegister.getText();
-        String password = pfRegister.getText();
-        String password2 = pfRegister2.getText();
-        if (user.length() > 0 && !user.contains(" ")) {
-            tfRegister.setBackground(Color.WHITE);
-            checkuser = true;
-        } else {
-            tfRegister.setBackground(Color.red);
-            checkuser = false;
-        }
-
-        if (password.length() > 0 && !password.contains(" ") && password.equals(password2)) {
-            pfRegister.setBackground(Color.white);
-            checkpassword = true;
-        } else {
-            pfRegister.setBackground(Color.red);
-            pfRegister2.setBackground(Color.RED);
-            checkpassword = false;
-        }
-        for (Spieler sp : spieler) {
-            if (sp.getName().equals(user)) {
-                checkuser = false;
+        try {
+            Icon icon = (Icon) cbImages.getSelectedItem();
+            String user = tfRegister.getText();
+            String password = pfRegister.getText();
+            String password2 = pfRegister2.getText();
+            Spieler s = login.checkRegistration(user, password2, password2, icon);
+            if (s != null) {
+                MenuGUI menugui = new MenuGUI();
+                menugui.setS(s);
+                menugui.setVisible(true);
+                this.dispose();
+            }
+            else{
                 tfRegister.setBackground(Color.red);
-                JOptionPane.showMessageDialog(this, "User ist bereits vorhanden!");
-                break;
+                pfRegister.setBackground(Color.red);
+                pfRegister2.setBackground(Color.red);
             }
+        } catch (Exception ex) {
+            System.out.println(ex.toString());
         }
-
-        if (checkpassword && checkuser) {
-            Spieler s = new Spieler(user, password, 100.0, icon);
-            try {
-                boolean erfolg = access.addUser(s);
-                if (erfolg) {
-                    MenuGUI menugui = new MenuGUI();
-                    menugui.setS(s);
-                    menugui.setVisible(true);
-                    this.dispose();
-                }
-            } catch (Exception ex) {
-                System.out.println(ex.toString());
-            }
-        }
-
     }//GEN-LAST:event_onRealRegister
 
     private void onRegister(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onRegister
@@ -345,73 +322,41 @@ public class LoginGUI extends javax.swing.JFrame {
         String user = tfLogin.getText();
         String password = new String(pfLogin.getPassword());
         try {
-            LinkedList<Spieler> spieler = (LinkedList<Spieler>) access.getAllUsers();
-            for (Spieler s : spieler) {
-                if (s.getName().equals(user) && s.getPassword().equals(password)) {
-                    tfLogin.setBackground(Color.white);
-                    pfLogin.setBackground(Color.white);
-                    MenuGUI menugui = new MenuGUI();
-                    menugui.setS(s);
-                    menugui.setVisible(true);
-                    this.dispose();
-                    return;
-                }
+            Spieler s = login.checkLogin(user, password);
+            if (s != null) {
+                MenuGUI menugui = new MenuGUI();
+                menugui.setS(s);
+                menugui.setVisible(true);
+                this.dispose();
+            } else {
+                tfLogin.setBackground(Color.red);
+                pfLogin.setBackground(Color.red);
             }
-            tfLogin.setBackground(Color.red);
-            pfLogin.setBackground(Color.red);
         } catch (Exception ex) {
             System.out.println(ex.toString());
         }
     }//GEN-LAST:event_onLoginEnter
 
     private void onRegisterEnter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onRegisterEnter
-        boolean checkuser = false;
-        boolean checkpassword = false;
-        Icon icon = (Icon) cbImages.getSelectedItem();
-        String user = tfRegister.getText();
-        String password = pfRegister.getText();
-        String password2 = pfRegister2.getText();
-        if (user.length() > 0 && !user.contains(" ")) {
-            tfRegister.setBackground(Color.WHITE);
-            checkuser = true;
-        } else {
-            tfRegister.setBackground(Color.red);
-            checkuser = false;
-        }
-
-        if (password.length() > 0 && !password.contains(" ") && password.equals(password2)) {
-            pfRegister.setBackground(Color.white);
-            checkpassword = true;
-        } else {
-            pfRegister.setBackground(Color.red);
-            pfRegister2.setBackground(Color.RED);
-            checkpassword = false;
-        }
-
-        if (checkuser) {
-            for (Spieler sp : spieler) {
-                if (sp.getName().equals(user)) {
-                    checkuser = false;
-                    tfRegister.setBackground(Color.red);
-                    JOptionPane.showMessageDialog(this, "User ist bereits vorhanden!");
-                    break;
-                }
+        try {
+            Icon icon = (Icon) cbImages.getSelectedItem();
+            String user = tfRegister.getText();
+            String password = pfRegister.getText();
+            String password2 = pfRegister2.getText();
+            Spieler s = login.checkRegistration(user, password2, password2, icon);
+            if (s != null) {
+                MenuGUI menugui = new MenuGUI();
+                menugui.setS(s);
+                menugui.setVisible(true);
+                this.dispose();
             }
-        }
-
-        if (checkpassword && checkuser) {
-            Spieler s = new Spieler(user, password, 100.0, icon);
-            try {
-                boolean erfolg = access.addUser(s);
-                if (erfolg) {
-                    MenuGUI menugui = new MenuGUI();
-                    menugui.setS(s);
-                    menugui.setVisible(true);
-                    this.dispose();
-                }
-            } catch (Exception ex) {
-                System.out.println(ex.toString());
+            else{
+                tfRegister.setBackground(Color.red);
+                pfRegister.setBackground(Color.red);
+                pfRegister2.setBackground(Color.red);
             }
+        } catch (Exception ex) {
+            System.out.println(ex.toString());
         }
     }//GEN-LAST:event_onRegisterEnter
 
