@@ -292,26 +292,25 @@ public class LoginGUI extends javax.swing.JFrame {
         String user = tfRegister.getText();
         String password = pfRegister.getText();
         String password2 = pfRegister2.getText();
-        if (!user.isEmpty() && !user.contains(" ")) {
+        if (user.length() > 0 && !user.contains(" ")) {
             tfRegister.setBackground(Color.WHITE);
             checkuser = true;
         } else {
             tfRegister.setBackground(Color.red);
+            checkuser = false;
         }
 
-        if (!password.isEmpty() && !password.contains(" ") && password.equals(password2)) {
+        if (password.length() > 0 && !password.contains(" ") && password.equals(password2)) {
             pfRegister.setBackground(Color.white);
             checkpassword = true;
         } else {
             pfRegister.setBackground(Color.red);
             pfRegister2.setBackground(Color.RED);
+            checkpassword = false;
         }
-
         for (Spieler sp : spieler) {
             if (sp.getName().equals(user)) {
                 checkuser = false;
-                pfRegister.setBackground(Color.red);
-                pfRegister2.setBackground(Color.RED);
                 tfRegister.setBackground(Color.red);
                 JOptionPane.showMessageDialog(this, "User ist bereits vorhanden!");
                 break;
@@ -372,47 +371,31 @@ public class LoginGUI extends javax.swing.JFrame {
         String user = tfRegister.getText();
         String password = pfRegister.getText();
         String password2 = pfRegister2.getText();
-        if (!user.isEmpty() || !user.contains(" ")) {
+        if (user.length() > 0 && !user.contains(" ")) {
             tfRegister.setBackground(Color.WHITE);
             checkuser = true;
         } else {
             tfRegister.setBackground(Color.red);
-        }
-        
-        if(user.length() == user.trim().length())
-        {
-            tfRegister.setBackground(Color.WHITE);
-            checkuser = true;
-        }
-        else{
-            tfRegister.setBackground(Color.red);
+            checkuser = false;
         }
 
-        if (!password.isEmpty() || !password.contains(" ") || password.equals(password2)) {
+        if (password.length() > 0 && !password.contains(" ") && password.equals(password2)) {
             pfRegister.setBackground(Color.white);
             checkpassword = true;
         } else {
             pfRegister.setBackground(Color.red);
             pfRegister2.setBackground(Color.RED);
-        }
-        
-        if(password.length() == password.trim().length())
-        {
-            pfRegister.setBackground(Color.WHITE);
-            checkuser = true;
-        }
-        else{
-            pfRegister.setBackground(Color.red);
+            checkpassword = false;
         }
 
-        for (Spieler sp : spieler) {
-            if (sp.getName().equals(user)) {
-                checkuser = false;
-                pfRegister.setBackground(Color.red);
-                pfRegister2.setBackground(Color.RED);
-                tfRegister.setBackground(Color.red);
-                JOptionPane.showMessageDialog(this, "User ist bereits vorhanden!");
-                break;
+        if (checkuser) {
+            for (Spieler sp : spieler) {
+                if (sp.getName().equals(user)) {
+                    checkuser = false;
+                    tfRegister.setBackground(Color.red);
+                    JOptionPane.showMessageDialog(this, "User ist bereits vorhanden!");
+                    break;
+                }
             }
         }
 
