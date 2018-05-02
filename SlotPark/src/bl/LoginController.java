@@ -8,11 +8,8 @@ package bl;
 import beans.Icon;
 import beans.Spieler;
 import database.DB_Access;
-import gui.MenuGUI;
-import java.awt.Color;
 import java.util.LinkedList;
 import java.util.List;
-import javax.swing.JOptionPane;
 
 /**
  *
