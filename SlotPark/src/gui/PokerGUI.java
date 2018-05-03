@@ -24,41 +24,41 @@ import javax.swing.JPanel;
  * @author Kevin
  */
 public class PokerGUI extends javax.swing.JFrame {
-    
+
     private Random rand = new Random();
     private String imagepath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "images" + File.separator + "karten" + File.separator;
     private CasinoController cc;
     private SoundPlayer player = SoundPlayer.getInstance();
     private TurnThread tt = new TurnThread();
     private Thread thread = new Thread(tt);
-    
+
     private JLabel[] labels;
     private JLabel[] kartenlabels;
     private JLabel[] comlabels;
     private JLabel[] statuslabels;
     private JPanel[] panels;
-    
+
     private Spieler s = null;
     private int einsatz = 0;
     boolean aufdecken = false;
-    
+
     public Spieler getS() {
         return s;
     }
-    
+
     public void setS(Spieler s) {
         this.s = s;
         lbName.setText("Name: " + s.getName());
         lbGeld.setText(String.format("Geld: %.0f Chips", s.getGeld() * 5));
         lbIcon.setIcon(s.getIcon().getIcon());
     }
-    
+
     public PokerGUI() {
 //        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 //        this.setUndecorated(true);
 
         initComponents();
-        
+
     }
 
     /**
@@ -417,9 +417,9 @@ public class PokerGUI extends javax.swing.JFrame {
             s = new Spieler("Testspieler", "123", 500, null);
         }
         cc = new CasinoController(s.getName(), (int) (s.getGeld() * 5));
-        
+
         thread.start();
-        
+
         cc.load();
         player.play("music", "Poker.mp3", true);
         tfEinsatz.setText(0 + "/" + (int) cc.getSpielerliste().getFirst().getGeld());
@@ -454,7 +454,7 @@ public class PokerGUI extends javax.swing.JFrame {
                 cc.check();
                 aufdecken = true;
             }
-            
+
         } catch (NumberFormatException e) {
             System.out.println("is keine zahl");
         }
@@ -462,7 +462,7 @@ public class PokerGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_onRaise
 
     private void onCheck(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onCheck
-        
+
         if (btCheck.getText().equals("Neues Spiel")) {
             lbWinner.setText("");
             btCheck.setText("Check");
@@ -487,6 +487,7 @@ public class PokerGUI extends javax.swing.JFrame {
             }
             btFold.setEnabled(false);
             btRaise.setEnabled(false);
+            cc.checkwin();
             if (cc.getSpielerliste().getFirst().getStatus().equals("WINNER")) {
                 lbWinner.setText(cc.checkwin().getName() + " hat das ganze Spiel gewonnen!");
                 btCheck.setText("Neues Spiel");
@@ -517,15 +518,15 @@ public class PokerGUI extends javax.swing.JFrame {
         einsatz = jsEinsatz.getValue();
         tfEinsatz.setText(einsatz + "/" + (int) cc.getSpielerliste().getFirst().getGeld());
     }//GEN-LAST:event_onChange
-    
+
     public void updateUI() {
-        
+
         LinkedList<PokerSpieler> spielerliste = cc.getSpielerliste();
         lbPot.setText("Pot: " + cc.getPot());
         lbDeckWert.setText(spielerliste.getFirst().getCombo().getName());
         lbMindesteinsatz.setText("Min.: " + cc.getMindesteinsatz());
         lbGeld.setText("Geld: " + (int) cc.getSpielerliste().getFirst().getGeld() + " Chips");
-        
+
         tfEinsatz.setText(einsatz + "/" + (int) cc.getSpielerliste().getFirst().getGeld());
         jsEinsatz.setMajorTickSpacing((int) cc.getSpielerliste().getFirst().getGeld() / 4);
         jsEinsatz.setMinorTickSpacing((int) cc.getSpielerliste().getFirst().getGeld() / 10);
@@ -537,7 +538,7 @@ public class PokerGUI extends javax.swing.JFrame {
         } else {
             btRaise.setEnabled(true);
         }
-        
+
         for (int i = 0; i < kartenlabels.length; i++) {
             ImageIcon imageIcon = new ImageIcon(imagepath + spielerliste.getFirst().getKarten()[i].getWert() + "" + spielerliste.getFirst().getKarten()[i].getFarbe().getName() + ".png"); // load the image to a imageIcon
             Image image = imageIcon.getImage(); // transform it 
@@ -563,14 +564,15 @@ public class PokerGUI extends javax.swing.JFrame {
             btFold.setEnabled(false);
         }
     }
-    
+
     public void dispayCombo(JLabel[] lbCom, JLabel[] lbStatus) {
         LinkedList<PokerSpieler> liste = cc.getSpielerliste();
         for (int i = 1; i < liste.size(); i++) {
-            System.out.println(cc.getSpielerliste().get(i).getName());
+            System.out.println(cc.getSpielerliste().get(i).getName()+" "+cc.getSpielerliste().get(i).getGeld());
             if (!cc.getSpielerliste().get(i).isBankrott()) {
                 lbCom[i - 1].setText("" + cc.getSpielerliste().get(i).getCombo());
                 lbStatus[i - 1].setText("" + cc.getSpielerliste().get(i).getStatus());
+                panels[i - 1].setBackground(Color.WHITE);
             } else {
                 lbStatus[i - 1].setText("Bankrott");
                 lbCom[i - 1].setText("---");
@@ -578,7 +580,7 @@ public class PokerGUI extends javax.swing.JFrame {
             }
         }
         System.out.println("\n");
-        
+
     }
 
     /**
@@ -595,21 +597,21 @@ public class PokerGUI extends javax.swing.JFrame {
                 if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                    
+
                 }
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(PokerGUI.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            
+
         } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(PokerGUI.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            
+
         } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(PokerGUI.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(PokerGUI.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
@@ -622,21 +624,21 @@ public class PokerGUI extends javax.swing.JFrame {
                 new PokerGUI().setVisible(true);
             }
         });
-        
+
     }
-    
+
     class TurnThread implements Runnable {
-        
+
         @Override
         public void run() {
             synchronized (cc) {
                 while (!Thread.interrupted()) {
                     if (!cc.isPreflop() && aufdecken) {
                         if (cc.getFlopedcards() == 3) {
-                            
+
                             for (int i = 0; i < cc.getFlopedcards(); i++) {
                                 labels[i].setIcon(new ImageIcon(imagepath + cc.getKartentisch()[i].getWert() + "" + cc.getKartentisch()[i].getFarbe().getName() + ".png"));
-                                
+
                                 try {
                                     Thread.sleep(200);
                                 } catch (InterruptedException ex) {
@@ -649,7 +651,7 @@ public class PokerGUI extends javax.swing.JFrame {
                             } catch (InterruptedException ex) {
                                 return;
                             }
-                            
+
                             labels[cc.getFlopedcards() - 1].setIcon(new ImageIcon(imagepath + cc.getKartentisch()[cc.getFlopedcards() - 1].getWert() + "" + cc.getKartentisch()[cc.getFlopedcards() - 1].getFarbe().getName() + ".png"));
                         }
                         aufdecken = false;
@@ -661,12 +663,12 @@ public class PokerGUI extends javax.swing.JFrame {
                             btRaise.setEnabled(true);
                         }
                     }
-                    
+
                 }
             }
             return;
         }
-        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
