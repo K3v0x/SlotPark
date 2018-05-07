@@ -7,6 +7,7 @@ package gui;
 
 import beans.PokerSpieler;
 import beans.Spieler;
+import static beans.Status.*;
 import bl.CasinoController;
 import bl.SoundPlayer;
 import java.awt.Color;
@@ -446,12 +447,10 @@ public class PokerGUI extends javax.swing.JFrame {
                 int antwort = JOptionPane.showConfirmDialog(this, "Wollen Sie wirklich All-in gehen?");
                 if (antwort == 0) {
                     cc.raise(einsatz);
-                    cc.check();
                     aufdecken = true;
                 }
             } else {
                 cc.raise(einsatz);
-                cc.check();
                 aufdecken = true;
             }
 
@@ -481,19 +480,17 @@ public class PokerGUI extends javax.swing.JFrame {
             btRaise.setEnabled(true);
             cc.newRound();
         } else if (cc.getFlopedcards() == 5) {
-            btCheck.setText("Neue Runde");
-            if (cc.getSpielerliste().getFirst().getGeld() < cc.getMindesteinsatz()) {
+            if (cc.OutStatus() == 4) {
+                btCheck.setText("Neues Spiel");
+                lbWinner.setText(cc.checkwin().getName() + " hat das Spiel gewonnen!");
+            } else if (cc.getSpielerliste().getFirst().getGeld() < cc.getMindesteinsatz()) {
                 btCheck.setEnabled(false);
             }
             btFold.setEnabled(false);
             btRaise.setEnabled(false);
             cc.checkwin();
-            if (cc.getSpielerliste().getFirst().getStatus().equals("WINNER")) {
-                lbWinner.setText(cc.checkwin().getName() + " hat das ganze Spiel gewonnen!");
-                btCheck.setText("Neues Spiel");
-            } else {
-                lbWinner.setText(cc.checkwin().getName() + " hat gewonnen!");
-            }
+            btCheck.setText("Neue Runde");
+            lbWinner.setText(cc.checkwin().getName() + " hat gewonnen!");
         } else if (btCheck.getText().equals("Check")) {
             btCheck.setEnabled(false);
             btFold.setEnabled(false);
@@ -568,8 +565,8 @@ public class PokerGUI extends javax.swing.JFrame {
     public void dispayCombo(JLabel[] lbCom, JLabel[] lbStatus) {
         LinkedList<PokerSpieler> liste = cc.getSpielerliste();
         for (int i = 1; i < liste.size(); i++) {
-            System.out.println(cc.getSpielerliste().get(i).getName()+" "+cc.getSpielerliste().get(i).getGeld());
-            if (!cc.getSpielerliste().get(i).isBankrott()) {
+            System.out.println(cc.getSpielerliste().get(i).getName() + " " + (int)cc.getSpielerliste().get(i).getGeld() + " " + cc.getSpielerliste().get(i).getStatus());
+            if (cc.getSpielerliste().get(i).getStatus() != OUT) {
                 lbCom[i - 1].setText("" + cc.getSpielerliste().get(i).getCombo());
                 lbStatus[i - 1].setText("" + cc.getSpielerliste().get(i).getStatus());
                 panels[i - 1].setBackground(Color.WHITE);
@@ -633,9 +630,8 @@ public class PokerGUI extends javax.swing.JFrame {
         public void run() {
             synchronized (cc) {
                 while (!Thread.interrupted()) {
-                    if (!cc.isPreflop() && aufdecken) {
-                        if (cc.getFlopedcards() == 3) {
-
+                    if (cc.getFlopstate() != -1 && aufdecken) {
+                        if (cc.getFlopstate() == 2) {
                             for (int i = 0; i < cc.getFlopedcards(); i++) {
                                 labels[i].setIcon(new ImageIcon(imagepath + cc.getKartentisch()[i].getWert() + "" + cc.getKartentisch()[i].getFarbe().getName() + ".png"));
 
@@ -645,13 +641,12 @@ public class PokerGUI extends javax.swing.JFrame {
                                     return;
                                 }
                             }
-                        } else {
+                        } else if (cc.getFlopstate() == 3) {
                             try {
                                 Thread.sleep(200);
                             } catch (InterruptedException ex) {
                                 return;
                             }
-
                             labels[cc.getFlopedcards() - 1].setIcon(new ImageIcon(imagepath + cc.getKartentisch()[cc.getFlopedcards() - 1].getWert() + "" + cc.getKartentisch()[cc.getFlopedcards() - 1].getFarbe().getName() + ".png"));
                         }
                         aufdecken = false;
