@@ -566,14 +566,25 @@ public class PokerGUI extends javax.swing.JFrame {
         LinkedList<PokerSpieler> liste = cc.getSpielerliste();
         for (int i = 1; i < liste.size(); i++) {
             System.out.println(cc.getSpielerliste().get(i).getName() + " " + (int) cc.getSpielerliste().get(i).getGeld() + " " + cc.getSpielerliste().get(i).getStatus());
-            if (cc.getSpielerliste().get(i).getStatus() != OUT) {
-                lbCom[i - 1].setText("" + cc.getSpielerliste().get(i).getCombo());
-                lbStatus[i - 1].setText("" + cc.getSpielerliste().get(i).getStatus());
-                panels[i - 1].setBackground(Color.WHITE);
-            } else {
-                lbStatus[i - 1].setText("Bankrott");
-                lbCom[i - 1].setText("---");
-                panels[i - 1].setBackground(Color.GRAY);
+
+            switch (cc.getSpielerliste().get(i).getStatus()) {
+                case OUT:
+                    lbStatus[i - 1].setText("Bankrott");
+                    lbCom[i - 1].setText("---");
+                    panels[i - 1].setBackground(Color.GRAY);
+                    break;
+
+                case FOLDED:
+                    lbStatus[i - 1].setText("" + cc.getSpielerliste().get(i).getStatus());
+
+                    panels[i - 1].setBackground(Color.RED);
+                    break;
+
+                default:
+                    lbCom[i - 1].setText("" + cc.getSpielerliste().get(i).getCombo());
+                    lbStatus[i - 1].setText("" + cc.getSpielerliste().get(i).getStatus());
+                    panels[i - 1].setBackground(Color.WHITE);
+                    break;
             }
         }
         System.out.println("\n");

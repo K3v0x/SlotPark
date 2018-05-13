@@ -317,6 +317,7 @@ public class CasinoController {
         player.play("effect", "Check.mp3", false);
         letAllComsPlay();
         checkAllCombos();
+     
         if (!raiseState()) {
             if (flopstate == 1) {
                 //Preflop: 3 Karten werden auf dem Tisch aufgedeckt
