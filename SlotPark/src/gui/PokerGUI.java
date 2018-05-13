@@ -480,7 +480,7 @@ public class PokerGUI extends javax.swing.JFrame {
             btRaise.setEnabled(true);
             cc.newRound();
         } else if (cc.getFlopedcards() == 5) {
-            if (cc.OutStatus() == 4) {
+            if (cc.allStatus() == OUT) {
                 btCheck.setText("Neues Spiel");
                 lbWinner.setText(cc.checkwin().getName() + " hat das Spiel gewonnen!");
             } else if (cc.getSpielerliste().getFirst().getGeld() < cc.getMindesteinsatz()) {
@@ -565,7 +565,7 @@ public class PokerGUI extends javax.swing.JFrame {
     public void dispayCombo(JLabel[] lbCom, JLabel[] lbStatus) {
         LinkedList<PokerSpieler> liste = cc.getSpielerliste();
         for (int i = 1; i < liste.size(); i++) {
-            System.out.println(cc.getSpielerliste().get(i).getName() + " " + (int)cc.getSpielerliste().get(i).getGeld() + " " + cc.getSpielerliste().get(i).getStatus());
+            System.out.println(cc.getSpielerliste().get(i).getName() + " " + (int) cc.getSpielerliste().get(i).getGeld() + " " + cc.getSpielerliste().get(i).getStatus());
             if (cc.getSpielerliste().get(i).getStatus() != OUT) {
                 lbCom[i - 1].setText("" + cc.getSpielerliste().get(i).getCombo());
                 lbStatus[i - 1].setText("" + cc.getSpielerliste().get(i).getStatus());

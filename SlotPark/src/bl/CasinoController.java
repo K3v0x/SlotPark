@@ -12,7 +12,6 @@ import beans.Farbe;
 import static beans.Farbe.*;
 import beans.Karte;
 import beans.PokerSpieler;
-import beans.Spieler;
 import beans.Status;
 import static beans.Status.*;
 import java.io.File;
@@ -20,6 +19,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Random;
+import java.util.Set;
 import java.util.Stack;
 
 /**
@@ -54,12 +54,12 @@ public class CasinoController {
      * Begint ein neues Spiel
      */
     public void load() {
+        spielerliste.clear();
         PokerSpieler com1 = new PokerSpieler(new Karte[2], HOHEKARTE, ENTERED, true, "Mike", "1", geld, null);
         PokerSpieler com2 = new PokerSpieler(new Karte[2], HOHEKARTE, ENTERED, true, "Martin", "1", geld, null);
         PokerSpieler com3 = new PokerSpieler(new Karte[2], HOHEKARTE, ENTERED, true, "Sarah", "1", geld, null);
         PokerSpieler com4 = new PokerSpieler(new Karte[2], HOHEKARTE, ENTERED, true, "Tom", "1", geld, null);
 
-        spielerliste.clear();
         spielerliste.add(spieler);
         spielerliste.add(com1);
         spielerliste.add(com2);
@@ -78,48 +78,53 @@ public class CasinoController {
         pot = 0;
         flopstate = 1;
         for (PokerSpieler pokerSpieler : spielerliste) {
-            if (pokerSpieler.getGeld() <= mindesteinsatz) {
-                pokerSpieler.setGeld(0);
-                pot = pot + mindesteinsatz;
+            if (pokerSpieler.getGeld() == 0) {
+                pokerSpieler.setStatus(OUT);
             } else {
-                pokerSpieler.setGeld(pokerSpieler.getGeld() - mindesteinsatz);
-                pot = pot + mindesteinsatz;
-            }
-            if (pokerSpieler.getStatus() != OUT || pokerSpieler.getGeld() > 0) {
-                pokerSpieler.setStatus(ENTERED);
-                if (!pokerSpieler.isComputer()) {
-                    createCards(HERZ);
-                    createCards(PIK);
-                    createCards(KARO);
-                    createCards(KREUZ);
-                    for (int i = 0; i < kartentisch.length; i++) {
-                        if (stapel.size() - 1 > -1) {
-                            kartentisch[i] = stapel.pop();
+                if (pokerSpieler.getGeld() < mindesteinsatz) {
+                    pot = (int) (pot + pokerSpieler.getGeld());
+                    pokerSpieler.setGeld(0);
+                } else {
+                    pokerSpieler.setGeld(pokerSpieler.getGeld() - mindesteinsatz);
+                    pot = pot + mindesteinsatz;
+                }
+                if (pokerSpieler.getStatus() != OUT || pokerSpieler.getGeld() > 0) {
+                    pokerSpieler.setStatus(ENTERED);
+                    if (!pokerSpieler.isComputer()) {
+                        createCards(HERZ);
+                        createCards(PIK);
+                        createCards(KARO);
+                        createCards(KREUZ);
+                        for (int i = 0; i < kartentisch.length; i++) {
+                            if (stapel.size() - 1 > -1) {
+                                kartentisch[i] = stapel.pop();
+                            }
                         }
+
+                    }
+                    pokerSpieler.setCombo(HOHEKARTE);
+                    //Karte 1
+                    Karte karte = stapel.pop();
+                    if (stapel.size() - 1 > -1) {
+
+                        Karte[] karten = pokerSpieler.getKarten();
+                        karten[0] = karte;
+                        pokerSpieler.setKarten(karten);
+
+                        //Karte 2
+                        karte = stapel.pop();
+
+                        karten = pokerSpieler.getKarten();
+                        karten[1] = karte;
+                        pokerSpieler.setKarten(karten);
                     }
 
+                    checkAllCombos();
+                } else {
+                    System.out.println(pokerSpieler.getName() + " ist bankrott");
+                    pokerSpieler.setStatus(OUT);
+
                 }
-                pokerSpieler.setCombo(HOHEKARTE);
-                //Karte 1
-                Karte karte = stapel.pop();
-                if (stapel.size() - 1 > -1) {
-
-                    Karte[] karten = pokerSpieler.getKarten();
-                    karten[0] = karte;
-                    pokerSpieler.setKarten(karten);
-
-                    //Karte 2
-                    karte = stapel.pop();
-
-                    karten = pokerSpieler.getKarten();
-                    karten[1] = karte;
-                    pokerSpieler.setKarten(karten);
-                }
-
-                checkCombi(pokerSpieler);
-            } else {
-                System.out.println(pokerSpieler.getName() + " ist bankrott");
-                pokerSpieler.setStatus(OUT);
             }
         }
 
@@ -142,71 +147,73 @@ public class CasinoController {
      *
      * @param pokerSpieler Das Objekt vom Pokerspieler
      */
-    public void checkCombi(PokerSpieler pokerSpieler) {
+    public void checkAllCombos() {
 
-        HashMap<Integer, Integer> anzahl = new HashMap<>();
-        Karte[] deck = pokerSpieler.getKarten();
-        Karte[] alle = new Karte[7];
-        Combi combi = HOHEKARTE;
-        for (int i = 0; i < deck.length; i++) {
-            alle[i] = deck[i];
+        for (PokerSpieler pokerSpieler : spielerliste) {
+            HashMap<Integer, Integer> anzahl = new HashMap<>();
+            Karte[] deck = pokerSpieler.getKarten();
+            Karte[] alle = new Karte[7];
+            Combi combi = HOHEKARTE;
+            for (int i = 0; i < deck.length; i++) {
+                alle[i] = deck[i];
 
-        }
-        for (int i = 0; i < flopedcards; i++) {
-            alle[i + 2] = kartentisch[i];
-        }
-        for (int i = 0; i < 10; i++) {
-            anzahl.put(i + 1, 0);
-        }
-        for (int i = 0; i < anzahl.size(); i++) {
-            for (int j = 0; j < alle.length; j++) {
-                if (alle[j] != null) {
-                    if (i == alle[j].getWert()) {
-                        anzahl.put(i + 1, anzahl.get(i + 1) + 1);
-                    }
-
-                }
             }
+            for (int i = 0; i < flopedcards; i++) {
+                alle[i + 2] = kartentisch[i];
+            }
+            for (int i = 0; i < 10; i++) {
+                anzahl.put(i + 1, 0);
+            }
+            for (int i = 0; i < anzahl.size(); i++) {
+                for (int j = 0; j < alle.length; j++) {
+                    if (alle[j] != null) {
+                        if (i == alle[j].getWert()) {
+                            anzahl.put(i + 1, anzahl.get(i + 1) + 1);
+                        }
 
-        }
-
-        for (int i = 0; i < anzahl.size(); i++) {
-            if (anzahl.get(i + 1) == 4) {
-                combi = VIERLING;
-                pokerSpieler.setCombo(combi);
-            } else if (anzahl.get(i + 1) == 3) {
-                for (int j = 0; j < anzahl.size(); j++) {
-                    if (anzahl.get(j + 1) == 2 && j != i) {
-                        combi = FULLHOUSE;
-                        pokerSpieler.setCombo(combi);
-                    }
-                }
-            } else if (anzahl.get(i + 1) == 3) {
-                combi = DRILLING;
-                pokerSpieler.setCombo(combi);
-                pokerSpieler.setCombo(combi);
-            } else if (anzahl.get(i + 1) == 2) {
-                for (int j = 0; j < anzahl.size(); j++) {
-                    if (anzahl.get(j + 1) == 2 && j != i) {
-                        combi = ZWEIPAARE;
-                        pokerSpieler.setCombo(combi);
-                    } else {
-                        combi = PAAR;
-                        pokerSpieler.setCombo(combi);
                     }
                 }
 
             }
-        }
-        for (int i = 0; i < anzahl.size() - 1; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (anzahl.get(j + 1) > 0
-                        && anzahl.get(j + 2) > 0
-                        && anzahl.get(j + 3) > 0
-                        && anzahl.get(j + 4) > 0
-                        && anzahl.get(j + 5) > 0) {
-                    combi = STRASSE;
+
+            for (int i = 0; i < anzahl.size(); i++) {
+                if (anzahl.get(i + 1) == 4) {
+                    combi = VIERLING;
                     pokerSpieler.setCombo(combi);
+                } else if (anzahl.get(i + 1) == 3) {
+                    for (int j = 0; j < anzahl.size(); j++) {
+                        if (anzahl.get(j + 1) == 2 && j != i) {
+                            combi = FULLHOUSE;
+                            pokerSpieler.setCombo(combi);
+                        }
+                    }
+                } else if (anzahl.get(i + 1) == 3) {
+                    combi = DRILLING;
+                    pokerSpieler.setCombo(combi);
+                    pokerSpieler.setCombo(combi);
+                } else if (anzahl.get(i + 1) == 2) {
+                    for (int j = 0; j < anzahl.size(); j++) {
+                        if (anzahl.get(j + 1) == 2 && j != i) {
+                            combi = ZWEIPAARE;
+                            pokerSpieler.setCombo(combi);
+                        } else {
+                            combi = PAAR;
+                            pokerSpieler.setCombo(combi);
+                        }
+                    }
+
+                }
+            }
+            for (int i = 0; i < anzahl.size() - 1; i++) {
+                for (int j = 0; j < 3; j++) {
+                    if (anzahl.get(j + 1) > 0
+                            && anzahl.get(j + 2) > 0
+                            && anzahl.get(j + 3) > 0
+                            && anzahl.get(j + 4) > 0
+                            && anzahl.get(j + 5) > 0) {
+                        combi = STRASSE;
+                        pokerSpieler.setCombo(combi);
+                    }
                 }
             }
         }
@@ -218,22 +225,23 @@ public class CasinoController {
      *
      * @param pokerSpieler Das Objekt vom Pokerspieler
      */
-    public void letcomplay(PokerSpieler pokerSpieler) {
-        if (pokerSpieler.getStatus() != FOLDED && pokerSpieler.isComputer() && pokerSpieler.getStatus() != OUT) {
-            if (raising && pokerSpieler.getCombo() == HOHEKARTE) {
-                pokerSpieler.setStatus(FOLDED);
-            } else if (!raising) {
-                int chance = 10 - pokerSpieler.getCombo().getWert();
-                if (rand.nextInt(chance - 0 + 1) + 0 == 0) {
-                    int einsatz = (int) (rand.nextInt((int) (pokerSpieler.getGeld() / 2 - pokerSpieler.getGeld() / 4 + 1)));
-                    pokerSpieler.setStatus(RAISED);
-                    pokerSpieler.setGeld(pokerSpieler.getGeld() - einsatz);
-                    pot = pot + einsatz;
-                } else {
-                    pokerSpieler.setStatus(CHECKED);
+    public void letAllComsPlay() {
+        for (PokerSpieler pokerSpieler : spielerliste) {
+            if (pokerSpieler.getStatus() != FOLDED && pokerSpieler.isComputer() && pokerSpieler.getStatus() != OUT) {
+                if (raising && pokerSpieler.getCombo() == HOHEKARTE) {
+                    pokerSpieler.setStatus(FOLDED);
+                } else if (!raising) {
+                    int chance = 10 - pokerSpieler.getCombo().getWert();
+                    if (rand.nextInt(chance - 0 + 1) + 0 == 0) {
+                        int einsatz = (int) (rand.nextInt((int) (pokerSpieler.getGeld() / 2 - pokerSpieler.getGeld() / 4 + 1)));
+                        pokerSpieler.setStatus(RAISED);
+                        pokerSpieler.setGeld(pokerSpieler.getGeld() - einsatz);
+                        pot = pot + einsatz;
+                    } else {
+                        pokerSpieler.setStatus(CHECKED);
+                    }
                 }
             }
-
         }
 
     }
@@ -248,7 +256,7 @@ public class CasinoController {
         Combi winnercombo = HOHEKARTE;
 
         for (PokerSpieler pokerSpieler : spielerliste) {
-            if (pokerSpieler.getCombo().getWert() > winnercombo.getWert() && pokerSpieler.getStatus() != FOLDED) {
+            if (pokerSpieler.getCombo().getWert() > winnercombo.getWert() && pokerSpieler.getStatus() != FOLDED && pokerSpieler.getStatus() != OUT) {
                 winnercombo = pokerSpieler.getCombo();
                 winner = pokerSpieler;
             }
@@ -260,17 +268,46 @@ public class CasinoController {
         }
 
         return winner;
-
     }
 
-    public int OutStatus() {
-        int anz = 0;
+    public boolean raiseState() {
         for (PokerSpieler pokerSpieler : spielerliste) {
-            if (pokerSpieler.getStatus() == OUT) {
-                anz++;
+            if (pokerSpieler.getStatus() == RAISED) {
+                return true;
             }
         }
-        return anz;
+        return false;
+    }
+
+    public Status allStatus() {
+        HashMap<Status, Integer> map = new HashMap<>();
+        Set<Status> keyset = map.keySet();
+        for (Status status : keyset) {
+            map.put(status, 0);
+        }
+
+        for (PokerSpieler pokerSpieler : spielerliste) {
+            switch (pokerSpieler.getStatus()) {
+                case OUT:
+                    map.put(OUT, map.get(OUT) + 1);
+                    break;
+
+                case FOLDED:
+                    map.put(FOLDED, map.get(FOLDED) + 1);
+                    break;
+
+                case RAISED:
+                    map.put(RAISED, map.get(RAISED) + 1);
+                    break;
+            }
+        }
+
+        for (Status status : keyset) {
+            if (map.get(status) == 4) {
+                return status;
+            }
+        }
+        return null;
     }
 
     /**
@@ -278,31 +315,31 @@ public class CasinoController {
      */
     public void check() {
         player.play("effect", "Check.mp3", false);
-        raising = false;
-        if (flopstate == 1) {
-            //Preflop: 3 Karten werden auf dem Tisch aufgedeckt
-            flopedcards = 3;
-            flopstate = 2;
-            player.play("effect", "Flip.mp3", false);
-        } else if (flopstate == 2) {
-            //Flop: 1 weitere Karte wird auf dem Tisch aufgedeckt
-            if (flopedcards < 5 && !raising) {
-                switch (flopedcards) {
-                    case 3:
-                        flopedcards = 4;
-                        break;
-                    case 4:
-                        flopedcards = 5;
-                        break;
-                }
+        letAllComsPlay();
+        checkAllCombos();
+        if (!raiseState()) {
+            if (flopstate == 1) {
+                //Preflop: 3 Karten werden auf dem Tisch aufgedeckt
+                flopedcards = 3;
+                flopstate = 2;
                 player.play("effect", "Flip.mp3", false);
-            }
+            } else if (flopstate == 2) {
+                //Flop: 1 weitere Karte wird auf dem Tisch aufgedeckt
+                if (flopedcards < 5) {
+                    switch (flopedcards) {
+                        case 3:
+                            flopedcards = 4;
+                            break;
+                        case 4:
+                            flopedcards = 5;
+                            break;
+                    }
+                    player.play("effect", "Flip.mp3", false);
+                }
 
+            }
         }
-        for (PokerSpieler pokerSpieler : spielerliste) {
-            letcomplay(pokerSpieler);
-            checkCombi(pokerSpieler);
-        }
+
     }
 
     /**
@@ -315,6 +352,10 @@ public class CasinoController {
         raising = true;
         pot = pot + einsatz;
         spielerliste.getFirst().setGeld(spielerliste.getFirst().getGeld() - einsatz);
+        spielerliste.getFirst().setStatus(RAISED);
+
+        letAllComsPlay();
+        checkAllCombos();
     }
 
     public LinkedList<PokerSpieler> getSpielerliste() {
