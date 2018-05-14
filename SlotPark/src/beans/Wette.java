@@ -16,13 +16,11 @@ public class Wette {
     private Satz s;
     private List<Integer> nummern;
     private int einsatz;
-    private List<Color> nummernfarben;
 
-    public Wette(Satz s, List<Integer> nummern, int einsatz, List<Color> nummernfarben) {
+    public Wette(Satz s, List<Integer> nummern, int einsatz) {
         this.s = s;
         this.nummern = nummern;
         this.einsatz = einsatz;
-        this.nummernfarben = nummernfarben;
     }
 
     public Satz getS() {
@@ -47,13 +45,5 @@ public class Wette {
 
     public void setEinsatz(int einsatz) {
         this.einsatz = einsatz;
-    }
-
-    public List<Color> getNummernfarben() {
-        return nummernfarben;
-    }
-
-    public void setNummernfarben(List<Color> nummernfarben) {
-        this.nummernfarben = nummernfarben;
     }
 }
