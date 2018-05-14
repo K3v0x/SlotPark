@@ -488,7 +488,6 @@ public class PokerGUI extends javax.swing.JFrame {
             }
             btFold.setEnabled(false);
             btRaise.setEnabled(false);
-            cc.checkwin();
             btCheck.setText("Neue Runde");
             lbWinner.setText(cc.checkwin().getName() + " hat gewonnen!");
         } else if (btCheck.getText().equals("Check")) {

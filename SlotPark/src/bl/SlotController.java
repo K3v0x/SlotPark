@@ -11,6 +11,7 @@ import static beans.Symbol.DIAMOND;
 import static beans.Symbol.LUCK;
 import static beans.Symbol.TREE;
 import java.util.Random;
+import javax.swing.JLabel;
 
 /**
  *
@@ -18,28 +19,21 @@ import java.util.Random;
  */
 public class SlotController {
 
-   Symbol[] slots = {CHERRY,TREE,LUCK,DIAMOND};
+    Symbol[] slots = {CHERRY, TREE, LUCK, DIAMOND};
     Symbol[][] slotdisplay = new Symbol[3][3];
     Random rand = new Random();
-
-    public void spin() {
-
-        for (int i = 0; i < slotdisplay.length; i++) {
-            for (int j = 0; j < slotdisplay.length; j++) {
-                slotdisplay[i][j] = slots[rand.nextInt(3) + 0];
+    
+    
+    public int getGewinn(int[][] array) {
+        int gewinn=0;
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array.length; j++) {
+                if(array[i][j]==2)
+                {
+                    gewinn+=1;
+                }
             }
         }
-
+        return gewinn;
     }
-
-    public Symbol[][] getSlotdisplay() {
-        return slotdisplay;
-    }
-
-    public void setSlotdisplay(Symbol[][] slotdisplay) {
-        this.slotdisplay = slotdisplay;
-    }
-
-    
-    
 }

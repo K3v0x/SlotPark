@@ -22,17 +22,17 @@ import javax.swing.JLabel;
  */
 public class SlotsGUI extends javax.swing.JFrame {
 
-    private Symbol[] slots = {Symbol.CHERRY, Symbol.TREE, Symbol.LUCK, Symbol.DIAMOND};
+   private Symbol[] slots = {Symbol.CHERRY, Symbol.TREE, Symbol.LUCK, Symbol.DIAMOND};
     private String imagepath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "images" + File.separator;
+    private String currMoney;
+    private int kontoStand;
+    private int zz;
+    private int[][] berechnung = new int[3][3];
     JLabel[][] labels;
     SlotController sc;
 
     private Spieler s;
-
-    SlotThread st;
-    Thread thread;
     Random rand = new Random();
-    int spins = 0;
 
     public Spieler getS() {
         return s;
@@ -49,14 +49,15 @@ public class SlotsGUI extends javax.swing.JFrame {
 //        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 //        this.setUndecorated(true);
         initComponents();
-        st = new SlotThread();
 
         sc = new SlotController();
+
+        kontoStand = Integer.parseInt(lbGeld.getText().replaceAll("Geld: ", "").trim());
+
         labels = new JLabel[][]{
             {lb00, lb01, lb02},
             {lb10, lb11, lb12},
             {lb20, lb21, lb22}};
-
     }
 
     @SuppressWarnings("unchecked")
@@ -78,9 +79,9 @@ public class SlotsGUI extends javax.swing.JFrame {
         lb12 = new javax.swing.JLabel();
         lb22 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
-        jToggleButton1 = new javax.swing.JToggleButton();
-        jToggleButton2 = new javax.swing.JToggleButton();
-        jToggleButton3 = new javax.swing.JToggleButton();
+        jtSet1 = new javax.swing.JToggleButton();
+        jtSet3 = new javax.swing.JToggleButton();
+        jtSet5 = new javax.swing.JToggleButton();
         jPanel3 = new javax.swing.JPanel();
         btSpielen = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -174,17 +175,32 @@ public class SlotsGUI extends javax.swing.JFrame {
 
         jPanel6.setLayout(new java.awt.GridLayout(1, 3));
 
-        jToggleButton1.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        jToggleButton1.setText("10%");
-        jPanel6.add(jToggleButton1);
+        jtSet1.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jtSet1.setText("10%");
+        jtSet1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                onSet1(evt);
+            }
+        });
+        jPanel6.add(jtSet1);
 
-        jToggleButton2.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        jToggleButton2.setText("25%");
-        jPanel6.add(jToggleButton2);
+        jtSet3.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jtSet3.setText("25%");
+        jtSet3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                onSet3(evt);
+            }
+        });
+        jPanel6.add(jtSet3);
 
-        jToggleButton3.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        jToggleButton3.setText("50%");
-        jPanel6.add(jToggleButton3);
+        jtSet5.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jtSet5.setText("50%");
+        jtSet5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                onSet5(evt);
+            }
+        });
+        jPanel6.add(jtSet5);
 
         jPanel5.add(jPanel6, java.awt.BorderLayout.SOUTH);
 
@@ -253,9 +269,10 @@ public class SlotsGUI extends javax.swing.JFrame {
         SlotThread st = new SlotThread();
         Thread thread = new Thread(st);
         thread.start();
-        sc.spin();
+        jtSet1.setEnabled(false);
+        jtSet3.setEnabled(false);
+        jtSet5.setEnabled(false);
         btSpielen.setEnabled(false);
-        spins = 0;
     }//GEN-LAST:event_onSpin
 
     private void onBack(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onBack
@@ -265,39 +282,86 @@ public class SlotsGUI extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_onBack
 
-    public class SlotThread implements Runnable {
+    private void onSet1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onSet1
+      kontoStand = Integer.parseInt(lbGeld.getText().replaceAll("Geld:", "").trim());
+        kontoStand = kontoStand - 1;
+        if (kontoStand <= 0) {
+            stopTheZock();
+            kontoStand = 0;
+        }
+    }//GEN-LAST:event_onSet1
+
+    private void onSet3(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onSet3
+        kontoStand = Integer.parseInt(lbGeld.getText().replaceAll("Geld:", "").trim());
+        kontoStand = kontoStand - 3;
+        if (kontoStand <= 0) {
+            stopTheZock();
+            kontoStand = 0;
+        }
+        lbGeld.setText("Geld: " + kontoStand);
+    }//GEN-LAST:event_onSet3
+
+    private void onSet5(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onSet5
+    kontoStand = Integer.parseInt(lbGeld.getText().replaceAll("Geld:", "").trim());
+        kontoStand = kontoStand - 5;
+        if (kontoStand <= 0) {
+            stopTheZock();
+            kontoStand = 0;
+        }
+        lbGeld.setText("Geld: " + kontoStand);
+    }//GEN-LAST:event_onSet5
+
+      public void stopTheZock() {
+        jtSet1.setEnabled(false);
+        jtSet3.setEnabled(false);
+        jtSet5.setEnabled(false);
+        btSpielen.setEnabled(false);
+    }
+    
+     public void addGewinnToKonto(int gewinn) {
+        kontoStand += gewinn;
+        lbGeld.setText("Geld: " + kontoStand);
+    }
+    
+   public class SlotThread implements Runnable {
 
         @Override
         public void run() {
-            while (!Thread.interrupted()) {
-                for (int i = labels.length - 1; i > -1; i--) {
-                    for (int j = 0; j < labels.length; j++) {
-                        if (i == 0) {
-                            int zz = rand.nextInt(slots.length - 1) - 0 + 1;
-                            labels[i][j].setIcon(new ImageIcon(imagepath + slots[zz] + "Slot.png"));
-                            System.out.print(zz + 1 + " ");
-                        } else {
-                            labels[i][j].setIcon(labels[i - 1][j].getIcon());
-
-                        }
-
+            for (int i = 0; i < labels.length; i++) {
+                for (int k = 0; k < 20; k++) {
+                    for (int j = 0; j < 3; j++) {
+                        zz = rand.nextInt(slots.length - 1) - 0 + 1;
+                        labels[j][i].setIcon(new ImageIcon(imagepath + slots[zz] + "Slot.png"));
+                        berechnung[i][j] = zz + 1;
                     }
-                    System.out.println("\n");
-                }
-                System.out.println("\n");
-                try {
-                    Thread.sleep(150);
-                } catch (InterruptedException ex) {
-                    return;
-                }
-                spins++;
-                if (spins == 20) {
-                    btSpielen.setEnabled(true);
-                    break;
+                    try {
+                        Thread.sleep(65);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(SlotsGUI.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             }
+            int gewinn = sc.getGewinn(berechnung);
+            addGewinnToKonto(gewinn);
+            if (kontoStand >= 1 && kontoStand < 3) {
+                jtSet1.setEnabled(true);
+                jtSet5.setEnabled(false);
+                jtSet5.setEnabled(false);
+            } else if (kontoStand >= 3 && kontoStand < 5) {
+                jtSet1.setEnabled(true);
+                jtSet5.setEnabled(true);
+                jtSet5.setEnabled(false);
+            } else if (kontoStand >= 5) {
+                jtSet1.setEnabled(true);
+                jtSet5.setEnabled(true);
+                jtSet5.setEnabled(true);
+            }
+            else if (kontoStand==0)
+            {
+                stopTheZock();
+            }
+            btSpielen.setEnabled(true);
         }
-
     }
 
     public static void main(String args[]) {
@@ -346,9 +410,9 @@ public class SlotsGUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JToggleButton jToggleButton1;
-    private javax.swing.JToggleButton jToggleButton2;
-    private javax.swing.JToggleButton jToggleButton3;
+    private javax.swing.JToggleButton jtSet1;
+    private javax.swing.JToggleButton jtSet3;
+    private javax.swing.JToggleButton jtSet5;
     private javax.swing.JLabel lb00;
     private javax.swing.JLabel lb01;
     private javax.swing.JLabel lb02;

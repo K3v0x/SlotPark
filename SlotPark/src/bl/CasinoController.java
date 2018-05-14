@@ -263,6 +263,7 @@ public class CasinoController {
         }
         for (PokerSpieler pokerSpieler : spielerliste) {
             if (winner == pokerSpieler) {
+                System.out.println(pot);
                 pokerSpieler.setGeld(pokerSpieler.getGeld() + pot);
             }
         }
@@ -317,7 +318,7 @@ public class CasinoController {
         player.play("effect", "Check.mp3", false);
         letAllComsPlay();
         checkAllCombos();
-     
+
         if (!raiseState()) {
             if (flopstate == 1) {
                 //Preflop: 3 Karten werden auf dem Tisch aufgedeckt
@@ -354,9 +355,14 @@ public class CasinoController {
         pot = pot + einsatz;
         spielerliste.getFirst().setGeld(spielerliste.getFirst().getGeld() - einsatz);
         spielerliste.getFirst().setStatus(RAISED);
-
-        letAllComsPlay();
-        checkAllCombos();
+        check();
+        for (int i = spielerliste.size()-1; i > 0; i--) {
+            if (spielerliste.get(i).getStatus() == CHECKED) {
+                raising = false;
+            } else if (spielerliste.get(i).getStatus() == RAISED) {
+                break;
+            }
+        }
     }
 
     public LinkedList<PokerSpieler> getSpielerliste() {
