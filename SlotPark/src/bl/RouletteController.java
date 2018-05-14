@@ -20,6 +20,7 @@ public class RouletteController {
     private Random rand = new Random();
     private List<Wette> wetten = new LinkedList<>();
     int zz;
+    double gewinn = 0.0;
 
     public int play() {
         zz = rand.nextInt(37);
@@ -28,10 +29,14 @@ public class RouletteController {
 
     public void setWette(Wette w) {
         wetten.add(w);
+    }    
+    
+    public double getAuszahlung()
+    {
+        return gewinn;
     }
 
-    public int checkWin() {
-        int gewinn = 0;
+    public void checkWin() {
         for (Wette wette : wetten) {
             if (wette.getS().equals(Satz.STRAIGHTUP) && wette.getNummern().size() == 1) {
                 if (wette.getNummern().get(0) == zz) {
@@ -93,8 +98,63 @@ public class RouletteController {
                     gewinn = gewinn + wette.getEinsatz() * wette.getS().getMultiplikator();
                 }
             }
+            if(getColor(zz) != null)
+            {
+                if(wette.getS().equals(getColor(zz)))
+                {
+                    gewinn = gewinn + wette.getEinsatz() * wette.getS().getMultiplikator();
+                }
+            }
         }
-        return gewinn;
+    }
+    
+    private Satz getColor(int zahl)
+    {
+        Satz s = null;
+        switch(zahl)
+        {
+            case 1:
+            case 3:
+            case 5:
+            case 7:
+            case 9:
+            case 12:
+            case 14:
+            case 16:
+            case 18:
+            case 19:
+            case 21:
+            case 23:
+            case 25:
+            case 27:
+            case 30:
+            case 32:
+            case 34:
+            case 36:
+                s = s.RED;
+                break;
+            case 2:
+            case 4:
+            case 6:
+            case 8:
+            case 10:
+            case 11:
+            case 13:
+            case 15:
+            case 17:
+            case 20:
+            case 22:
+            case 24:
+            case 26:
+            case 28:
+            case 29:
+            case 31:
+            case 33:
+            case 35:
+                s = s.BLACK;
+                break;
+        }
+        return s;
     }
 
 }
