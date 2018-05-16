@@ -28,26 +28,29 @@ import java.util.Stack;
  */
 public class CasinoController {
 
-    Random rand = new Random();
-    String imagepath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "images" + File.separator + "karten" + File.separator;
-    SoundPlayer player = SoundPlayer.getInstance();
+    public final Random rand = new Random();
+    private String imagepath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "images" + File.separator + "karten" + File.separator;
+    private SoundPlayer player = SoundPlayer.getInstance();
 
-    LinkedList<PokerSpieler> spielerliste = new LinkedList<>(); //Spielerliste
-    Stack<Karte> stapel = new Stack<>(); //Kartenstapel
+    private LinkedList<PokerSpieler> spielerliste = new LinkedList<>(); //Spielerliste
+    private Stack<Karte> stapel = new Stack<>(); //Kartenstapel
     private int mindesteinsatz = 0; //Minimaler Einsatz
-    int flopedcards = 0; //Anzahl der aufgedeckten Karten
-    int pot = 0; //Anzahl der Chips im Pot
-    Karte[] kartentisch = new Karte[5]; //Karten, die auf dem Tisch liegen
-    int flopstate = -1;
-    boolean raising = false;
+    private int flopedcards = 0; //Anzahl der aufgedeckten Karten
+    private int pot = 0; //Anzahl der Chips im Pot
+    private int flopstate = -1;
+    private int highraise = 0;
+    private int raisediff = 0;
+    private Karte[] kartentisch = new Karte[5]; //Karten, die auf dem Tisch liegen
+    private boolean raising = false;
+
     private String name;
     private int geld;
-    PokerSpieler spieler;
+    private PokerSpieler spieler;
 
     public CasinoController(String name, int geld) {
         this.name = name;
         this.geld = geld;
-        spieler = new PokerSpieler(new Karte[2], HOHEKARTE, ENTERED, false, name, "1", geld, null);
+        spieler = new PokerSpieler(new Karte[2], HOHEKARTE, 0, ENTERED, false, name, "1", geld, null);
     }
 
     /**
@@ -55,10 +58,10 @@ public class CasinoController {
      */
     public void load() {
         spielerliste.clear();
-        PokerSpieler com1 = new PokerSpieler(new Karte[2], HOHEKARTE, ENTERED, true, "Mike", "1", geld, null);
-        PokerSpieler com2 = new PokerSpieler(new Karte[2], HOHEKARTE, ENTERED, true, "Martin", "1", geld, null);
-        PokerSpieler com3 = new PokerSpieler(new Karte[2], HOHEKARTE, ENTERED, true, "Sarah", "1", geld, null);
-        PokerSpieler com4 = new PokerSpieler(new Karte[2], HOHEKARTE, ENTERED, true, "Tom", "1", geld, null);
+        PokerSpieler com1 = new PokerSpieler(new Karte[2], HOHEKARTE, 0, ENTERED, true, "Mike", "1", geld, null);
+        PokerSpieler com2 = new PokerSpieler(new Karte[2], HOHEKARTE, 0, ENTERED, true, "Martin", "1", geld, null);
+        PokerSpieler com3 = new PokerSpieler(new Karte[2], HOHEKARTE, 0, ENTERED, true, "Sarah", "1", geld, null);
+        PokerSpieler com4 = new PokerSpieler(new Karte[2], HOHEKARTE, 0, ENTERED, true, "Tom", "1", geld, null);
 
         spielerliste.add(spieler);
         spielerliste.add(com1);
@@ -229,17 +232,32 @@ public class CasinoController {
         for (PokerSpieler pokerSpieler : spielerliste) {
             if (pokerSpieler.getStatus() != FOLDED && pokerSpieler.isComputer() && pokerSpieler.getStatus() != OUT) {
                 if (raising && pokerSpieler.getCombo() == HOHEKARTE) {
-                    pokerSpieler.setStatus(FOLDED);
+                    pokerSpieler.setStatus(CHECKED);
+                    if (highraise != 0) {
+                        pokerSpieler.setGeld(pokerSpieler.getGeld() - highraise);
+                        pot = pot + highraise;
+                    }
                 } else if (!raising) {
                     int chance = 10 - pokerSpieler.getCombo().getWert();
                     if (rand.nextInt(chance - 0 + 1) + 0 == 0) {
                         int einsatz = (int) (rand.nextInt((int) (pokerSpieler.getGeld() / 2 - pokerSpieler.getGeld() / 4 + 1)));
                         pokerSpieler.setStatus(RAISED);
-                        pokerSpieler.setGeld(pokerSpieler.getGeld() - einsatz);
-                        pot = pot + einsatz;
+
+                        if (highraise != 0) { //Spieler bietet mehr als der andere
+                            highraise = highraise + einsatz;
+                            pokerSpieler.setGeld(pokerSpieler.getGeld() - (einsatz + highraise));
+                            pot = pot + einsatz + highraise;
+                        } else {
+                            highraise = einsatz;
+                            pokerSpieler.setGeld(pokerSpieler.getGeld() - einsatz);
+                            pot = pot + einsatz;
+                        }
+
                     } else {
                         pokerSpieler.setStatus(CHECKED);
                     }
+                } else if (raising) {
+                    pokerSpieler.setStatus(CHECKED);
                 }
             }
         }
@@ -320,6 +338,7 @@ public class CasinoController {
         checkAllCombos();
 
         if (!raiseState()) {
+            highraise = 0;
             if (flopstate == 1) {
                 //Preflop: 3 Karten werden auf dem Tisch aufgedeckt
                 flopedcards = 3;
@@ -351,17 +370,32 @@ public class CasinoController {
      */
     public void raise(int einsatz) {
         //Einsatz erhöhen
+        if (highraise != 0) { //Spieler bietet mehr als der andere
+            highraise = highraise + einsatz;
+            spielerliste.getFirst().setGeld(spielerliste.getFirst().getGeld() - (einsatz + highraise));
+            pot = pot + einsatz + highraise;
+        } else {
+            highraise = einsatz;
+            spielerliste.getFirst().setGeld(spielerliste.getFirst().getGeld() - einsatz);
+            pot = pot + einsatz;
+        }
+
         raising = true;
         pot = pot + einsatz;
         spielerliste.getFirst().setGeld(spielerliste.getFirst().getGeld() - einsatz);
         spielerliste.getFirst().setStatus(RAISED);
         check();
-        for (int i = spielerliste.size()-1; i > 0; i--) {
+        for (int i = spielerliste.size() - 1; i > 0; i--) {
             if (spielerliste.get(i).getStatus() == CHECKED) {
+                spielerliste.getFirst().setStatus(CHECKED);
                 raising = false;
             } else if (spielerliste.get(i).getStatus() == RAISED) {
                 break;
             }
+        }
+
+        if (!raising) {
+            check();
         }
     }
 

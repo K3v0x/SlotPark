@@ -13,13 +13,15 @@ public class PokerSpieler extends Spieler {
 
     private Karte[] karten;
     private Combi combo;
+    private int raisebetrag;
     private Status status;
     private boolean computer;
 
-    public PokerSpieler(Karte[] karten, Combi combo, Status status, boolean computer, String name, String password, double geld, Icon icon) {
+    public PokerSpieler(Karte[] karten, Combi combo, int raisebetrag, Status status, boolean computer, String name, String password, double geld, Icon icon) {
         super(name, password, geld, icon);
         this.karten = karten;
         this.combo = combo;
+        this.raisebetrag = raisebetrag;
         this.status = status;
         this.computer = computer;
     }
@@ -40,6 +42,14 @@ public class PokerSpieler extends Spieler {
         this.combo = combo;
     }
 
+    public int getRaisebetrag() {
+        return raisebetrag;
+    }
+
+    public void setRaisebetrag(int raisebetrag) {
+        this.raisebetrag = raisebetrag;
+    }
+
     public Status getStatus() {
         return status;
     }
@@ -56,7 +66,8 @@ public class PokerSpieler extends Spieler {
         this.computer = computer;
     }
 
-  
+   
+   
    
 
 }
