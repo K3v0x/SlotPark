@@ -586,6 +586,7 @@ public class PokerGUI extends javax.swing.JFrame {
                     break;
             }
         }
+        System.out.println("Geld im Umlauf: "+cc.getUmlaufgeld());
         System.out.println("\n");
 
     }

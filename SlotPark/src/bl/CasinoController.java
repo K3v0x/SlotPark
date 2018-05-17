@@ -234,19 +234,30 @@ public class CasinoController {
                 if (raising && pokerSpieler.getCombo() == HOHEKARTE) {
                     pokerSpieler.setStatus(CHECKED);
                     if (highraise != 0) {
-                        pokerSpieler.setGeld(pokerSpieler.getGeld() - highraise);
-                        pot = pot + highraise;
+                        if (pokerSpieler.getGeld() < highraise) {
+                            pot = (int) (pot + pokerSpieler.getGeld());
+                            pokerSpieler.setGeld(0);
+                        } else {
+                            pokerSpieler.setGeld(pokerSpieler.getGeld() - highraise);
+                            pot = pot + highraise;
+                        }
                     }
                 } else if (!raising) {
                     int chance = 10 - pokerSpieler.getCombo().getWert();
                     if (rand.nextInt(chance - 0 + 1) + 0 == 0) {
                         int einsatz = (int) (rand.nextInt((int) (pokerSpieler.getGeld() / 2 - pokerSpieler.getGeld() / 4 + 1)));
                         pokerSpieler.setStatus(RAISED);
-
                         if (highraise != 0) { //Spieler bietet mehr als der andere
                             highraise = highraise + einsatz;
-                            pokerSpieler.setGeld(pokerSpieler.getGeld() - (einsatz + highraise));
-                            pot = pot + einsatz + highraise;
+                            if (pokerSpieler.getGeld() < (einsatz + highraise)) {
+                                pot = (int) (pot + pokerSpieler.getGeld());
+                                pokerSpieler.setGeld(0);
+
+                            } else {
+                                pokerSpieler.setGeld(pokerSpieler.getGeld() - (einsatz + highraise));
+                                pot = pot + einsatz + highraise;
+                            }
+
                         } else {
                             highraise = einsatz;
                             pokerSpieler.setGeld(pokerSpieler.getGeld() - einsatz);
@@ -260,8 +271,8 @@ public class CasinoController {
                     pokerSpieler.setStatus(CHECKED);
                 }
             }
-        }
 
+        }
     }
 
     /**
@@ -300,9 +311,10 @@ public class CasinoController {
 
     public Status allStatus() {
         HashMap<Status, Integer> map = new HashMap<>();
-        Set<Status> keyset = map.keySet();
-        for (Status status : keyset) {
-            map.put(status, 0);
+        Status[] statusfeld = Status.values();
+
+        for (int i = 0; i < statusfeld.length; i++) {
+            map.put(statusfeld[i], 0);
         }
 
         for (PokerSpieler pokerSpieler : spielerliste) {
@@ -319,13 +331,15 @@ public class CasinoController {
                     map.put(RAISED, map.get(RAISED) + 1);
                     break;
             }
+
         }
 
-        for (Status status : keyset) {
-            if (map.get(status) == 4) {
-                return status;
+        for (int i = 0; i < statusfeld.length; i++) {
+            if (map.get(statusfeld[i]) == 4) {
+                return statusfeld[i];
             }
         }
+
         return null;
     }
 
@@ -381,8 +395,6 @@ public class CasinoController {
         }
 
         raising = true;
-        pot = pot + einsatz;
-        spielerliste.getFirst().setGeld(spielerliste.getFirst().getGeld() - einsatz);
         spielerliste.getFirst().setStatus(RAISED);
         check();
         for (int i = spielerliste.size() - 1; i > 0; i--) {
@@ -469,6 +481,15 @@ public class CasinoController {
 
     public void setFlopstate(int flopstate) {
         this.flopstate = flopstate;
+    }
+
+    public int getUmlaufgeld() {
+        int umlaufgeld = 0;
+        for (PokerSpieler pokerSpieler : spielerliste) {
+            umlaufgeld = (int) (umlaufgeld + pokerSpieler.getGeld());
+        }
+        umlaufgeld = umlaufgeld + pot;
+        return umlaufgeld;
     }
 
 }
