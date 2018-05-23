@@ -448,10 +448,16 @@ public class PokerGUI extends javax.swing.JFrame {
                 if (antwort == 0) {
                     cc.raise(einsatz);
                     aufdecken = true;
+                    btCheck.setEnabled(false);
+                    btFold.setEnabled(false);
+                    btRaise.setEnabled(false);
                 }
             } else {
                 cc.raise(einsatz);
                 aufdecken = true;
+                btCheck.setEnabled(false);
+                btFold.setEnabled(false);
+                btRaise.setEnabled(false);
             }
 
         } catch (NumberFormatException e) {
@@ -483,13 +489,12 @@ public class PokerGUI extends javax.swing.JFrame {
             if (cc.allStatus() == OUT) {
                 btCheck.setText("Neues Spiel");
                 lbWinner.setText(cc.checkwin().getName() + " hat das Spiel gewonnen!");
-            } else if (cc.getSpielerliste().getFirst().getGeld() < cc.getMindesteinsatz()) {
-                btCheck.setEnabled(false);
+            } else {
+                btCheck.setText("Neue Runde");
+                lbWinner.setText(cc.checkwin().getName() + " hat gewonnen!");
             }
             btFold.setEnabled(false);
             btRaise.setEnabled(false);
-            btCheck.setText("Neue Runde");
-            lbWinner.setText(cc.checkwin().getName() + " hat gewonnen!");
         } else if (btCheck.getText().equals("Check")) {
             btCheck.setEnabled(false);
             btFold.setEnabled(false);
@@ -513,6 +518,7 @@ public class PokerGUI extends javax.swing.JFrame {
     private void onChange(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_onChange
         einsatz = jsEinsatz.getValue();
         tfEinsatz.setText(einsatz + "/" + (int) cc.getSpielerliste().getFirst().getGeld());
+
     }//GEN-LAST:event_onChange
 
     public void updateUI() {
@@ -529,11 +535,6 @@ public class PokerGUI extends javax.swing.JFrame {
         jsEinsatz.setMaximum((int) cc.getSpielerliste().getFirst().getGeld());
         jsEinsatz.setMinimum((int) cc.getMindesteinsatz());
         jsEinsatz.setValue(jsEinsatz.getMaximum() / 4);
-        if ((int) cc.getSpielerliste().getFirst().getGeld() < einsatz) {
-            btRaise.setEnabled(false);
-        } else {
-            btRaise.setEnabled(true);
-        }
 
         for (int i = 0; i < kartenlabels.length; i++) {
             ImageIcon imageIcon = new ImageIcon(imagepath + spielerliste.getFirst().getKarten()[i].getWert() + "" + spielerliste.getFirst().getKarten()[i].getFarbe().getName() + ".png"); // load the image to a imageIcon
@@ -549,7 +550,7 @@ public class PokerGUI extends javax.swing.JFrame {
             lbC4.setIcon(new ImageIcon(imagepath + "red_back.png"));
             lbC5.setIcon(new ImageIcon(imagepath + "red_back.png"));
         }
-        if (cc.getSpielerliste().getFirst().getGeld() <= 0) {
+        if (cc.getSpielerliste().getFirst().getGeld() < cc.getMindesteinsatz()) {
             btFold.setEnabled(false);
             btRaise.setEnabled(false);
             btCheck.setEnabled(false);
@@ -564,7 +565,10 @@ public class PokerGUI extends javax.swing.JFrame {
     public void dispayCombo(JLabel[] lbCom, JLabel[] lbStatus) {
         LinkedList<PokerSpieler> liste = cc.getSpielerliste();
         for (int i = 1; i < liste.size(); i++) {
-            System.out.println(cc.getSpielerliste().get(i).getName() + " " + (int) cc.getSpielerliste().get(i).getGeld() + " " + cc.getSpielerliste().get(i).getStatus());
+            System.out.println(cc.getSpielerliste().get(i).getName() + " "
+                    + (int) cc.getSpielerliste().get(i).getGeld() + " "
+                    + cc.getSpielerliste().get(i).getStatus() + " ("
+                    + cc.getSpielerliste().get(i).getCombo() + ")");
 
             switch (cc.getSpielerliste().get(i).getStatus()) {
                 case OUT:
@@ -586,7 +590,7 @@ public class PokerGUI extends javax.swing.JFrame {
                     break;
             }
         }
-        System.out.println("Geld im Umlauf: "+cc.getUmlaufgeld());
+        System.out.println("Geld im Umlauf: " + cc.getUmlaufgeld());
         System.out.println("\n");
 
     }
@@ -663,10 +667,15 @@ public class PokerGUI extends javax.swing.JFrame {
                         aufdecken = false;
                         btCheck.setEnabled(true);
                         btFold.setEnabled(true);
-                        if ((int) cc.getSpielerliste().getFirst().getGeld() < einsatz) {
+                        if ((int) cc.getSpielerliste().getFirst().getGeld() < cc.getMindesteinsatz()) {
                             btRaise.setEnabled(false);
                         } else {
                             btRaise.setEnabled(true);
+                        }
+
+                        if (btCheck.getText().equals("Neue Runde") || btCheck.getText().equals("Neues Spiel")) {
+                            btFold.setEnabled(false);
+                            btRaise.setEnabled(false);
                         }
                     }
 

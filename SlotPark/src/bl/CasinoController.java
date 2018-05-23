@@ -41,7 +41,7 @@ public class CasinoController {
     private int highraise = 0;
     private int raisediff = 0;
     private Karte[] kartentisch = new Karte[5]; //Karten, die auf dem Tisch liegen
-    private boolean raising = false;
+    
 
     private String name;
     private int geld;
@@ -193,19 +193,21 @@ public class CasinoController {
                 } else if (anzahl.get(i + 1) == 3) {
                     combi = DRILLING;
                     pokerSpieler.setCombo(combi);
-                    pokerSpieler.setCombo(combi);
                 } else if (anzahl.get(i + 1) == 2) {
                     for (int j = 0; j < anzahl.size(); j++) {
                         if (anzahl.get(j + 1) == 2 && j != i) {
                             combi = ZWEIPAARE;
                             pokerSpieler.setCombo(combi);
+                            break;
                         } else {
                             combi = PAAR;
                             pokerSpieler.setCombo(combi);
+                            break;
                         }
                     }
 
                 }
+
             }
             for (int i = 0; i < anzahl.size() - 1; i++) {
                 for (int j = 0; j < 3; j++) {
@@ -231,7 +233,7 @@ public class CasinoController {
     public void letAllComsPlay() {
         for (PokerSpieler pokerSpieler : spielerliste) {
             if (pokerSpieler.getStatus() != FOLDED && pokerSpieler.isComputer() && pokerSpieler.getStatus() != OUT) {
-                if (raising && pokerSpieler.getCombo() == HOHEKARTE) {
+                if (raiseState() && pokerSpieler.getCombo() == HOHEKARTE) {
                     pokerSpieler.setStatus(CHECKED);
                     if (highraise != 0) {
                         if (pokerSpieler.getGeld() < highraise) {
@@ -242,7 +244,7 @@ public class CasinoController {
                             pot = pot + highraise;
                         }
                     }
-                } else if (!raising) {
+                } else if (!raiseState()) {
                     int chance = 10 - pokerSpieler.getCombo().getWert();
                     if (rand.nextInt(chance - 0 + 1) + 0 == 0) {
                         int einsatz = (int) (rand.nextInt((int) (pokerSpieler.getGeld() / 2 - pokerSpieler.getGeld() / 4 + 1)));
@@ -267,7 +269,7 @@ public class CasinoController {
                     } else {
                         pokerSpieler.setStatus(CHECKED);
                     }
-                } else if (raising) {
+                } else if (raiseState()) {
                     pokerSpieler.setStatus(CHECKED);
                 }
             }
@@ -348,8 +350,6 @@ public class CasinoController {
      */
     public void check() {
         player.play("effect", "Check.mp3", false);
-        letAllComsPlay();
-        checkAllCombos();
 
         if (!raiseState()) {
             highraise = 0;
@@ -374,6 +374,8 @@ public class CasinoController {
 
             }
         }
+        letAllComsPlay();
+        checkAllCombos();
 
     }
 
@@ -394,19 +396,18 @@ public class CasinoController {
             pot = pot + einsatz;
         }
 
-        raising = true;
+    
         spielerliste.getFirst().setStatus(RAISED);
         check();
         for (int i = spielerliste.size() - 1; i > 0; i--) {
             if (spielerliste.get(i).getStatus() == CHECKED) {
                 spielerliste.getFirst().setStatus(CHECKED);
-                raising = false;
             } else if (spielerliste.get(i).getStatus() == RAISED) {
                 break;
             }
         }
 
-        if (!raising) {
+        if (!raiseState()) {
             check();
         }
     }
