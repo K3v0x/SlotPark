@@ -60,7 +60,7 @@ public class MenuGUI extends javax.swing.JFrame {
         lbPoker = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        lbRoulette = new javax.swing.JLabel();
+        lbBombs = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
@@ -136,24 +136,25 @@ public class MenuGUI extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Roulette");
+        jLabel5.setText("Bombs");
         jPanel2.add(jLabel5, java.awt.BorderLayout.NORTH);
+        jLabel5.getAccessibleContext().setAccessibleName("Bombs");
 
-        lbRoulette.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        lbRoulette.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbRoulette.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Roulette.png"))); // NOI18N
-        lbRoulette.setName("Roulette"); // NOI18N
-        lbRoulette.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+        lbBombs.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        lbBombs.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbBombs.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Roulette.png"))); // NOI18N
+        lbBombs.setName("Bombs"); // NOI18N
+        lbBombs.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 onSelect(evt);
             }
         });
-        lbRoulette.addMouseListener(new java.awt.event.MouseAdapter() {
+        lbBombs.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 onPlay(evt);
             }
         });
-        jPanel2.add(lbRoulette, java.awt.BorderLayout.CENTER);
+        jPanel2.add(lbBombs, java.awt.BorderLayout.CENTER);
 
         jPanel1.add(jPanel2);
 
@@ -230,19 +231,20 @@ public class MenuGUI extends javax.swing.JFrame {
     private void onSelect(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_onSelect
         JLabel lbsel = (JLabel) evt.getSource();
         selgame = lbsel.getName();
+        System.out.println(selgame);
         switch (selgame) { //Setzt die Umrandung des Selektierten Spiels
             case "Slots":
                 lbSlots.setBorder(new LineBorder(Color.black, 20));
                 lbPoker.setBorder(null);
-                lbRoulette.setBorder(null);
+                lbBombs.setBorder(null);
                 break;
             case "Poker":
                 lbPoker.setBorder(new LineBorder(Color.black, 20));
-                lbRoulette.setBorder(null);
+                lbBombs.setBorder(null);
                 lbSlots.setBorder(null);
                 break;
             case "Bombs":
-                lbRoulette.setBorder(new LineBorder(Color.black, 20));
+                lbBombs.setBorder(new LineBorder(Color.black, 20));
                 lbPoker.setBorder(null);
                 lbSlots.setBorder(null);
                 break;
@@ -297,11 +299,11 @@ public class MenuGUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JLabel lbBombs;
     private javax.swing.JLabel lbGeld;
     private javax.swing.JLabel lbIcon;
     private javax.swing.JLabel lbName;
     private javax.swing.JLabel lbPoker;
-    private javax.swing.JLabel lbRoulette;
     private javax.swing.JLabel lbSlots;
     // End of variables declaration//GEN-END:variables
 }

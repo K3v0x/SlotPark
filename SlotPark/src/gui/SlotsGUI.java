@@ -43,6 +43,7 @@ public class SlotsGUI extends javax.swing.JFrame {
         lbName.setText("Name: " + s.getName());
         lbGeld.setText(String.format("Geld: %.0f Chips", s.getGeld() * 5));
         lbIcon.setIcon(s.getIcon().getIcon());
+        kontoStand = (int) s.getGeld();
     }
 
     public SlotsGUI() {
@@ -51,8 +52,6 @@ public class SlotsGUI extends javax.swing.JFrame {
         initComponents();
 
         sc = new SlotController();
-
-        kontoStand = Integer.parseInt(lbGeld.getText().replaceAll("Geld: ", "").trim());
 
         labels = new JLabel[][]{
             {lb00, lb01, lb02},

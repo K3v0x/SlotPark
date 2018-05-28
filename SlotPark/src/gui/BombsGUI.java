@@ -5,6 +5,7 @@
  */
 package gui;
 
+import beans.Spieler;
 import bl.BombController;
 import java.io.File;
 import javax.swing.ImageIcon;
@@ -19,6 +20,19 @@ public class BombsGUI extends javax.swing.JFrame {
     
     BombController bc = new BombController();
     int score = 1;
+    
+    Spieler s = null;
+    
+     public Spieler getS() {
+        return s;
+    }
+
+    public void setS(Spieler s) {
+        this.s = s;
+        lbName.setText("Name: " + s.getName());
+        lbGeld.setText(String.format("Geld: %.0f Chips", s.getGeld() * 5));
+        lbIcon.setIcon(s.getIcon().getIcon());
+    }
     
     public BombsGUI() {
         initComponents();
@@ -56,7 +70,7 @@ public class BombsGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        tfScore = new javax.swing.JTextField();
+        jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         lbS0 = new javax.swing.JLabel();
         lbS1 = new javax.swing.JLabel();
@@ -94,15 +108,17 @@ public class BombsGUI extends javax.swing.JFrame {
         bt43 = new javax.swing.JToggleButton();
         bt44 = new javax.swing.JToggleButton();
         lbZ4 = new javax.swing.JLabel();
+        tfScore = new javax.swing.JTextField();
+        jPanel3 = new javax.swing.JPanel();
+        lbIcon = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        lbName = new javax.swing.JLabel();
+        lbGeld = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("KevBombs");
 
-        tfScore.setEditable(false);
-        tfScore.setFont(new java.awt.Font("Eras Bold ITC", 0, 36)); // NOI18N
-        tfScore.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        tfScore.setText("1");
-        getContentPane().add(tfScore, java.awt.BorderLayout.PAGE_START);
+        jPanel2.setLayout(new java.awt.BorderLayout());
 
         jPanel1.setLayout(new java.awt.GridLayout(6, 6));
 
@@ -440,7 +456,36 @@ public class BombsGUI extends javax.swing.JFrame {
         lbZ4.setText("0");
         jPanel1.add(lbZ4);
 
-        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
+        jPanel2.add(jPanel1, java.awt.BorderLayout.CENTER);
+
+        tfScore.setEditable(false);
+        tfScore.setFont(new java.awt.Font("Eras Bold ITC", 0, 36)); // NOI18N
+        tfScore.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tfScore.setText("1");
+        jPanel2.add(tfScore, java.awt.BorderLayout.PAGE_START);
+
+        getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
+
+        jPanel3.setLayout(new java.awt.BorderLayout());
+
+        lbIcon.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
+        lbIcon.setOpaque(true);
+        jPanel3.add(lbIcon, java.awt.BorderLayout.WEST);
+        lbIcon.getAccessibleContext().setAccessibleName("");
+
+        jPanel7.setLayout(new java.awt.GridLayout(2, 0, 10, 0));
+
+        lbName.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
+        lbName.setOpaque(true);
+        jPanel7.add(lbName);
+
+        lbGeld.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
+        lbGeld.setOpaque(true);
+        jPanel7.add(lbGeld);
+
+        jPanel3.add(jPanel7, java.awt.BorderLayout.CENTER);
+
+        getContentPane().add(jPanel3, java.awt.BorderLayout.NORTH);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -536,6 +581,12 @@ public class BombsGUI extends javax.swing.JFrame {
     private javax.swing.JToggleButton bt44;
     private javax.swing.JButton btNew;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JLabel lbGeld;
+    private javax.swing.JLabel lbIcon;
+    private javax.swing.JLabel lbName;
     private javax.swing.JLabel lbS0;
     private javax.swing.JLabel lbS1;
     private javax.swing.JLabel lbS2;
