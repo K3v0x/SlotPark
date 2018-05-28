@@ -217,7 +217,11 @@ public class MenuGUI extends javax.swing.JFrame {
                 pokergui.setVisible(true);
                 this.dispose();
                 break;
-            case "Roulette":
+            case "Bombs":
+                BombsGUI bombsgui = new BombsGUI();
+                bombsgui.setS(s);
+                bombsgui.setVisible(true);
+                this.dispose();
 
                 break;
         }
@@ -237,7 +241,7 @@ public class MenuGUI extends javax.swing.JFrame {
                 lbRoulette.setBorder(null);
                 lbSlots.setBorder(null);
                 break;
-            case "Roulette":
+            case "Bombs":
                 lbRoulette.setBorder(new LineBorder(Color.black, 20));
                 lbPoker.setBorder(null);
                 lbSlots.setBorder(null);
