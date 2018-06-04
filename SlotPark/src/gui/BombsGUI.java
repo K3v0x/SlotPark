@@ -7,6 +7,7 @@ package gui;
 
 import beans.Spieler;
 import bl.BombController;
+import java.awt.Color;
 import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -17,13 +18,13 @@ import javax.swing.JToggleButton;
  * @author Kevin
  */
 public class BombsGUI extends javax.swing.JFrame {
-    
+
     BombController bc = new BombController();
     int score = 1;
-    
+
     Spieler s = null;
-    
-     public Spieler getS() {
+
+    public Spieler getS() {
         return s;
     }
 
@@ -33,7 +34,7 @@ public class BombsGUI extends javax.swing.JFrame {
         lbGeld.setText(String.format("Geld: %.0f Chips", s.getGeld() * 5));
         lbIcon.setIcon(s.getIcon().getIcon());
     }
-    
+
     public BombsGUI() {
         initComponents();
         JToggleButton[][] tbfield = {
@@ -43,16 +44,16 @@ public class BombsGUI extends javax.swing.JFrame {
             {bt30, bt31, bt32, bt33, bt34},
             {bt40, bt41, bt42, bt43, bt44}
         };
-        
+
         JLabel[] spaltenfield = {lbS0, lbS1, lbS2, lbS3, lbS4};
         JLabel[] zeilenfield = {lbZ0, lbZ1, lbZ2, lbZ3, lbZ4};
-        
+
         for (int i = 0; i < tbfield.length; i++) {
             for (int j = 0; j < tbfield.length; j++) {
                 tbfield[i][j].setName(i + " " + j);
-                
+
             }
-            
+
         }
         bc.setZeilenfield(zeilenfield);
         bc.setSpaltenfield(spaltenfield);
@@ -70,6 +71,9 @@ public class BombsGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel4 = new javax.swing.JPanel();
+        btNew = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         lbS0 = new javax.swing.JLabel();
@@ -77,7 +81,7 @@ public class BombsGUI extends javax.swing.JFrame {
         lbS2 = new javax.swing.JLabel();
         lbS3 = new javax.swing.JLabel();
         lbS4 = new javax.swing.JLabel();
-        btNew = new javax.swing.JButton();
+        tfScore = new javax.swing.JTextField();
         bt00 = new javax.swing.JToggleButton();
         bt01 = new javax.swing.JToggleButton();
         bt02 = new javax.swing.JToggleButton();
@@ -108,7 +112,6 @@ public class BombsGUI extends javax.swing.JFrame {
         bt43 = new javax.swing.JToggleButton();
         bt44 = new javax.swing.JToggleButton();
         lbZ4 = new javax.swing.JLabel();
-        tfScore = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         lbIcon = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
@@ -118,45 +121,64 @@ public class BombsGUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("KevBombs");
 
-        jPanel2.setLayout(new java.awt.BorderLayout());
+        jPanel4.setLayout(new java.awt.GridLayout(2, 0));
 
-        jPanel1.setLayout(new java.awt.GridLayout(6, 6));
-
-        lbS0.setFont(new java.awt.Font("Eras Bold ITC", 0, 36)); // NOI18N
-        lbS0.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbS0.setText("0");
-        jPanel1.add(lbS0);
-
-        lbS1.setFont(new java.awt.Font("Eras Bold ITC", 0, 36)); // NOI18N
-        lbS1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbS1.setText("0");
-        jPanel1.add(lbS1);
-
-        lbS2.setFont(new java.awt.Font("Eras Bold ITC", 0, 36)); // NOI18N
-        lbS2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbS2.setText("0");
-        jPanel1.add(lbS2);
-
-        lbS3.setFont(new java.awt.Font("Eras Bold ITC", 0, 36)); // NOI18N
-        lbS3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbS3.setText("0");
-        jPanel1.add(lbS3);
-
-        lbS4.setFont(new java.awt.Font("Eras Bold ITC", 0, 36)); // NOI18N
-        lbS4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbS4.setText("0");
-        jPanel1.add(lbS4);
-
-        btNew.setFont(new java.awt.Font("Eras Bold ITC", 0, 36)); // NOI18N
+        btNew.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         btNew.setText("Neues Spiel");
         btNew.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 onNewGame(evt);
             }
         });
-        jPanel1.add(btNew);
+        jPanel4.add(btNew);
 
-        bt00.setFont(new java.awt.Font("Eras Bold ITC", 0, 36)); // NOI18N
+        jButton1.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
+        jButton1.setText("Zurück");
+        jPanel4.add(jButton1);
+
+        getContentPane().add(jPanel4, java.awt.BorderLayout.SOUTH);
+
+        jPanel2.setLayout(new java.awt.BorderLayout());
+
+        jPanel1.setLayout(new java.awt.GridLayout(6, 6));
+
+        lbS0.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
+        lbS0.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbS0.setText("0");
+        lbS0.setOpaque(true);
+        jPanel1.add(lbS0);
+
+        lbS1.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
+        lbS1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbS1.setText("0");
+        lbS1.setOpaque(true);
+        jPanel1.add(lbS1);
+
+        lbS2.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
+        lbS2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbS2.setText("0");
+        lbS2.setOpaque(true);
+        jPanel1.add(lbS2);
+
+        lbS3.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
+        lbS3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbS3.setText("0");
+        lbS3.setOpaque(true);
+        jPanel1.add(lbS3);
+
+        lbS4.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
+        lbS4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbS4.setText("0");
+        lbS4.setOpaque(true);
+        jPanel1.add(lbS4);
+
+        tfScore.setEditable(false);
+        tfScore.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
+        tfScore.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tfScore.setText("1");
+        jPanel1.add(tfScore);
+
+        bt00.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         bt00.setText("?");
         bt00.setFocusable(false);
         bt00.setName("0,0"); // NOI18N
@@ -167,7 +189,7 @@ public class BombsGUI extends javax.swing.JFrame {
         });
         jPanel1.add(bt00);
 
-        bt01.setFont(new java.awt.Font("Eras Bold ITC", 0, 36)); // NOI18N
+        bt01.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         bt01.setText("?");
         bt01.setFocusable(false);
         bt01.setName("0,1"); // NOI18N
@@ -178,7 +200,7 @@ public class BombsGUI extends javax.swing.JFrame {
         });
         jPanel1.add(bt01);
 
-        bt02.setFont(new java.awt.Font("Eras Bold ITC", 0, 36)); // NOI18N
+        bt02.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         bt02.setText("?");
         bt02.setFocusable(false);
         bt02.setName("0,2"); // NOI18N
@@ -189,7 +211,7 @@ public class BombsGUI extends javax.swing.JFrame {
         });
         jPanel1.add(bt02);
 
-        bt03.setFont(new java.awt.Font("Eras Bold ITC", 0, 36)); // NOI18N
+        bt03.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         bt03.setText("?");
         bt03.setFocusable(false);
         bt03.setName("0,3"); // NOI18N
@@ -200,7 +222,7 @@ public class BombsGUI extends javax.swing.JFrame {
         });
         jPanel1.add(bt03);
 
-        bt04.setFont(new java.awt.Font("Eras Bold ITC", 0, 36)); // NOI18N
+        bt04.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         bt04.setText("?");
         bt04.setFocusable(false);
         bt04.setName("0,4"); // NOI18N
@@ -211,12 +233,13 @@ public class BombsGUI extends javax.swing.JFrame {
         });
         jPanel1.add(bt04);
 
-        lbZ0.setFont(new java.awt.Font("Eras Bold ITC", 0, 36)); // NOI18N
+        lbZ0.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         lbZ0.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbZ0.setText("0");
+        lbZ0.setOpaque(true);
         jPanel1.add(lbZ0);
 
-        bt10.setFont(new java.awt.Font("Eras Bold ITC", 0, 36)); // NOI18N
+        bt10.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         bt10.setText("?");
         bt10.setFocusable(false);
         bt10.setName("1,0"); // NOI18N
@@ -227,7 +250,7 @@ public class BombsGUI extends javax.swing.JFrame {
         });
         jPanel1.add(bt10);
 
-        bt11.setFont(new java.awt.Font("Eras Bold ITC", 0, 36)); // NOI18N
+        bt11.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         bt11.setText("?");
         bt11.setFocusable(false);
         bt11.setName("1,1"); // NOI18N
@@ -238,7 +261,7 @@ public class BombsGUI extends javax.swing.JFrame {
         });
         jPanel1.add(bt11);
 
-        bt12.setFont(new java.awt.Font("Eras Bold ITC", 0, 36)); // NOI18N
+        bt12.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         bt12.setText("?");
         bt12.setFocusable(false);
         bt12.setName("1,2"); // NOI18N
@@ -249,7 +272,7 @@ public class BombsGUI extends javax.swing.JFrame {
         });
         jPanel1.add(bt12);
 
-        bt13.setFont(new java.awt.Font("Eras Bold ITC", 0, 36)); // NOI18N
+        bt13.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         bt13.setText("?");
         bt13.setFocusable(false);
         bt13.setName("1,3"); // NOI18N
@@ -260,7 +283,7 @@ public class BombsGUI extends javax.swing.JFrame {
         });
         jPanel1.add(bt13);
 
-        bt14.setFont(new java.awt.Font("Eras Bold ITC", 0, 36)); // NOI18N
+        bt14.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         bt14.setText("?");
         bt14.setFocusable(false);
         bt14.setName("1,4"); // NOI18N
@@ -271,12 +294,13 @@ public class BombsGUI extends javax.swing.JFrame {
         });
         jPanel1.add(bt14);
 
-        lbZ1.setFont(new java.awt.Font("Eras Bold ITC", 0, 36)); // NOI18N
+        lbZ1.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         lbZ1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbZ1.setText("0");
+        lbZ1.setOpaque(true);
         jPanel1.add(lbZ1);
 
-        bt20.setFont(new java.awt.Font("Eras Bold ITC", 0, 36)); // NOI18N
+        bt20.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         bt20.setText("?");
         bt20.setFocusable(false);
         bt20.setName("2,0"); // NOI18N
@@ -287,7 +311,7 @@ public class BombsGUI extends javax.swing.JFrame {
         });
         jPanel1.add(bt20);
 
-        bt21.setFont(new java.awt.Font("Eras Bold ITC", 0, 36)); // NOI18N
+        bt21.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         bt21.setText("?");
         bt21.setFocusable(false);
         bt21.setName("2,1"); // NOI18N
@@ -298,7 +322,7 @@ public class BombsGUI extends javax.swing.JFrame {
         });
         jPanel1.add(bt21);
 
-        bt22.setFont(new java.awt.Font("Eras Bold ITC", 0, 36)); // NOI18N
+        bt22.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         bt22.setText("?");
         bt22.setFocusable(false);
         bt22.setName("2,2"); // NOI18N
@@ -309,7 +333,7 @@ public class BombsGUI extends javax.swing.JFrame {
         });
         jPanel1.add(bt22);
 
-        bt23.setFont(new java.awt.Font("Eras Bold ITC", 0, 36)); // NOI18N
+        bt23.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         bt23.setText("?");
         bt23.setFocusable(false);
         bt23.setName("2,3"); // NOI18N
@@ -320,7 +344,7 @@ public class BombsGUI extends javax.swing.JFrame {
         });
         jPanel1.add(bt23);
 
-        bt24.setFont(new java.awt.Font("Eras Bold ITC", 0, 36)); // NOI18N
+        bt24.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         bt24.setText("?");
         bt24.setFocusable(false);
         bt24.setName("2,4"); // NOI18N
@@ -331,12 +355,13 @@ public class BombsGUI extends javax.swing.JFrame {
         });
         jPanel1.add(bt24);
 
-        lbZ2.setFont(new java.awt.Font("Eras Bold ITC", 0, 36)); // NOI18N
+        lbZ2.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         lbZ2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbZ2.setText("0");
+        lbZ2.setOpaque(true);
         jPanel1.add(lbZ2);
 
-        bt30.setFont(new java.awt.Font("Eras Bold ITC", 0, 36)); // NOI18N
+        bt30.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         bt30.setText("?");
         bt30.setFocusable(false);
         bt30.setName("3,0"); // NOI18N
@@ -347,7 +372,7 @@ public class BombsGUI extends javax.swing.JFrame {
         });
         jPanel1.add(bt30);
 
-        bt31.setFont(new java.awt.Font("Eras Bold ITC", 0, 36)); // NOI18N
+        bt31.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         bt31.setText("?");
         bt31.setFocusable(false);
         bt31.setName("3,1"); // NOI18N
@@ -358,7 +383,7 @@ public class BombsGUI extends javax.swing.JFrame {
         });
         jPanel1.add(bt31);
 
-        bt32.setFont(new java.awt.Font("Eras Bold ITC", 0, 36)); // NOI18N
+        bt32.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         bt32.setText("?");
         bt32.setFocusable(false);
         bt32.setName("3,2"); // NOI18N
@@ -369,7 +394,7 @@ public class BombsGUI extends javax.swing.JFrame {
         });
         jPanel1.add(bt32);
 
-        bt33.setFont(new java.awt.Font("Eras Bold ITC", 0, 36)); // NOI18N
+        bt33.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         bt33.setText("?");
         bt33.setFocusable(false);
         bt33.setName("3,3"); // NOI18N
@@ -380,7 +405,7 @@ public class BombsGUI extends javax.swing.JFrame {
         });
         jPanel1.add(bt33);
 
-        bt34.setFont(new java.awt.Font("Eras Bold ITC", 0, 36)); // NOI18N
+        bt34.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         bt34.setText("?");
         bt34.setFocusable(false);
         bt34.setName("3,4"); // NOI18N
@@ -391,12 +416,13 @@ public class BombsGUI extends javax.swing.JFrame {
         });
         jPanel1.add(bt34);
 
-        lbZ3.setFont(new java.awt.Font("Eras Bold ITC", 0, 36)); // NOI18N
+        lbZ3.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         lbZ3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbZ3.setText("0");
+        lbZ3.setOpaque(true);
         jPanel1.add(lbZ3);
 
-        bt40.setFont(new java.awt.Font("Eras Bold ITC", 0, 36)); // NOI18N
+        bt40.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         bt40.setText("?");
         bt40.setFocusable(false);
         bt40.setName("4,0"); // NOI18N
@@ -407,7 +433,7 @@ public class BombsGUI extends javax.swing.JFrame {
         });
         jPanel1.add(bt40);
 
-        bt41.setFont(new java.awt.Font("Eras Bold ITC", 0, 36)); // NOI18N
+        bt41.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         bt41.setText("?");
         bt41.setFocusable(false);
         bt41.setName("4,1"); // NOI18N
@@ -418,7 +444,7 @@ public class BombsGUI extends javax.swing.JFrame {
         });
         jPanel1.add(bt41);
 
-        bt42.setFont(new java.awt.Font("Eras Bold ITC", 0, 36)); // NOI18N
+        bt42.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         bt42.setText("?");
         bt42.setFocusable(false);
         bt42.setName("4,2"); // NOI18N
@@ -429,7 +455,7 @@ public class BombsGUI extends javax.swing.JFrame {
         });
         jPanel1.add(bt42);
 
-        bt43.setFont(new java.awt.Font("Eras Bold ITC", 0, 36)); // NOI18N
+        bt43.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         bt43.setText("?");
         bt43.setFocusable(false);
         bt43.setName("4,3"); // NOI18N
@@ -440,7 +466,7 @@ public class BombsGUI extends javax.swing.JFrame {
         });
         jPanel1.add(bt43);
 
-        bt44.setFont(new java.awt.Font("Eras Bold ITC", 0, 36)); // NOI18N
+        bt44.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         bt44.setText("?");
         bt44.setFocusable(false);
         bt44.setName("4,4"); // NOI18N
@@ -451,18 +477,13 @@ public class BombsGUI extends javax.swing.JFrame {
         });
         jPanel1.add(bt44);
 
-        lbZ4.setFont(new java.awt.Font("Eras Bold ITC", 0, 36)); // NOI18N
+        lbZ4.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         lbZ4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbZ4.setText("0");
+        lbZ4.setOpaque(true);
         jPanel1.add(lbZ4);
 
         jPanel2.add(jPanel1, java.awt.BorderLayout.CENTER);
-
-        tfScore.setEditable(false);
-        tfScore.setFont(new java.awt.Font("Eras Bold ITC", 0, 36)); // NOI18N
-        tfScore.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        tfScore.setText("1");
-        jPanel2.add(tfScore, java.awt.BorderLayout.PAGE_START);
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
 
@@ -471,15 +492,16 @@ public class BombsGUI extends javax.swing.JFrame {
         lbIcon.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         lbIcon.setOpaque(true);
         jPanel3.add(lbIcon, java.awt.BorderLayout.WEST);
-        lbIcon.getAccessibleContext().setAccessibleName("");
 
         jPanel7.setLayout(new java.awt.GridLayout(2, 0, 10, 0));
 
         lbName.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
+        lbName.setText("Name:");
         lbName.setOpaque(true);
         jPanel7.add(lbName);
 
         lbGeld.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
+        lbGeld.setText("Geld:");
         lbGeld.setOpaque(true);
         jPanel7.add(lbGeld);
 
@@ -498,9 +520,12 @@ public class BombsGUI extends javax.swing.JFrame {
             tfScore.setText("Game Over (" + score + ")");
             score = 1;
             button.setText("");
-            button.setIcon(new ImageIcon(System.getProperty("user.dir") + File.separator + "src" + File.separator + "images" + File.separator + "ZugführerDlg.PNG"));
+            button.setIcon(new ImageIcon(System.getProperty("user.dir") + File.separator + "src" + File.separator + "images" + File.separator + "Bomb.png"));
+            button.setBackground(Color.RED);
             bc.gameOver();
             btNew.setEnabled(true);
+        } else if (val == -1) {
+
         } else {
             score = score * val;
             tfScore.setText(score + "");
@@ -580,9 +605,11 @@ public class BombsGUI extends javax.swing.JFrame {
     private javax.swing.JToggleButton bt43;
     private javax.swing.JToggleButton bt44;
     private javax.swing.JButton btNew;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JLabel lbGeld;
     private javax.swing.JLabel lbIcon;

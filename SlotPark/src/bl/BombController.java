@@ -5,6 +5,7 @@
  */
 package bl;
 
+import java.awt.Color;
 import java.io.File;
 import java.util.Random;
 import javafx.scene.control.ToggleButton;
@@ -22,6 +23,7 @@ public class BombController {
     private JToggleButton[][] buttons = new JToggleButton[5][5];
     private JLabel[] zeilenfield = new JLabel[5];
     private JLabel[] spaltenfield = new JLabel[5];
+    private int bombs = 0;
 
     public void newGame() {
         for (int i = 0; i < buttons.length; i++) {
@@ -36,15 +38,13 @@ public class BombController {
         fillfield(buttons);
     }
 
-   
-    
     public void gameOver() {
         for (int i = 0; i < buttons.length; i++) {
             for (int j = 0; j < buttons.length; j++) {
                 buttons[i][j].setEnabled(false);
                 if (spielfeld[i][j] == 0) {
                     buttons[i][j].setText("");
-                    buttons[i][j].setIcon(new ImageIcon(System.getProperty("user.dir") + File.separator + "src" + File.separator + "images" + File.separator + "ZugführerDlg.PNG"));
+                    buttons[i][j].setIcon(new ImageIcon(System.getProperty("user.dir") + File.separator + "src" + File.separator + "images" + File.separator + "Bomb.png"));
                 } else {
                     buttons[i][j].setText(spielfeld[i][j] + "");
                 }
@@ -73,6 +73,7 @@ public class BombController {
                 }
             }
             spaltenfield[i].setText(anz + "");
+            spaltenfield[i].setBackground(new Color(190, 255 - (anz * 50), 0));
             anz = 0;
 
         }
@@ -85,6 +86,7 @@ public class BombController {
                 }
             }
             zeilenfield[i].setText(anz + "");
+            zeilenfield[i].setBackground(new Color(170, 255 - (anz * 50), 0));
             anz = 0;
 
         }
@@ -96,7 +98,23 @@ public class BombController {
         String[] parts = buttonname.split(" ");
         int zeile = Integer.parseInt(parts[0]);
         int spalte = Integer.parseInt(parts[1]);
-        return spielfeld[zeile][spalte];
+
+        int anz = 0;
+        for (int i = 0; i < buttons.length; i++) {
+            for (int j = 0; j < buttons.length; j++) {
+                if (buttons[i][j].isSelected()) {
+                    anz++;
+
+                }
+            }
+
+        }
+        if (anz == buttons.length - bombs) {
+            return -1;
+        } else {
+            return spielfeld[zeile][spalte];
+        }
+
     }
 
     public int[][] getSpielfeld() {

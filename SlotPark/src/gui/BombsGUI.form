@@ -24,6 +24,39 @@
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
   <SubComponents>
+    <Container class="javax.swing.JPanel" name="jPanel4">
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
+          <BorderConstraints direction="South"/>
+        </Constraint>
+      </Constraints>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
+        <Property name="columns" type="int" value="0"/>
+        <Property name="rows" type="int" value="2"/>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JButton" name="btNew">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Eras Bold ITC" size="48" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Neues Spiel"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onNewGame"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButton1">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Eras Bold ITC" size="48" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Zur&#xfc;ck"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
     <Container class="javax.swing.JPanel" name="jPanel2">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
@@ -48,63 +81,67 @@
             <Component class="javax.swing.JLabel" name="lbS0">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Eras Bold ITC" size="36" style="0"/>
+                  <Font name="Eras Bold ITC" size="48" style="0"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" value="0"/>
+                <Property name="opaque" type="boolean" value="true"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lbS1">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Eras Bold ITC" size="36" style="0"/>
+                  <Font name="Eras Bold ITC" size="48" style="0"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" value="0"/>
+                <Property name="opaque" type="boolean" value="true"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lbS2">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Eras Bold ITC" size="36" style="0"/>
+                  <Font name="Eras Bold ITC" size="48" style="0"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" value="0"/>
+                <Property name="opaque" type="boolean" value="true"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lbS3">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Eras Bold ITC" size="36" style="0"/>
+                  <Font name="Eras Bold ITC" size="48" style="0"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" value="0"/>
+                <Property name="opaque" type="boolean" value="true"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lbS4">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Eras Bold ITC" size="36" style="0"/>
+                  <Font name="Eras Bold ITC" size="48" style="0"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" value="0"/>
+                <Property name="opaque" type="boolean" value="true"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="btNew">
+            <Component class="javax.swing.JTextField" name="tfScore">
               <Properties>
+                <Property name="editable" type="boolean" value="false"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Eras Bold ITC" size="36" style="0"/>
+                  <Font name="Eras Bold ITC" size="48" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Neues Spiel"/>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="1"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onNewGame"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JToggleButton" name="bt00">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Eras Bold ITC" size="36" style="0"/>
+                  <Font name="Eras Bold ITC" size="48" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="?"/>
                 <Property name="focusable" type="boolean" value="false"/>
@@ -117,7 +154,7 @@
             <Component class="javax.swing.JToggleButton" name="bt01">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Eras Bold ITC" size="36" style="0"/>
+                  <Font name="Eras Bold ITC" size="48" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="?"/>
                 <Property name="focusable" type="boolean" value="false"/>
@@ -130,7 +167,7 @@
             <Component class="javax.swing.JToggleButton" name="bt02">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Eras Bold ITC" size="36" style="0"/>
+                  <Font name="Eras Bold ITC" size="48" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="?"/>
                 <Property name="focusable" type="boolean" value="false"/>
@@ -143,7 +180,7 @@
             <Component class="javax.swing.JToggleButton" name="bt03">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Eras Bold ITC" size="36" style="0"/>
+                  <Font name="Eras Bold ITC" size="48" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="?"/>
                 <Property name="focusable" type="boolean" value="false"/>
@@ -156,7 +193,7 @@
             <Component class="javax.swing.JToggleButton" name="bt04">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Eras Bold ITC" size="36" style="0"/>
+                  <Font name="Eras Bold ITC" size="48" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="?"/>
                 <Property name="focusable" type="boolean" value="false"/>
@@ -169,16 +206,17 @@
             <Component class="javax.swing.JLabel" name="lbZ0">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Eras Bold ITC" size="36" style="0"/>
+                  <Font name="Eras Bold ITC" size="48" style="0"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" value="0"/>
+                <Property name="opaque" type="boolean" value="true"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JToggleButton" name="bt10">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Eras Bold ITC" size="36" style="0"/>
+                  <Font name="Eras Bold ITC" size="48" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="?"/>
                 <Property name="focusable" type="boolean" value="false"/>
@@ -191,7 +229,7 @@
             <Component class="javax.swing.JToggleButton" name="bt11">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Eras Bold ITC" size="36" style="0"/>
+                  <Font name="Eras Bold ITC" size="48" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="?"/>
                 <Property name="focusable" type="boolean" value="false"/>
@@ -204,7 +242,7 @@
             <Component class="javax.swing.JToggleButton" name="bt12">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Eras Bold ITC" size="36" style="0"/>
+                  <Font name="Eras Bold ITC" size="48" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="?"/>
                 <Property name="focusable" type="boolean" value="false"/>
@@ -217,7 +255,7 @@
             <Component class="javax.swing.JToggleButton" name="bt13">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Eras Bold ITC" size="36" style="0"/>
+                  <Font name="Eras Bold ITC" size="48" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="?"/>
                 <Property name="focusable" type="boolean" value="false"/>
@@ -230,7 +268,7 @@
             <Component class="javax.swing.JToggleButton" name="bt14">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Eras Bold ITC" size="36" style="0"/>
+                  <Font name="Eras Bold ITC" size="48" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="?"/>
                 <Property name="focusable" type="boolean" value="false"/>
@@ -243,16 +281,17 @@
             <Component class="javax.swing.JLabel" name="lbZ1">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Eras Bold ITC" size="36" style="0"/>
+                  <Font name="Eras Bold ITC" size="48" style="0"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" value="0"/>
+                <Property name="opaque" type="boolean" value="true"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JToggleButton" name="bt20">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Eras Bold ITC" size="36" style="0"/>
+                  <Font name="Eras Bold ITC" size="48" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="?"/>
                 <Property name="focusable" type="boolean" value="false"/>
@@ -265,7 +304,7 @@
             <Component class="javax.swing.JToggleButton" name="bt21">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Eras Bold ITC" size="36" style="0"/>
+                  <Font name="Eras Bold ITC" size="48" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="?"/>
                 <Property name="focusable" type="boolean" value="false"/>
@@ -278,7 +317,7 @@
             <Component class="javax.swing.JToggleButton" name="bt22">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Eras Bold ITC" size="36" style="0"/>
+                  <Font name="Eras Bold ITC" size="48" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="?"/>
                 <Property name="focusable" type="boolean" value="false"/>
@@ -291,7 +330,7 @@
             <Component class="javax.swing.JToggleButton" name="bt23">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Eras Bold ITC" size="36" style="0"/>
+                  <Font name="Eras Bold ITC" size="48" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="?"/>
                 <Property name="focusable" type="boolean" value="false"/>
@@ -304,7 +343,7 @@
             <Component class="javax.swing.JToggleButton" name="bt24">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Eras Bold ITC" size="36" style="0"/>
+                  <Font name="Eras Bold ITC" size="48" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="?"/>
                 <Property name="focusable" type="boolean" value="false"/>
@@ -317,16 +356,17 @@
             <Component class="javax.swing.JLabel" name="lbZ2">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Eras Bold ITC" size="36" style="0"/>
+                  <Font name="Eras Bold ITC" size="48" style="0"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" value="0"/>
+                <Property name="opaque" type="boolean" value="true"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JToggleButton" name="bt30">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Eras Bold ITC" size="36" style="0"/>
+                  <Font name="Eras Bold ITC" size="48" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="?"/>
                 <Property name="focusable" type="boolean" value="false"/>
@@ -339,7 +379,7 @@
             <Component class="javax.swing.JToggleButton" name="bt31">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Eras Bold ITC" size="36" style="0"/>
+                  <Font name="Eras Bold ITC" size="48" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="?"/>
                 <Property name="focusable" type="boolean" value="false"/>
@@ -352,7 +392,7 @@
             <Component class="javax.swing.JToggleButton" name="bt32">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Eras Bold ITC" size="36" style="0"/>
+                  <Font name="Eras Bold ITC" size="48" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="?"/>
                 <Property name="focusable" type="boolean" value="false"/>
@@ -365,7 +405,7 @@
             <Component class="javax.swing.JToggleButton" name="bt33">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Eras Bold ITC" size="36" style="0"/>
+                  <Font name="Eras Bold ITC" size="48" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="?"/>
                 <Property name="focusable" type="boolean" value="false"/>
@@ -378,7 +418,7 @@
             <Component class="javax.swing.JToggleButton" name="bt34">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Eras Bold ITC" size="36" style="0"/>
+                  <Font name="Eras Bold ITC" size="48" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="?"/>
                 <Property name="focusable" type="boolean" value="false"/>
@@ -391,16 +431,17 @@
             <Component class="javax.swing.JLabel" name="lbZ3">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Eras Bold ITC" size="36" style="0"/>
+                  <Font name="Eras Bold ITC" size="48" style="0"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" value="0"/>
+                <Property name="opaque" type="boolean" value="true"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JToggleButton" name="bt40">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Eras Bold ITC" size="36" style="0"/>
+                  <Font name="Eras Bold ITC" size="48" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="?"/>
                 <Property name="focusable" type="boolean" value="false"/>
@@ -413,7 +454,7 @@
             <Component class="javax.swing.JToggleButton" name="bt41">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Eras Bold ITC" size="36" style="0"/>
+                  <Font name="Eras Bold ITC" size="48" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="?"/>
                 <Property name="focusable" type="boolean" value="false"/>
@@ -426,7 +467,7 @@
             <Component class="javax.swing.JToggleButton" name="bt42">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Eras Bold ITC" size="36" style="0"/>
+                  <Font name="Eras Bold ITC" size="48" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="?"/>
                 <Property name="focusable" type="boolean" value="false"/>
@@ -439,7 +480,7 @@
             <Component class="javax.swing.JToggleButton" name="bt43">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Eras Bold ITC" size="36" style="0"/>
+                  <Font name="Eras Bold ITC" size="48" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="?"/>
                 <Property name="focusable" type="boolean" value="false"/>
@@ -452,7 +493,7 @@
             <Component class="javax.swing.JToggleButton" name="bt44">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Eras Bold ITC" size="36" style="0"/>
+                  <Font name="Eras Bold ITC" size="48" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="?"/>
                 <Property name="focusable" type="boolean" value="false"/>
@@ -465,29 +506,15 @@
             <Component class="javax.swing.JLabel" name="lbZ4">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Eras Bold ITC" size="36" style="0"/>
+                  <Font name="Eras Bold ITC" size="48" style="0"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" value="0"/>
+                <Property name="opaque" type="boolean" value="true"/>
               </Properties>
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JTextField" name="tfScore">
-          <Properties>
-            <Property name="editable" type="boolean" value="false"/>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Eras Bold ITC" size="36" style="0"/>
-            </Property>
-            <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="1"/>
-          </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
-              <BorderConstraints direction="First"/>
-            </Constraint>
-          </Constraints>
-        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="jPanel3">
@@ -506,9 +533,6 @@
             </Property>
             <Property name="opaque" type="boolean" value="true"/>
           </Properties>
-          <AccessibilityProperties>
-            <Property name="AccessibleContext.accessibleName" type="java.lang.String" value=""/>
-          </AccessibilityProperties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
               <BorderConstraints direction="West"/>
@@ -533,6 +557,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Eras Bold ITC" size="48" style="0"/>
                 </Property>
+                <Property name="text" type="java.lang.String" value="Name:"/>
                 <Property name="opaque" type="boolean" value="true"/>
               </Properties>
             </Component>
@@ -541,6 +566,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Eras Bold ITC" size="48" style="0"/>
                 </Property>
+                <Property name="text" type="java.lang.String" value="Geld:"/>
                 <Property name="opaque" type="boolean" value="true"/>
               </Properties>
             </Component>
