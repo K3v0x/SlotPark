@@ -486,6 +486,7 @@ public class PokerGUI extends javax.swing.JFrame {
             btRaise.setEnabled(true);
             cc.newRound();
         } else if (cc.getFlopedcards() == 5) {
+            cc.checkwin();
             if (cc.allStatus() == Status.OUT) {
                 btCheck.setText("Neues Spiel");
                 lbWinner.setText(cc.checkwin().getName() + " hat das Spiel gewonnen!");

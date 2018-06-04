@@ -41,7 +41,6 @@ public class CasinoController {
     private int highraise = 0;
     private int raisediff = 0;
     private Karte[] kartentisch = new Karte[5]; //Karten, die auf dem Tisch liegen
-    
 
     private String name;
     private int geld;
@@ -287,6 +286,10 @@ public class CasinoController {
         Combi winnercombo = HOHEKARTE;
 
         for (PokerSpieler pokerSpieler : spielerliste) {
+            if(pokerSpieler.getGeld() == 0)
+            {
+                pokerSpieler.setStatus(Status.OUT);
+            }
             if (pokerSpieler.getCombo().getWert() > winnercombo.getWert() && pokerSpieler.getStatus() != FOLDED && pokerSpieler.getStatus() != OUT) {
                 winnercombo = pokerSpieler.getCombo();
                 winner = pokerSpieler;
@@ -336,10 +339,24 @@ public class CasinoController {
 
         }
 
-        for (int i = 0; i < statusfeld.length; i++) {
-            if (map.get(statusfeld[i]) == 4) {
-                return statusfeld[i];
+//        for (int i = 0; i < statusfeld.length; i++) {
+//            if (map.get(statusfeld[i]) == 4) {
+//                return statusfeld[i];
+//            }
+//        }
+
+        int anz = 0;
+        for (int i = 1; i < spielerliste.size(); i++) {
+            if(spielerliste.get(i).getStatus() == Status.OUT)
+            {
+                anz++;
             }
+            System.out.println(spielerliste.get(i).getName()+": "+spielerliste.get(i).getGeld());
+        }
+        System.out.println("Anzahl: "+anz);
+        if(anz == 4)
+        {
+            return Status.OUT;
         }
 
         return null;
@@ -396,7 +413,6 @@ public class CasinoController {
             pot = pot + einsatz;
         }
 
-    
         spielerliste.getFirst().setStatus(RAISED);
         check();
         for (int i = spielerliste.size() - 1; i > 0; i--) {
