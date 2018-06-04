@@ -479,6 +479,7 @@ public class PokerGUI extends javax.swing.JFrame {
             paCom2.setBackground(Color.WHITE);
             paCom3.setBackground(Color.WHITE);
             paCom4.setBackground(Color.WHITE);
+            cc.load();
         } else if (btCheck.getText().equals("Neue Runde")) {
             lbWinner.setText("");
             btCheck.setText("Check");
