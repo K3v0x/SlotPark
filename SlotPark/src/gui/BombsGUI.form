@@ -151,6 +151,7 @@
                 <Property name="name" type="java.lang.String" value="0,0" noResource="true"/>
               </Properties>
               <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="onSetFlag"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onFlip"/>
               </Events>
             </Component>
@@ -164,6 +165,7 @@
                 <Property name="name" type="java.lang.String" value="0,1" noResource="true"/>
               </Properties>
               <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="onSetFlag"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onFlip"/>
               </Events>
             </Component>
@@ -177,6 +179,7 @@
                 <Property name="name" type="java.lang.String" value="0,2" noResource="true"/>
               </Properties>
               <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="onSetFlag"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onFlip"/>
               </Events>
             </Component>
@@ -190,6 +193,7 @@
                 <Property name="name" type="java.lang.String" value="0,3" noResource="true"/>
               </Properties>
               <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="onSetFlag"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onFlip"/>
               </Events>
             </Component>
@@ -203,6 +207,7 @@
                 <Property name="name" type="java.lang.String" value="0,4" noResource="true"/>
               </Properties>
               <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="onSetFlag"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onFlip"/>
               </Events>
             </Component>
@@ -226,6 +231,7 @@
                 <Property name="name" type="java.lang.String" value="1,0" noResource="true"/>
               </Properties>
               <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="onSetFlag"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onFlip"/>
               </Events>
             </Component>
@@ -239,6 +245,7 @@
                 <Property name="name" type="java.lang.String" value="1,1" noResource="true"/>
               </Properties>
               <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="onSetFlag"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onFlip"/>
               </Events>
             </Component>
@@ -252,6 +259,7 @@
                 <Property name="name" type="java.lang.String" value="1,2" noResource="true"/>
               </Properties>
               <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="onSetFlag"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onFlip"/>
               </Events>
             </Component>
@@ -265,6 +273,7 @@
                 <Property name="name" type="java.lang.String" value="1,3" noResource="true"/>
               </Properties>
               <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="onSetFlag"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onFlip"/>
               </Events>
             </Component>
@@ -278,6 +287,7 @@
                 <Property name="name" type="java.lang.String" value="1,4" noResource="true"/>
               </Properties>
               <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="onSetFlag"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onFlip"/>
               </Events>
             </Component>
@@ -301,6 +311,7 @@
                 <Property name="name" type="java.lang.String" value="2,0" noResource="true"/>
               </Properties>
               <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="onSetFlag"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onFlip"/>
               </Events>
             </Component>
@@ -314,6 +325,7 @@
                 <Property name="name" type="java.lang.String" value="2,1" noResource="true"/>
               </Properties>
               <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="onSetFlag"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onFlip"/>
               </Events>
             </Component>
@@ -327,6 +339,7 @@
                 <Property name="name" type="java.lang.String" value="2,2" noResource="true"/>
               </Properties>
               <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="onSetFlag"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onFlip"/>
               </Events>
             </Component>
@@ -340,6 +353,7 @@
                 <Property name="name" type="java.lang.String" value="2,3" noResource="true"/>
               </Properties>
               <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="onSetFlag"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onFlip"/>
               </Events>
             </Component>
@@ -353,6 +367,7 @@
                 <Property name="name" type="java.lang.String" value="2,4" noResource="true"/>
               </Properties>
               <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="onSetFlag"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onFlip"/>
               </Events>
             </Component>
@@ -376,6 +391,7 @@
                 <Property name="name" type="java.lang.String" value="3,0" noResource="true"/>
               </Properties>
               <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="onSetFlag"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onFlip"/>
               </Events>
             </Component>
@@ -389,6 +405,7 @@
                 <Property name="name" type="java.lang.String" value="3,1" noResource="true"/>
               </Properties>
               <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="onSetFlag"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onFlip"/>
               </Events>
             </Component>
@@ -402,6 +419,7 @@
                 <Property name="name" type="java.lang.String" value="3,2" noResource="true"/>
               </Properties>
               <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="onSetFlag"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onFlip"/>
               </Events>
             </Component>
@@ -415,6 +433,7 @@
                 <Property name="name" type="java.lang.String" value="3,3" noResource="true"/>
               </Properties>
               <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="onSetFlag"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onFlip"/>
               </Events>
             </Component>
@@ -428,6 +447,7 @@
                 <Property name="name" type="java.lang.String" value="3,4" noResource="true"/>
               </Properties>
               <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="onSetFlag"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onFlip"/>
               </Events>
             </Component>
@@ -451,6 +471,7 @@
                 <Property name="name" type="java.lang.String" value="4,0" noResource="true"/>
               </Properties>
               <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="onSetFlag"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onFlip"/>
               </Events>
             </Component>
@@ -464,6 +485,7 @@
                 <Property name="name" type="java.lang.String" value="4,1" noResource="true"/>
               </Properties>
               <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="onSetFlag"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onFlip"/>
               </Events>
             </Component>
@@ -477,6 +499,7 @@
                 <Property name="name" type="java.lang.String" value="4,2" noResource="true"/>
               </Properties>
               <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="onSetFlag"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onFlip"/>
               </Events>
             </Component>
@@ -490,6 +513,7 @@
                 <Property name="name" type="java.lang.String" value="4,3" noResource="true"/>
               </Properties>
               <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="onSetFlag"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onFlip"/>
               </Events>
             </Component>
@@ -503,6 +527,7 @@
                 <Property name="name" type="java.lang.String" value="4,4" noResource="true"/>
               </Properties>
               <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="onSetFlag"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onFlip"/>
               </Events>
             </Component>

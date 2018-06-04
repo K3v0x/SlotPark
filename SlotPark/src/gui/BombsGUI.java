@@ -8,6 +8,7 @@ package gui;
 import beans.Spieler;
 import bl.BombController;
 import java.awt.Color;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -190,6 +191,11 @@ public class BombsGUI extends javax.swing.JFrame {
         bt00.setText("?");
         bt00.setFocusable(false);
         bt00.setName("0,0"); // NOI18N
+        bt00.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                onSetFlag(evt);
+            }
+        });
         bt00.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 onFlip(evt);
@@ -201,6 +207,11 @@ public class BombsGUI extends javax.swing.JFrame {
         bt01.setText("?");
         bt01.setFocusable(false);
         bt01.setName("0,1"); // NOI18N
+        bt01.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                onSetFlag(evt);
+            }
+        });
         bt01.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 onFlip(evt);
@@ -212,6 +223,11 @@ public class BombsGUI extends javax.swing.JFrame {
         bt02.setText("?");
         bt02.setFocusable(false);
         bt02.setName("0,2"); // NOI18N
+        bt02.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                onSetFlag(evt);
+            }
+        });
         bt02.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 onFlip(evt);
@@ -223,6 +239,11 @@ public class BombsGUI extends javax.swing.JFrame {
         bt03.setText("?");
         bt03.setFocusable(false);
         bt03.setName("0,3"); // NOI18N
+        bt03.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                onSetFlag(evt);
+            }
+        });
         bt03.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 onFlip(evt);
@@ -234,6 +255,11 @@ public class BombsGUI extends javax.swing.JFrame {
         bt04.setText("?");
         bt04.setFocusable(false);
         bt04.setName("0,4"); // NOI18N
+        bt04.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                onSetFlag(evt);
+            }
+        });
         bt04.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 onFlip(evt);
@@ -251,6 +277,11 @@ public class BombsGUI extends javax.swing.JFrame {
         bt10.setText("?");
         bt10.setFocusable(false);
         bt10.setName("1,0"); // NOI18N
+        bt10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                onSetFlag(evt);
+            }
+        });
         bt10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 onFlip(evt);
@@ -262,6 +293,11 @@ public class BombsGUI extends javax.swing.JFrame {
         bt11.setText("?");
         bt11.setFocusable(false);
         bt11.setName("1,1"); // NOI18N
+        bt11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                onSetFlag(evt);
+            }
+        });
         bt11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 onFlip(evt);
@@ -273,6 +309,11 @@ public class BombsGUI extends javax.swing.JFrame {
         bt12.setText("?");
         bt12.setFocusable(false);
         bt12.setName("1,2"); // NOI18N
+        bt12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                onSetFlag(evt);
+            }
+        });
         bt12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 onFlip(evt);
@@ -284,6 +325,11 @@ public class BombsGUI extends javax.swing.JFrame {
         bt13.setText("?");
         bt13.setFocusable(false);
         bt13.setName("1,3"); // NOI18N
+        bt13.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                onSetFlag(evt);
+            }
+        });
         bt13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 onFlip(evt);
@@ -295,6 +341,11 @@ public class BombsGUI extends javax.swing.JFrame {
         bt14.setText("?");
         bt14.setFocusable(false);
         bt14.setName("1,4"); // NOI18N
+        bt14.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                onSetFlag(evt);
+            }
+        });
         bt14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 onFlip(evt);
@@ -312,6 +363,11 @@ public class BombsGUI extends javax.swing.JFrame {
         bt20.setText("?");
         bt20.setFocusable(false);
         bt20.setName("2,0"); // NOI18N
+        bt20.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                onSetFlag(evt);
+            }
+        });
         bt20.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 onFlip(evt);
@@ -323,6 +379,11 @@ public class BombsGUI extends javax.swing.JFrame {
         bt21.setText("?");
         bt21.setFocusable(false);
         bt21.setName("2,1"); // NOI18N
+        bt21.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                onSetFlag(evt);
+            }
+        });
         bt21.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 onFlip(evt);
@@ -334,6 +395,11 @@ public class BombsGUI extends javax.swing.JFrame {
         bt22.setText("?");
         bt22.setFocusable(false);
         bt22.setName("2,2"); // NOI18N
+        bt22.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                onSetFlag(evt);
+            }
+        });
         bt22.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 onFlip(evt);
@@ -345,6 +411,11 @@ public class BombsGUI extends javax.swing.JFrame {
         bt23.setText("?");
         bt23.setFocusable(false);
         bt23.setName("2,3"); // NOI18N
+        bt23.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                onSetFlag(evt);
+            }
+        });
         bt23.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 onFlip(evt);
@@ -356,6 +427,11 @@ public class BombsGUI extends javax.swing.JFrame {
         bt24.setText("?");
         bt24.setFocusable(false);
         bt24.setName("2,4"); // NOI18N
+        bt24.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                onSetFlag(evt);
+            }
+        });
         bt24.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 onFlip(evt);
@@ -373,6 +449,11 @@ public class BombsGUI extends javax.swing.JFrame {
         bt30.setText("?");
         bt30.setFocusable(false);
         bt30.setName("3,0"); // NOI18N
+        bt30.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                onSetFlag(evt);
+            }
+        });
         bt30.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 onFlip(evt);
@@ -384,6 +465,11 @@ public class BombsGUI extends javax.swing.JFrame {
         bt31.setText("?");
         bt31.setFocusable(false);
         bt31.setName("3,1"); // NOI18N
+        bt31.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                onSetFlag(evt);
+            }
+        });
         bt31.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 onFlip(evt);
@@ -395,6 +481,11 @@ public class BombsGUI extends javax.swing.JFrame {
         bt32.setText("?");
         bt32.setFocusable(false);
         bt32.setName("3,2"); // NOI18N
+        bt32.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                onSetFlag(evt);
+            }
+        });
         bt32.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 onFlip(evt);
@@ -406,6 +497,11 @@ public class BombsGUI extends javax.swing.JFrame {
         bt33.setText("?");
         bt33.setFocusable(false);
         bt33.setName("3,3"); // NOI18N
+        bt33.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                onSetFlag(evt);
+            }
+        });
         bt33.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 onFlip(evt);
@@ -417,6 +513,11 @@ public class BombsGUI extends javax.swing.JFrame {
         bt34.setText("?");
         bt34.setFocusable(false);
         bt34.setName("3,4"); // NOI18N
+        bt34.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                onSetFlag(evt);
+            }
+        });
         bt34.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 onFlip(evt);
@@ -434,6 +535,11 @@ public class BombsGUI extends javax.swing.JFrame {
         bt40.setText("?");
         bt40.setFocusable(false);
         bt40.setName("4,0"); // NOI18N
+        bt40.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                onSetFlag(evt);
+            }
+        });
         bt40.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 onFlip(evt);
@@ -445,6 +551,11 @@ public class BombsGUI extends javax.swing.JFrame {
         bt41.setText("?");
         bt41.setFocusable(false);
         bt41.setName("4,1"); // NOI18N
+        bt41.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                onSetFlag(evt);
+            }
+        });
         bt41.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 onFlip(evt);
@@ -456,6 +567,11 @@ public class BombsGUI extends javax.swing.JFrame {
         bt42.setText("?");
         bt42.setFocusable(false);
         bt42.setName("4,2"); // NOI18N
+        bt42.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                onSetFlag(evt);
+            }
+        });
         bt42.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 onFlip(evt);
@@ -467,6 +583,11 @@ public class BombsGUI extends javax.swing.JFrame {
         bt43.setText("?");
         bt43.setFocusable(false);
         bt43.setName("4,3"); // NOI18N
+        bt43.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                onSetFlag(evt);
+            }
+        });
         bt43.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 onFlip(evt);
@@ -478,6 +599,11 @@ public class BombsGUI extends javax.swing.JFrame {
         bt44.setText("?");
         bt44.setFocusable(false);
         bt44.setName("4,4"); // NOI18N
+        bt44.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                onSetFlag(evt);
+            }
+        });
         bt44.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 onFlip(evt);
@@ -563,6 +689,18 @@ public class BombsGUI extends javax.swing.JFrame {
         menugui.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_onBack
+
+    private void onSetFlag(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_onSetFlag
+        if (evt.getButton() == MouseEvent.BUTTON3) {
+            System.out.println("hi");
+            JToggleButton button = (JToggleButton) evt.getSource();
+            if (button.getText().equals("?")) {
+                button.setText("X");
+            } else if (button.getText().equals("X")) {
+                button.setText("?");
+            }
+        }
+    }//GEN-LAST:event_onSetFlag
 
     public void updateUI() {
         lbGeld.setText(String.format("Geld: %.0f Chips", s.getGeld() * 5));
