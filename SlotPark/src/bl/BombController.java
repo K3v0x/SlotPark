@@ -54,15 +54,25 @@ public class BombController {
         }
     }
 
+    public boolean allBombsFound() {
+        return false;
+
+    }
+
     public void fillfield(JToggleButton[][] bt) {
         Random rand = new Random();
         for (int i = 0; i < spielfeld.length; i++) {
             for (int j = 0; j < spielfeld.length; j++) {
                 spielfeld[i][j] = rand.nextInt(3 - 0 + 1) + 0;
+                if (spielfeld[i][j] == 0) {
+                    bombs++;
+                }
                 System.out.print(spielfeld[i][j] + " ");
             }
+
             System.out.print("\n");
         }
+        System.out.println("Bombs: " + bombs);
 
         int anz = 0;
         for (int i = 0; i < spielfeld.length; i++) {
@@ -104,12 +114,13 @@ public class BombController {
             for (int j = 0; j < buttons.length; j++) {
                 if (buttons[i][j].isSelected()) {
                     anz++;
-
                 }
             }
 
         }
-        if (anz == buttons.length - bombs) {
+        System.out.println("Anz: " + anz + "/" + ((buttons.length*buttons.length)-bombs));
+
+        if (anz ==  ((buttons.length*buttons.length)-bombs)) {
             return -1;
         } else {
             return spielfeld[zeile][spalte];
