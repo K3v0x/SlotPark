@@ -10,6 +10,7 @@ import bl.BombController;
 import java.awt.Color;
 import java.io.File;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JToggleButton;
 
@@ -36,6 +37,8 @@ public class BombsGUI extends javax.swing.JFrame {
     }
 
     public BombsGUI() {
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.setUndecorated(true);
         initComponents();
         JToggleButton[][] tbfield = {
             {bt00, bt01, bt02, bt03, bt04},
@@ -134,6 +137,11 @@ public class BombsGUI extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         jButton1.setText("Zurück");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                onBack(evt);
+            }
+        });
         jPanel4.add(jButton1);
 
         getContentPane().add(jPanel4, java.awt.BorderLayout.SOUTH);
@@ -525,20 +533,40 @@ public class BombsGUI extends javax.swing.JFrame {
             bc.gameOver();
             btNew.setEnabled(true);
         } else if (val == -1) {
-
+            tfScore.setText("Gewonnen (" + score + ")");
+            bc.gameOver();
+            btNew.setEnabled(true);
         } else {
-            score = score * val;
+            score = score + val;
+            s.setGeld(s.getGeld() + val);
             tfScore.setText(score + "");
             button.setText(val + "");
         }
         button.setEnabled(false);
+        updateUI();
     }//GEN-LAST:event_onFlip
 
     private void onNewGame(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onNewGame
         btNew.setEnabled(false);
         tfScore.setText(score + "");
         bc.newGame();
+        if (s.getGeld() >= 100) {
+            s.setGeld(s.getGeld() - 20);
+        }
+        updateUI();
     }//GEN-LAST:event_onNewGame
+
+    private void onBack(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onBack
+        MenuGUI menugui = new MenuGUI();
+        s.setGeld(s.getGeld());
+        menugui.setS(s);
+        menugui.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_onBack
+
+    public void updateUI() {
+        lbGeld.setText(String.format("Geld: %.0f Chips", s.getGeld() * 5));
+    }
 
     /**
      * @param args the command line arguments
