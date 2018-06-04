@@ -7,6 +7,7 @@ package gui;
 
 import beans.PokerSpieler;
 import beans.Spieler;
+import beans.Status;
 import static beans.Status.*;
 import bl.CasinoController;
 import bl.SoundPlayer;
@@ -467,7 +468,6 @@ public class PokerGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_onRaise
 
     private void onCheck(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onCheck
-
         if (btCheck.getText().equals("Neues Spiel")) {
             lbWinner.setText("");
             btCheck.setText("Check");
@@ -486,7 +486,7 @@ public class PokerGUI extends javax.swing.JFrame {
             btRaise.setEnabled(true);
             cc.newRound();
         } else if (cc.getFlopedcards() == 5) {
-            if (cc.allStatus() == OUT) {
+            if (cc.allStatus() == Status.OUT) {
                 btCheck.setText("Neues Spiel");
                 lbWinner.setText(cc.checkwin().getName() + " hat das Spiel gewonnen!");
             } else {
