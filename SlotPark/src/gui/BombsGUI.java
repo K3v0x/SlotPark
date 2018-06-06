@@ -623,17 +623,20 @@ public class BombsGUI extends javax.swing.JFrame {
 
         jPanel3.setLayout(new java.awt.BorderLayout());
 
+        lbIcon.setBackground(new java.awt.Color(0, 153, 153));
         lbIcon.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         lbIcon.setOpaque(true);
         jPanel3.add(lbIcon, java.awt.BorderLayout.WEST);
 
         jPanel7.setLayout(new java.awt.GridLayout(2, 0, 10, 0));
 
+        lbName.setBackground(new java.awt.Color(0, 153, 153));
         lbName.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         lbName.setText("Name:");
         lbName.setOpaque(true);
         jPanel7.add(lbName);
 
+        lbGeld.setBackground(new java.awt.Color(0, 153, 153));
         lbGeld.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         lbGeld.setText("Geld:");
         lbGeld.setOpaque(true);
