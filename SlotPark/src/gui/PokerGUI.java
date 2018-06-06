@@ -473,12 +473,21 @@ public class PokerGUI extends javax.swing.JFrame {
             btCheck.setText("Check");
             btFold.setEnabled(true);
             btRaise.setEnabled(true);
-            cc.load();
             paCom1.setBackground(Color.WHITE);
             paCom2.setBackground(Color.WHITE);
             paCom3.setBackground(Color.WHITE);
             paCom4.setBackground(Color.WHITE);
             cc.load();
+            tfEinsatz.setText(0 + "/" + (int) cc.getSpielerliste().getFirst().getGeld());
+            jsEinsatz.setMajorTickSpacing((int) cc.getSpielerliste().getFirst().getGeld() / 4);
+            jsEinsatz.setMinorTickSpacing((int) cc.getSpielerliste().getFirst().getGeld() / 10);
+            jsEinsatz.setMaximum((int) cc.getSpielerliste().getFirst().getGeld());
+            labels = new JLabel[]{lbC1, lbC2, lbC3, lbC4, lbC5};
+            kartenlabels = new JLabel[]{lbCard1, lbCard2};
+            comlabels = new JLabel[]{lbCom1, lbCom2, lbCom3, lbCom4};
+            statuslabels = new JLabel[]{lbStatus1, lbStatus2, lbStatus3, lbStatus4};
+            panels = new JPanel[]{paCom1, paCom2, paCom3, paCom4};
+            updateUI();
         } else if (btCheck.getText().equals("Neue Runde")) {
             lbWinner.setText("");
             btCheck.setText("Check");

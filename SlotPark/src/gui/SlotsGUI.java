@@ -301,7 +301,7 @@ public class SlotsGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_onSet3
 
     private void onSet5(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onSet5
-    kontoStand = Integer.parseInt(lbGeld.getText().replaceAll("Geld:", "").trim());
+    kontoStand = Integer.parseInt(lbGeld.getText().replaceAll(" Chips", "").trim());
         kontoStand = kontoStand - 5;
         if (kontoStand <= 0) {
             stopTheZock();

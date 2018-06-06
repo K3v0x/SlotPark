@@ -57,10 +57,10 @@ public class CasinoController {
      */
     public void load() {
         spielerliste.clear();
-        PokerSpieler com1 = new PokerSpieler(new Karte[2], HOHEKARTE, 0, ENTERED, true, "Mike", "1", geld, null);
-        PokerSpieler com2 = new PokerSpieler(new Karte[2], HOHEKARTE, 0, ENTERED, true, "Martin", "1", geld, null);
-        PokerSpieler com3 = new PokerSpieler(new Karte[2], HOHEKARTE, 0, ENTERED, true, "Sarah", "1", geld, null);
-        PokerSpieler com4 = new PokerSpieler(new Karte[2], HOHEKARTE, 0, ENTERED, true, "Tom", "1", geld, null);
+        PokerSpieler com1 = new PokerSpieler(new Karte[2], HOHEKARTE, 0, ENTERED, true, "Mike", "1", spieler.getGeld(), null);
+        PokerSpieler com2 = new PokerSpieler(new Karte[2], HOHEKARTE, 0, ENTERED, true, "Martin", "1", spieler.getGeld(), null);
+        PokerSpieler com3 = new PokerSpieler(new Karte[2], HOHEKARTE, 0, ENTERED, true, "Sarah", "1", spieler.getGeld(), null);
+        PokerSpieler com4 = new PokerSpieler(new Karte[2], HOHEKARTE, 0, ENTERED, true, "Tom", "1", spieler.getGeld(), null);
 
         spielerliste.add(spieler);
         spielerliste.add(com1);
