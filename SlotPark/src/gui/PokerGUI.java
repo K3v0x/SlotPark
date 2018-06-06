@@ -38,6 +38,7 @@ public class PokerGUI extends javax.swing.JFrame {
     private JLabel[] kartenlabels;
     private JLabel[] comlabels;
     private JLabel[] statuslabels;
+    private JLabel[] namenlabels;
     private JPanel[] panels;
 
     private Spieler s = null;
@@ -80,19 +81,19 @@ public class PokerGUI extends javax.swing.JFrame {
         lbGeld = new javax.swing.JLabel();
         jPanel19 = new javax.swing.JPanel();
         paCom1 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
+        lbName1 = new javax.swing.JLabel();
         lbCom1 = new javax.swing.JLabel();
         lbStatus1 = new javax.swing.JLabel();
         paCom2 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
+        lbName2 = new javax.swing.JLabel();
         lbCom2 = new javax.swing.JLabel();
         lbStatus2 = new javax.swing.JLabel();
         paCom3 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        lbName3 = new javax.swing.JLabel();
         lbCom3 = new javax.swing.JLabel();
         lbStatus3 = new javax.swing.JLabel();
         paCom4 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        lbName4 = new javax.swing.JLabel();
         lbCom4 = new javax.swing.JLabel();
         lbStatus4 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -163,10 +164,10 @@ public class PokerGUI extends javax.swing.JFrame {
         paCom1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         paCom1.setLayout(new java.awt.GridLayout(3, 0));
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Spieler");
-        paCom1.add(jLabel5);
+        lbName1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lbName1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbName1.setText("Spieler");
+        paCom1.add(lbName1);
 
         lbCom1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         lbCom1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -185,10 +186,10 @@ public class PokerGUI extends javax.swing.JFrame {
         paCom2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         paCom2.setLayout(new java.awt.GridLayout(3, 0));
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Spieler");
-        paCom2.add(jLabel4);
+        lbName2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lbName2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbName2.setText("Spieler");
+        paCom2.add(lbName2);
 
         lbCom2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         lbCom2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -206,10 +207,10 @@ public class PokerGUI extends javax.swing.JFrame {
         paCom3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         paCom3.setLayout(new java.awt.GridLayout(3, 0));
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Spieler");
-        paCom3.add(jLabel3);
+        lbName3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lbName3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbName3.setText("Spieler");
+        paCom3.add(lbName3);
 
         lbCom3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         lbCom3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -227,10 +228,10 @@ public class PokerGUI extends javax.swing.JFrame {
         paCom4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         paCom4.setLayout(new java.awt.GridLayout(3, 0));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Spieler");
-        paCom4.add(jLabel2);
+        lbName4.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lbName4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbName4.setText("Spieler");
+        paCom4.add(lbName4);
 
         lbCom4.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         lbCom4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -432,6 +433,7 @@ public class PokerGUI extends javax.swing.JFrame {
         kartenlabels = new JLabel[]{lbCard1, lbCard2};
         comlabels = new JLabel[]{lbCom1, lbCom2, lbCom3, lbCom4};
         statuslabels = new JLabel[]{lbStatus1, lbStatus2, lbStatus3, lbStatus4};
+        namenlabels = new JLabel[]{lbName1, lbName2, lbName3, lbName4};
         panels = new JPanel[]{paCom1, paCom2, paCom3, paCom4};
         updateUI();
 
@@ -557,6 +559,11 @@ public class PokerGUI extends javax.swing.JFrame {
             btCheck.setEnabled(false);
         }
         dispayCombo(comlabels, statuslabels);
+        for (int i = 0; i < spielerliste.size()-1; i++) {
+            if ((i - 1) != -1) {
+                namenlabels[i].setText(spielerliste.get(i + 1).getName());
+            }
+        }
         if (spielerliste.getFirst().getStatus().equals("WINNER")) {
             btRaise.setEnabled(false);
             btFold.setEnabled(false);
@@ -570,25 +577,28 @@ public class PokerGUI extends javax.swing.JFrame {
                     + (int) cc.getSpielerliste().get(i).getGeld() + " "
                     + cc.getSpielerliste().get(i).getStatus() + " ("
                     + cc.getSpielerliste().get(i).getCombo() + ")");
+            if ((i - 1) != -1) {
 
-            switch (cc.getSpielerliste().get(i).getStatus()) {
-                case OUT:
-                    lbStatus[i - 1].setText("Bankrott");
-                    lbCom[i - 1].setText("---");
-                    panels[i - 1].setBackground(Color.GRAY);
-                    break;
+                switch (cc.getSpielerliste().get(i).getStatus()) {
 
-                case FOLDED:
-                    lbStatus[i - 1].setText("" + cc.getSpielerliste().get(i).getStatus());
+                    case OUT:
+                        lbStatus[i - 1].setText("Bankrott");
+                        lbCom[i - 1].setText("---");
+                        panels[i - 1].setBackground(Color.GRAY);
+                        break;
 
-                    panels[i - 1].setBackground(Color.RED);
-                    break;
+                    case FOLDED:
+                        lbStatus[i - 1].setText("" + cc.getSpielerliste().get(i).getStatus());
+                        panels[i - 1].setBackground(Color.RED);
+                        break;
 
-                default:
-                    lbCom[i - 1].setText("" + cc.getSpielerliste().get(i).getCombo());
-                    lbStatus[i - 1].setText("" + cc.getSpielerliste().get(i).getStatus());
-                    panels[i - 1].setBackground(Color.WHITE);
-                    break;
+                    default:
+                        lbCom[i - 1].setText("" + cc.getSpielerliste().get(i).getCombo());
+                        lbStatus[i - 1].setText("" + cc.getSpielerliste().get(i).getStatus());
+                        panels[i - 1].setBackground(Color.WHITE);
+                        break;
+
+                }
             }
         }
         System.out.println("Geld im Umlauf: " + cc.getUmlaufgeld());
@@ -693,10 +703,6 @@ public class PokerGUI extends javax.swing.JFrame {
     private javax.swing.JButton btRaise;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -730,6 +736,10 @@ public class PokerGUI extends javax.swing.JFrame {
     private javax.swing.JLabel lbIcon;
     private javax.swing.JLabel lbMindesteinsatz;
     private javax.swing.JLabel lbName;
+    private javax.swing.JLabel lbName1;
+    private javax.swing.JLabel lbName2;
+    private javax.swing.JLabel lbName3;
+    private javax.swing.JLabel lbName4;
     private javax.swing.JLabel lbPot;
     private javax.swing.JLabel lbStatus1;
     private javax.swing.JLabel lbStatus2;
