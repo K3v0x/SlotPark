@@ -488,13 +488,13 @@ public class PokerGUI extends javax.swing.JFrame {
             btRaise.setEnabled(true);
             cc.newRound();
         } else if (cc.getFlopedcards() == 5) {
-            cc.checkwin();
+            PokerSpieler winner = cc.checkwin();
             if (cc.allStatus() == Status.OUT) {
                 btCheck.setText("Neues Spiel");
-                lbWinner.setText(cc.checkwin().getName() + " hat das Spiel gewonnen!");
+                lbWinner.setText(winner.getName() + " hat das Spiel gewonnen!");
             } else {
                 btCheck.setText("Neue Runde");
-                lbWinner.setText(cc.checkwin().getName() + " hat gewonnen!");
+                lbWinner.setText(winner.getName() + " hat gewonnen!");
             }
             btFold.setEnabled(false);
             btRaise.setEnabled(false);
@@ -559,7 +559,7 @@ public class PokerGUI extends javax.swing.JFrame {
             btCheck.setEnabled(false);
         }
         dispayCombo(comlabels, statuslabels);
-        for (int i = 0; i < spielerliste.size()-1; i++) {
+        for (int i = 0; i < spielerliste.size() - 1; i++) {
             if ((i - 1) != -1) {
                 namenlabels[i].setText(spielerliste.get(i + 1).getName());
             }
