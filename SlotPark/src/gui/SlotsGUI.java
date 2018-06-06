@@ -290,6 +290,7 @@ public class SlotsGUI extends javax.swing.JFrame {
             stopTheZock();
             kontoStand = 0;
         }
+        lbGeld.setText("Geld: " + kontoStand + " Chips");
     }//GEN-LAST:event_onSet1
 
     private void onSet3(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onSet3
@@ -301,7 +302,7 @@ public class SlotsGUI extends javax.swing.JFrame {
             stopTheZock();
             kontoStand = 0;
         }
-        lbGeld.setText("Geld: " + kontoStand);
+        lbGeld.setText("Geld: " + kontoStand + " Chips");
     }//GEN-LAST:event_onSet3
 
     private void onSet5(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onSet5
@@ -313,7 +314,7 @@ public class SlotsGUI extends javax.swing.JFrame {
             stopTheZock();
             kontoStand = 0;
         }
-        lbGeld.setText("Geld: " + kontoStand);
+        lbGeld.setText("Geld: " + kontoStand + " Chips");
     }//GEN-LAST:event_onSet5
 
       public void stopTheZock() {
@@ -325,7 +326,7 @@ public class SlotsGUI extends javax.swing.JFrame {
     
      public void addGewinnToKonto(int gewinn) {
         kontoStand += gewinn;
-        lbGeld.setText("Geld: " + kontoStand);
+        lbGeld.setText("Geld: " + kontoStand + " Chips");
     }
     
    public class SlotThread implements Runnable {
