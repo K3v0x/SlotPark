@@ -17,6 +17,7 @@ import java.io.File;
 import java.util.LinkedList;
 import java.util.Random;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -57,8 +58,8 @@ public class PokerGUI extends javax.swing.JFrame {
     }
 
     public PokerGUI() {
-//        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-//        this.setUndecorated(true);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.setUndecorated(true);
 
         initComponents();
 
