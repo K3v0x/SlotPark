@@ -385,7 +385,7 @@ public class SlotsGUI extends javax.swing.JFrame {
 
     public void addGewinnToKonto(int[] gewinn, int gewinnFaktor) {
         kontoStand += gewinn[0];
-        lbGeld.setText("Geld: " + kontoStand);
+        lbGeld.setText("Geld: " + kontoStand + " Chips");
         if (gewinn[1] == 1) {
             lb00.setBackground(Color.green);
             lb01.setBackground(Color.green);
