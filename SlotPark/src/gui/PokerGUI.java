@@ -566,7 +566,7 @@ public class PokerGUI extends javax.swing.JFrame {
 
     public void dispayCombo(JLabel[] lbCom, JLabel[] lbStatus) {
         LinkedList<PokerSpieler> liste = cc.getSpielerliste();
-        for (int i = 1; i < liste.size(); i++) {
+        for (int i = 0; i < liste.size(); i++) {
             System.out.println(cc.getSpielerliste().get(i).getName() + " "
                     + (int) cc.getSpielerliste().get(i).getGeld() + " "
                     + cc.getSpielerliste().get(i).getStatus() + " ("
