@@ -304,45 +304,39 @@ public class SlotsGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_onBack
 
     private void onSet1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onSet1
-        checkMoney();
-        kontoStand = Integer.parseInt(lbGeld.getText().replaceAll("Geld:", "").trim());
+      String geld = lbGeld.getText().replaceAll("Geld: ", "");
+        geld = geld.replaceAll(" Chips", "").trim();
+        kontoStand = Integer.parseInt(geld);
         kontoStand = kontoStand - 1;
         if (kontoStand <= 0) {
             stopTheZock();
             kontoStand = 0;
         }
-        lbGeld.setText("Geld: " + kontoStand + " Chips                                 Sie haben 1 Coin eingesetzt");
-        disableSettings();
-        btSpielen.setEnabled(true);
-
+        lbGeld.setText("Geld: " + kontoStand + " Chips");
     }//GEN-LAST:event_onSet1
 
     private void onSet3(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onSet3
-        checkMoney();
-        kontoStand = Integer.parseInt(lbGeld.getText().replaceAll("Geld:", "").trim());
+        String geld = lbGeld.getText().replaceAll("Geld: ", "");
+        geld = geld.replaceAll(" Chips", "").trim();
+        kontoStand = Integer.parseInt(geld);
         kontoStand = kontoStand - 3;
         if (kontoStand <= 0) {
             stopTheZock();
             kontoStand = 0;
         }
-        lbGeld.setText("Geld: " + kontoStand + " Chips                                Sie haben 3 Coins eingesetzt");
-        disableSettings();
-        gewinnFaktor = 3;
-        btSpielen.setEnabled(true);
+        lbGeld.setText("Geld: " + kontoStand + " Chips");
     }//GEN-LAST:event_onSet3
 
     private void onSet5(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onSet5
-        checkMoney();
-        kontoStand = Integer.parseInt(lbGeld.getText().replaceAll("Geld:", "").trim());
+    String geld = lbGeld.getText().replaceAll("Geld: ", "");
+        geld = geld.replaceAll(" Chips", "").trim();
+        kontoStand = Integer.parseInt(geld);
         kontoStand = kontoStand - 5;
         if (kontoStand <= 0) {
             stopTheZock();
             kontoStand = 0;
         }
-        lbGeld.setText("Geld: " + kontoStand + " Chips                                Sie haben 5 Coins eingesetzt");
-        disableSettings();
-        gewinnFaktor = 5;
-        btSpielen.setEnabled(true);
+        lbGeld.setText("Geld: " + kontoStand + " Chips");
     }//GEN-LAST:event_onSet5
 
     public void stopTheZock() {
@@ -351,12 +345,10 @@ public class SlotsGUI extends javax.swing.JFrame {
         btSet5.setEnabled(false);
         btSpielen.setEnabled(false);
     }
-
-    public void disableSettings() {
-        btSet1.setEnabled(false);
-        btSet3.setEnabled(false);
-        btSet5.setEnabled(false);
-
+    
+     public void addGewinnToKonto(int gewinn) {
+        kontoStand += gewinn;
+        lbGeld.setText("Geld: " + kontoStand + " Chips");
     }
 
     public void setBackgroundOnLabels() {
