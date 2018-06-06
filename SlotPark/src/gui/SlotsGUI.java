@@ -313,6 +313,7 @@ public class SlotsGUI extends javax.swing.JFrame {
         }
         lbGeld.setText("Geld: " + kontoStand + " Chips");
         disableSettings();
+        gewinnFaktor = 1;
         btSpielen.setEnabled(true);
     }//GEN-LAST:event_onSet1
 
@@ -327,6 +328,7 @@ public class SlotsGUI extends javax.swing.JFrame {
         }
         lbGeld.setText("Geld: " + kontoStand + " Chips");
         disableSettings();
+        gewinnFaktor = 3;
         btSpielen.setEnabled(true);
     }//GEN-LAST:event_onSet3
 
@@ -341,6 +343,7 @@ public class SlotsGUI extends javax.swing.JFrame {
         }
         lbGeld.setText("Geld: " + kontoStand + " Chips");
         disableSettings();
+        gewinnFaktor = 5;
         btSpielen.setEnabled(true);
     }//GEN-LAST:event_onSet5
 
@@ -349,11 +352,6 @@ public class SlotsGUI extends javax.swing.JFrame {
         btSet3.setEnabled(false);
         btSet5.setEnabled(false);
         btSpielen.setEnabled(false);
-    }
-
-    public void addGewinnToKonto(int gewinn) {
-        kontoStand += gewinn;
-        lbGeld.setText("Geld: " + kontoStand + " Chips");
     }
 
     public void setBackgroundOnLabels() {
