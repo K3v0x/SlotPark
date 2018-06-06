@@ -303,7 +303,7 @@ public class SlotsGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_onBack
 
     private void onSet1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onSet1
-      String geld = lbGeld.getText().replaceAll("Geld: ", "");
+        String geld = lbGeld.getText().replaceAll("Geld: ", "");
         geld = geld.replaceAll(" Chips", "").trim();
         kontoStand = Integer.parseInt(geld);
         kontoStand = kontoStand - 1;
@@ -312,6 +312,7 @@ public class SlotsGUI extends javax.swing.JFrame {
             kontoStand = 0;
         }
         lbGeld.setText("Geld: " + kontoStand + " Chips");
+        disableSettings();
         btSpielen.setEnabled(true);
     }//GEN-LAST:event_onSet1
 
@@ -325,11 +326,12 @@ public class SlotsGUI extends javax.swing.JFrame {
             kontoStand = 0;
         }
         lbGeld.setText("Geld: " + kontoStand + " Chips");
+        disableSettings();
         btSpielen.setEnabled(true);
     }//GEN-LAST:event_onSet3
 
     private void onSet5(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onSet5
-    String geld = lbGeld.getText().replaceAll("Geld: ", "");
+        String geld = lbGeld.getText().replaceAll("Geld: ", "");
         geld = geld.replaceAll(" Chips", "").trim();
         kontoStand = Integer.parseInt(geld);
         kontoStand = kontoStand - 5;
@@ -338,6 +340,7 @@ public class SlotsGUI extends javax.swing.JFrame {
             kontoStand = 0;
         }
         lbGeld.setText("Geld: " + kontoStand + " Chips");
+        disableSettings();
         btSpielen.setEnabled(true);
     }//GEN-LAST:event_onSet5
 
@@ -347,8 +350,8 @@ public class SlotsGUI extends javax.swing.JFrame {
         btSet5.setEnabled(false);
         btSpielen.setEnabled(false);
     }
-    
-     public void addGewinnToKonto(int gewinn) {
+
+    public void addGewinnToKonto(int gewinn) {
         kontoStand += gewinn;
         lbGeld.setText("Geld: " + kontoStand + " Chips");
     }
@@ -401,6 +404,13 @@ public class SlotsGUI extends javax.swing.JFrame {
             lb21.setBackground(Color.green);
             lb22.setBackground(Color.green);
         }
+    }
+
+    public void disableSettings() {
+        btSet1.setEnabled(false);
+        btSet3.setEnabled(false);
+        btSet5.setEnabled(false);
+
     }
 
     public class SlotThread implements Runnable {

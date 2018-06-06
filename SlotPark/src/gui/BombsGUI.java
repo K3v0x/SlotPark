@@ -654,7 +654,7 @@ public class BombsGUI extends javax.swing.JFrame {
         String buttonname = button.getName();
         int val = bc.flip(buttonname);
         if (val == 0) {
-            tfScore.setText("Game Over (" + score + ")");
+            tfScore.setText("" + score);
             score = 1;
             button.setText("");
             button.setIcon(new ImageIcon(System.getProperty("user.dir") + File.separator + "src" + File.separator + "images" + File.separator + "Bomb.png"));
