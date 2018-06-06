@@ -282,7 +282,9 @@ public class SlotsGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_onBack
 
     private void onSet1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onSet1
-      kontoStand = Integer.parseInt(lbGeld.getText().replaceAll("Geld:", "").trim());
+      String geld = lbGeld.getText().replaceAll("Geld: ", "");
+        geld = geld.replaceAll(" Chips", "").trim();
+        kontoStand = Integer.parseInt(geld);
         kontoStand = kontoStand - 1;
         if (kontoStand <= 0) {
             stopTheZock();
@@ -291,7 +293,9 @@ public class SlotsGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_onSet1
 
     private void onSet3(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onSet3
-        kontoStand = Integer.parseInt(lbGeld.getText().replaceAll("Geld:", "").trim());
+        String geld = lbGeld.getText().replaceAll("Geld: ", "");
+        geld = geld.replaceAll(" Chips", "").trim();
+        kontoStand = Integer.parseInt(geld);
         kontoStand = kontoStand - 3;
         if (kontoStand <= 0) {
             stopTheZock();
@@ -301,7 +305,9 @@ public class SlotsGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_onSet3
 
     private void onSet5(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onSet5
-    kontoStand = Integer.parseInt(lbGeld.getText().replaceAll(" Chips", "").trim());
+    String geld = lbGeld.getText().replaceAll("Geld: ", "");
+        geld = geld.replaceAll(" Chips", "").trim();
+        kontoStand = Integer.parseInt(geld);
         kontoStand = kontoStand - 5;
         if (kontoStand <= 0) {
             stopTheZock();
