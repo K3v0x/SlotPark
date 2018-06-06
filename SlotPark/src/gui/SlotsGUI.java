@@ -194,9 +194,8 @@ public class SlotsGUI extends javax.swing.JFrame {
 
         jPanel6.setLayout(new java.awt.GridLayout(1, 3));
 
-        btSet1.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        btSet1.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         btSet1.setText("1");
-        btSet1.setPreferredSize(new java.awt.Dimension(59, 67));
         btSet1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 onSet1(evt);
@@ -204,7 +203,7 @@ public class SlotsGUI extends javax.swing.JFrame {
         });
         jPanel6.add(btSet1);
 
-        btSet3.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        btSet3.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         btSet3.setText("3");
         btSet3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -213,7 +212,7 @@ public class SlotsGUI extends javax.swing.JFrame {
         });
         jPanel6.add(btSet3);
 
-        btSet5.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        btSet5.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         btSet5.setText("5");
         btSet5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -228,7 +227,7 @@ public class SlotsGUI extends javax.swing.JFrame {
 
         jPanel3.setLayout(new java.awt.GridLayout(2, 0));
 
-        btSpielen.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        btSpielen.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         btSpielen.setText("Spielen");
         btSpielen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -237,7 +236,7 @@ public class SlotsGUI extends javax.swing.JFrame {
         });
         jPanel3.add(btSpielen);
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jButton2.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         jButton2.setText("Zurück");
         jButton2.setToolTipText("");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -313,6 +312,7 @@ public class SlotsGUI extends javax.swing.JFrame {
             kontoStand = 0;
         }
         lbGeld.setText("Geld: " + kontoStand + " Chips");
+        btSpielen.setEnabled(true);
     }//GEN-LAST:event_onSet1
 
     private void onSet3(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onSet3
@@ -325,6 +325,7 @@ public class SlotsGUI extends javax.swing.JFrame {
             kontoStand = 0;
         }
         lbGeld.setText("Geld: " + kontoStand + " Chips");
+        btSpielen.setEnabled(true);
     }//GEN-LAST:event_onSet3
 
     private void onSet5(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onSet5
@@ -337,6 +338,7 @@ public class SlotsGUI extends javax.swing.JFrame {
             kontoStand = 0;
         }
         lbGeld.setText("Geld: " + kontoStand + " Chips");
+        btSpielen.setEnabled(true);
     }//GEN-LAST:event_onSet5
 
     public void stopTheZock() {
