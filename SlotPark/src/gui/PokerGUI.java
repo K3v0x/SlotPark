@@ -474,7 +474,6 @@ public class PokerGUI extends javax.swing.JFrame {
             btFold.setEnabled(true);
             btRaise.setEnabled(true);
             cc.load();
-            cc.newRound();
             paCom1.setBackground(Color.WHITE);
             paCom2.setBackground(Color.WHITE);
             paCom3.setBackground(Color.WHITE);
