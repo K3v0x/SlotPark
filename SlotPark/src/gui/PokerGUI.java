@@ -570,9 +570,8 @@ public class PokerGUI extends javax.swing.JFrame {
         }
         dispayCombo(comlabels, statuslabels);
         for (int i = 0; i < spielerliste.size() - 1; i++) {
-            if ((i - 1) != -1) {
-                namenlabels[i].setText(spielerliste.get(i + 1).getName());
-            }
+                namenlabels[i].setText(spielerliste.get(i+1).getName());
+         
         }
         if (spielerliste.getFirst().getStatus().equals("WINNER")) {
             btRaise.setEnabled(false);

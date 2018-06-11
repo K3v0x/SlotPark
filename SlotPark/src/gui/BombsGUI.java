@@ -655,6 +655,7 @@ public class BombsGUI extends javax.swing.JFrame {
         int val = bc.flip(buttonname);
         if (val == 0) {
             tfScore.setText("" + score);
+            tfScore.setBackground(Color.red);
             score = 1;
             button.setText("");
             button.setIcon(new ImageIcon(System.getProperty("user.dir") + File.separator + "src" + File.separator + "images" + File.separator + "Bomb.png"));
@@ -662,7 +663,8 @@ public class BombsGUI extends javax.swing.JFrame {
             bc.gameOver();
             btNew.setEnabled(true);
         } else if (val == -1) {
-            tfScore.setText("Gewonnen (" + score + ")");
+            tfScore.setText("" + score);
+            tfScore.setBackground(Color.GREEN);
             bc.gameOver();
             btNew.setEnabled(true);
         } else {
@@ -678,6 +680,7 @@ public class BombsGUI extends javax.swing.JFrame {
     private void onNewGame(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onNewGame
         btNew.setEnabled(false);
         tfScore.setText(score + "");
+        tfScore.setBackground(null);
         bc.newGame();
         if (s.getGeld() >= 100) {
             s.setGeld(s.getGeld() - 20);
