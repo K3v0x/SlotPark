@@ -7,6 +7,7 @@ package gui;
 
 import beans.Spieler;
 import bl.BombController;
+import bl.SoundPlayer;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -21,6 +22,7 @@ import javax.swing.JToggleButton;
  */
 public class BombsGUI extends javax.swing.JFrame {
 
+    private SoundPlayer player = SoundPlayer.getInstance();
     BombController bc = new BombController();
     int score = 1;
 
@@ -38,9 +40,10 @@ public class BombsGUI extends javax.swing.JFrame {
     }
 
     public BombsGUI() {
-//        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-//        this.setUndecorated(true);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.setUndecorated(true);
         initComponents();
+        player.play("music", "Bombs.mp3", true);
         JToggleButton[][] tbfield = {
             {bt00, bt01, bt02, bt03, bt04},
             {bt10, bt11, bt12, bt13, bt14},
@@ -650,6 +653,8 @@ public class BombsGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void onFlip(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onFlip
+
+        player.play("effect", "Select.mp3", false);
         JToggleButton button = (JToggleButton) evt.getSource();
         String buttonname = button.getName();
         int val = bc.flip(buttonname);
@@ -667,9 +672,11 @@ public class BombsGUI extends javax.swing.JFrame {
             tfScore.setBackground(Color.GREEN);
             bc.gameOver();
             btNew.setEnabled(true);
+            player.close("music");
+            player.play("music", "Winner.mp3", false);
         } else {
             score = score + val;
-         //   s.setGeld(s.getGeld() + val);
+            s.setGeld(s.getGeld() + val);
             tfScore.setText(score + "");
             button.setText(val + "");
         }
@@ -678,6 +685,8 @@ public class BombsGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_onFlip
 
     private void onNewGame(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onNewGame
+        player.play("effect", "Select.mp3", false);
+        player.play("music", "Bombs.mp3", true);
         btNew.setEnabled(false);
         tfScore.setText(score + "");
         tfScore.setBackground(null);
@@ -689,6 +698,8 @@ public class BombsGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_onNewGame
 
     private void onBack(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onBack
+        player.play("effect", "Select.mp3", false);
+        player.closeAll();
         MenuGUI menugui = new MenuGUI();
         s.setGeld(s.getGeld());
         menugui.setS(s);
@@ -709,7 +720,7 @@ public class BombsGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_onSetFlag
 
     public void updateUI() {
-      //  lbGeld.setText(String.format("Geld: %.0f Chips", s.getGeld() * 5));
+        lbGeld.setText(String.format("Geld: %.0f Chips", s.getGeld() * 5));
     }
 
     /**

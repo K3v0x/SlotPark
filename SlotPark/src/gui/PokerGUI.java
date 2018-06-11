@@ -472,6 +472,7 @@ public class PokerGUI extends javax.swing.JFrame {
 
     private void onCheck(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onCheck
         if (btCheck.getText().equals("Neues Spiel")) {
+          
             lbWinner.setText("");
             btCheck.setText("Check");
             btFold.setEnabled(true);
@@ -519,12 +520,12 @@ public class PokerGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_onCheck
 
     private void onBack(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onBack
+        player.closeAll();
         MenuGUI menugui = new MenuGUI();
         s.setGeld(cc.getSpielerliste().getFirst().getGeld() / 5);
         s.setName(cc.getSpielerliste().getFirst().getName());
         menugui.setS(s);
         menugui.setVisible(true);
-        player.close("music");
         this.dispose();
     }//GEN-LAST:event_onBack
 
@@ -570,8 +571,8 @@ public class PokerGUI extends javax.swing.JFrame {
         }
         dispayCombo(comlabels, statuslabels);
         for (int i = 0; i < spielerliste.size() - 1; i++) {
-                namenlabels[i].setText(spielerliste.get(i+1).getName());
-         
+            namenlabels[i].setText(spielerliste.get(i + 1).getName());
+
         }
         if (spielerliste.getFirst().getStatus().equals("WINNER")) {
             btRaise.setEnabled(false);
