@@ -138,11 +138,10 @@ public class MenuGUI extends javax.swing.JFrame {
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Bombs");
         jPanel2.add(jLabel5, java.awt.BorderLayout.NORTH);
-        jLabel5.getAccessibleContext().setAccessibleName("Bombs");
 
         lbBombs.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
         lbBombs.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbBombs.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Roulette.png"))); // NOI18N
+        lbBombs.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/kevbombs.png"))); // NOI18N
         lbBombs.setName("Bombs"); // NOI18N
         lbBombs.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
