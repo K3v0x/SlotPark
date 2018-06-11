@@ -58,8 +58,8 @@ public class PokerGUI extends javax.swing.JFrame {
     }
 
     public PokerGUI() {
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        this.setUndecorated(true);
+//        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+//        this.setUndecorated(true);
 
         initComponents();
 

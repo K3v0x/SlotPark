@@ -38,8 +38,8 @@ public class BombsGUI extends javax.swing.JFrame {
     }
 
     public BombsGUI() {
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        this.setUndecorated(true);
+//        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+//        this.setUndecorated(true);
         initComponents();
         JToggleButton[][] tbfield = {
             {bt00, bt01, bt02, bt03, bt04},
@@ -669,7 +669,7 @@ public class BombsGUI extends javax.swing.JFrame {
             btNew.setEnabled(true);
         } else {
             score = score + val;
-            s.setGeld(s.getGeld() + val);
+         //   s.setGeld(s.getGeld() + val);
             tfScore.setText(score + "");
             button.setText(val + "");
         }
@@ -709,7 +709,7 @@ public class BombsGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_onSetFlag
 
     public void updateUI() {
-        lbGeld.setText(String.format("Geld: %.0f Chips", s.getGeld() * 5));
+      //  lbGeld.setText(String.format("Geld: %.0f Chips", s.getGeld() * 5));
     }
 
     /**
