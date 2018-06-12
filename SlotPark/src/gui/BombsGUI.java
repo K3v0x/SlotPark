@@ -50,13 +50,14 @@ public class BombsGUI extends javax.swing.JFrame {
             {bt20, bt21, bt22, bt23, bt24},
             {bt30, bt31, bt32, bt33, bt34},
             {bt40, bt41, bt42, bt43, bt44}
+          
         };
 
         JLabel[] spaltenfield = {lbS0, lbS1, lbS2, lbS3, lbS4};
         JLabel[] zeilenfield = {lbZ0, lbZ1, lbZ2, lbZ3, lbZ4};
 
         for (int i = 0; i < tbfield.length; i++) {
-            for (int j = 0; j < tbfield.length; j++) {
+            for (int j = 0; j < tbfield[i].length; j++) {
                 tbfield[i][j].setName(i + " " + j);
 
             }
@@ -672,8 +673,7 @@ public class BombsGUI extends javax.swing.JFrame {
             tfScore.setBackground(Color.GREEN);
             bc.gameOver();
             btNew.setEnabled(true);
-            player.close("music");
-            player.play("music", "Winner.mp3", false);
+            player.play("effect", "Winner.mp3", false);
         } else {
             score = score + val;
             s.setGeld(s.getGeld() + val);
@@ -686,7 +686,9 @@ public class BombsGUI extends javax.swing.JFrame {
 
     private void onNewGame(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onNewGame
         player.play("effect", "Select.mp3", false);
-        player.play("music", "Bombs.mp3", true);
+        if (player.isPlaying("Winner.mp3")) {
+            player.play("music", "Bombs.mp3", true);
+        }
         btNew.setEnabled(false);
         tfScore.setText(score + "");
         tfScore.setBackground(null);

@@ -6,6 +6,7 @@
 package gui;
 
 import beans.Spieler;
+import bl.SoundPlayer;
 import database.DB_Access;
 import java.awt.Color;
 import java.util.logging.Level;
@@ -20,6 +21,7 @@ import javax.swing.border.LineBorder;
  */
 public class MenuGUI extends javax.swing.JFrame {
 
+    private SoundPlayer player = SoundPlayer.getInstance();
     private String selgame = "Poker"; //Ausgewähltes Spiel
     private Spieler s;
     private DB_Access access = DB_Access.getInstance();
@@ -39,6 +41,7 @@ public class MenuGUI extends javax.swing.JFrame {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setUndecorated(true);
         initComponents();
+
     }
 
     /**
@@ -84,9 +87,11 @@ public class MenuGUI extends javax.swing.JFrame {
 
         jPanel5.setLayout(new java.awt.BorderLayout());
 
+        jLabel6.setBackground(new java.awt.Color(204, 204, 0));
         jLabel6.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Slots");
+        jLabel6.setOpaque(true);
         jPanel5.add(jLabel6, java.awt.BorderLayout.NORTH);
 
         lbSlots.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
@@ -109,9 +114,11 @@ public class MenuGUI extends javax.swing.JFrame {
 
         jPanel4.setLayout(new java.awt.BorderLayout());
 
+        jLabel7.setBackground(new java.awt.Color(204, 204, 0));
         jLabel7.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("Poker");
+        jLabel7.setOpaque(true);
         jPanel4.add(jLabel7, java.awt.BorderLayout.NORTH);
 
         lbPoker.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
@@ -134,9 +141,11 @@ public class MenuGUI extends javax.swing.JFrame {
 
         jPanel2.setLayout(new java.awt.BorderLayout());
 
+        jLabel5.setBackground(new java.awt.Color(204, 204, 0));
         jLabel5.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Bombs");
+        jLabel5.setOpaque(true);
         jPanel2.add(jLabel5, java.awt.BorderLayout.NORTH);
 
         lbBombs.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
@@ -161,9 +170,11 @@ public class MenuGUI extends javax.swing.JFrame {
 
         jPanel3.setLayout(new java.awt.BorderLayout());
 
+        jLabel1.setBackground(new java.awt.Color(153, 0, 0));
         jLabel1.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Willkommen!");
+        jLabel1.setOpaque(true);
         jPanel3.add(jLabel1, java.awt.BorderLayout.CENTER);
 
         jPanel6.setBackground(new java.awt.Color(0, 153, 153));
@@ -204,6 +215,7 @@ public class MenuGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_onLogout
 
     private void onPlay(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_onPlay
+        player.play("effect", "Select.mp3", false);
         switch (selgame) {
             case "Slots":
                 SlotsGUI slotsgui = new SlotsGUI();
@@ -230,7 +242,6 @@ public class MenuGUI extends javax.swing.JFrame {
     private void onSelect(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_onSelect
         JLabel lbsel = (JLabel) evt.getSource();
         selgame = lbsel.getName();
-        System.out.println(selgame);
         switch (selgame) { //Setzt die Umrandung des Selektierten Spiels
             case "Slots":
                 lbSlots.setBorder(new LineBorder(Color.black, 20));
