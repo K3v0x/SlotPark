@@ -29,7 +29,6 @@ import java.util.Stack;
 public class CasinoController {
 
     public final Random rand = new Random();
-    private String imagepath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "images" + File.separator + "karten" + File.separator;
     private SoundPlayer player = SoundPlayer.getInstance();
 
     private LinkedList<PokerSpieler> spielerliste = new LinkedList<>(); //Spielerliste
@@ -39,13 +38,18 @@ public class CasinoController {
     private int pot = 0; //Anzahl der Chips im Pot
     private int flopstate = -1;
     private int highraise = 0;
-    private int raisediff = 0;
     private Karte[] kartentisch = new Karte[5]; //Karten, die auf dem Tisch liegen
 
     private String name;
     private int geld;
     private PokerSpieler spieler;
 
+    /**
+     * Konstruktor
+     *
+     * @param name --> Name des Spielers
+     * @param geld --> Geld des Spielers
+     */
     public CasinoController(String name, int geld) {
         this.name = name;
         this.geld = geld;
@@ -53,7 +57,7 @@ public class CasinoController {
     }
 
     /**
-     * Begint ein neues Spiel
+     * Startet ein neues Spiel
      */
     public void load() {
         spielerliste.clear();
@@ -72,7 +76,7 @@ public class CasinoController {
     }
 
     /**
-     * Startet eine neue Runde
+     * Startet eine neue Runde innerhalb eines Spiels
      */
     public void newRound() {
         stapel.clear();
@@ -135,7 +139,7 @@ public class CasinoController {
     /**
      * Erstellt die Karten des Kartenstapels
      *
-     * @param farbe Die Farbe der Karten, die erstellt werden sollen
+     * @param farbe --> Die Farbe der Karten, die erstellt werden sollen
      */
     public void createCards(Farbe farbe) {
         for (int i = 0; i < 10; i++) {
@@ -147,7 +151,7 @@ public class CasinoController {
     /**
      * Prüft auf die Combo des Pokerspielers
      *
-     * @param pokerSpieler Das Objekt vom Pokerspieler
+     * @param pokerSpieler --> Rückgabe des Pokerspielers
      */
     public void checkAllCombos() {
 
@@ -227,7 +231,7 @@ public class CasinoController {
     /**
      * Lässt den Computer spielen
      *
-     * @param pokerSpieler Das Objekt vom Pokerspieler
+     * @param pokerSpieler --> Rückgabe des Pokerspielers
      */
     public void letAllComsPlay() {
         for (PokerSpieler pokerSpieler : spielerliste) {
@@ -277,17 +281,16 @@ public class CasinoController {
     }
 
     /**
-     * Wählt den Gewinner aus
+     * Bestimmt den Gewinner der Runde
      *
-     * @return Der gewinner der Runde
+     * @return --> Rückgabe des Gewinners der Runde
      */
     public PokerSpieler checkwin() {
         PokerSpieler winner = spielerliste.getFirst();
         Combi winnercombo = HOHEKARTE;
 
         for (PokerSpieler pokerSpieler : spielerliste) {
-            if(pokerSpieler.getGeld() == 0)
-            {
+            if (pokerSpieler.getGeld() == 0) {
                 pokerSpieler.setStatus(Status.OUT);
             }
             if (pokerSpieler.getCombo().getWert() > winnercombo.getWert() && pokerSpieler.getStatus() != FOLDED && pokerSpieler.getStatus() != OUT) {
@@ -305,6 +308,12 @@ public class CasinoController {
         return winner;
     }
 
+    /**
+     * Prüft den Status des Pokerspielers Status: FOLDED, RAISED, CHECKED,
+     * ENTERED
+     *
+     * @return --> Rückgabe des Status eines Pokerspielers
+     */
     public boolean raiseState() {
         for (PokerSpieler pokerSpieler : spielerliste) {
             if (pokerSpieler.getStatus() == RAISED) {
@@ -314,6 +323,11 @@ public class CasinoController {
         return false;
     }
 
+    /**
+     * Prüft den einheitlichen Status aller Pokerspieler
+     *
+     * @return --> Wenn der Status aller Spiler OUT ist, wird OUT zurückgegeben
+     */
     public Status allStatus() {
         HashMap<Status, Integer> map = new HashMap<>();
         Status[] statusfeld = Status.values();
@@ -344,18 +358,15 @@ public class CasinoController {
 //                return statusfeld[i];
 //            }
 //        }
-
         int anz = 0;
         for (int i = 1; i < spielerliste.size(); i++) {
-            if(spielerliste.get(i).getStatus() == Status.OUT)
-            {
+            if (spielerliste.get(i).getStatus() == Status.OUT) {
                 anz++;
             }
-            System.out.println(spielerliste.get(i).getName()+": "+spielerliste.get(i).getGeld());
+            System.out.println(spielerliste.get(i).getName() + ": " + spielerliste.get(i).getGeld());
         }
-        System.out.println("Anzahl: "+anz);
-        if(anz == 4)
-        {
+        System.out.println("Anzahl: " + anz);
+        if (anz == 4) {
             return Status.OUT;
         }
 
@@ -363,7 +374,8 @@ public class CasinoController {
     }
 
     /**
-     * Check-Zug
+     * Deckt eine bestimmte Anzahl an Community-Karten auf Community-Karten: Die
+     * 5 Karten, die jeder Pokerspieler sieht.
      */
     public void check() {
         player.play("effect", "Check.mp3", false);
@@ -397,7 +409,7 @@ public class CasinoController {
     }
 
     /**
-     * Erhöht den Pot
+     * Erhöht den Pot (Der gesamte Einsatz aller Pokerspieler)
      *
      * @param einsatz Einsatz des Pokerspielers
      */

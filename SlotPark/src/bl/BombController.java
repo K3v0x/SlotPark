@@ -27,6 +27,9 @@ public class BombController {
     private JLabel[] spaltenfield = new JLabel[SPALTEN];
     private int bombs = 0;
 
+    /**
+     * Startet eine neue Runde
+     */
     public void newGame() {
         for (int i = 0; i < buttons.length; i++) {
             for (int j = 0; j < buttons[i].length; j++) {
@@ -40,6 +43,9 @@ public class BombController {
         fillfield(buttons);
     }
 
+    /**
+     * Deckt alle Bomben auf
+     */
     public void gameOver() {
         for (int i = 0; i < buttons.length; i++) {
             for (int j = 0; j < buttons[i].length; j++) {
@@ -56,11 +62,11 @@ public class BombController {
         }
     }
 
-    public boolean allBombsFound() {
-        return false;
-
-    }
-
+    /**
+     * Befüllt das Spielfeld mit Bombem und Punkten
+     *
+     * @param bt
+     */
     public void fillfield(JToggleButton[][] bt) {
         Random rand = new Random();
         bombs = 0;
@@ -78,8 +84,8 @@ public class BombController {
         System.out.println("Bombs: " + bombs);
 
         int anz = 0;
-            for (int j = 0; j < spielfeld[0].length; j++) {
-                for (int i = 0; i < spielfeld.length; i++) {
+        for (int j = 0; j < spielfeld[0].length; j++) {
+            for (int i = 0; i < spielfeld.length; i++) {
                 if (spielfeld[i][j] == 0) {
                     anz++;
                 }
@@ -104,6 +110,11 @@ public class BombController {
 
     }
 
+    /**
+     * Deckt ein Feld auf
+     * @param buttonname --> Name des Feldes, das gedrückt wurde
+     * @return --> Rückgabe des Feldwertes.
+     */
     public int flip(String buttonname) {
         System.out.println(buttonname);
         String[] parts = buttonname.split(" ");
