@@ -20,23 +20,23 @@ import javax.swing.border.LineBorder;
  * @author Kevin
  */
 public class MenuGUI extends javax.swing.JFrame {
-
+    
     private SoundPlayer player = SoundPlayer.getInstance();
     private String selgame = "Poker"; //Ausgewähltes Spiel
     private Spieler s;
     private DB_Access access = DB_Access.getInstance();
-
+    
     public Spieler getS() {
         return s;
     }
-
+    
     public void setS(Spieler s) {
         this.s = s;
         lbName.setText("Name: " + s.getName());
         lbGeld.setText("Geld: " + String.format("%,.02f €", s.getGeld()));
         lbIcon.setIcon(s.getIcon().getIcon());
     }
-
+    
     public MenuGUI() {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setUndecorated(true);
@@ -206,6 +206,8 @@ public class MenuGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void onLogout(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onLogout
+        player.play("effect", "Select.mp3", false);
+        player.close("Poker.mp3");
         try {
             access.updateUser(s);
             LoginGUI logingui = new LoginGUI();
@@ -236,7 +238,7 @@ public class MenuGUI extends javax.swing.JFrame {
                 bombsgui.setS(s);
                 bombsgui.setVisible(true);
                 this.dispose();
-
+                
                 break;
         }
     }//GEN-LAST:event_onPlay

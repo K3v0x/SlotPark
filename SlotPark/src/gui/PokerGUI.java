@@ -9,7 +9,7 @@ import beans.PokerSpieler;
 import beans.Spieler;
 import beans.Status;
 import static beans.Status.*;
-import bl.CasinoController;
+import bl.PokerController;
 import bl.SoundPlayer;
 import java.awt.Color;
 import java.awt.Image;
@@ -17,7 +17,6 @@ import java.io.File;
 import java.util.LinkedList;
 import java.util.Random;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -30,7 +29,7 @@ public class PokerGUI extends javax.swing.JFrame {
 
     private Random rand = new Random();
     private String imagepath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "images" + File.separator + "karten" + File.separator;
-    private CasinoController cc;
+    private PokerController cc;
     private SoundPlayer player = SoundPlayer.getInstance();
     private TurnThread tt = new TurnThread();
     private Thread thread = new Thread(tt);
@@ -419,11 +418,11 @@ public class PokerGUI extends javax.swing.JFrame {
         if (s == null) {
             s = new Spieler("Testspieler", "123", 500, null);
         }
-        cc = new CasinoController(s.getName(), (int) (s.getGeld() * 5));
+        cc = new PokerController(s.getName(), (int) (s.getGeld() * 5));
         thread.start();
 
         cc.load();
-       
+
         tfEinsatz.setText(0 + "/" + (int) cc.getSpielerliste().getFirst().getGeld());
         jsEinsatz.setMajorTickSpacing((int) cc.getSpielerliste().getFirst().getGeld() / 4);
         jsEinsatz.setMinorTickSpacing((int) cc.getSpielerliste().getFirst().getGeld() / 10);
@@ -470,7 +469,7 @@ public class PokerGUI extends javax.swing.JFrame {
 
     private void onCheck(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onCheck
         if (btCheck.getText().equals("Neues Spiel")) {
-          
+
             lbWinner.setText("");
             btCheck.setText("Check");
             btFold.setEnabled(true);
@@ -518,7 +517,8 @@ public class PokerGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_onCheck
 
     private void onBack(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onBack
-       MenuGUI menugui = new MenuGUI();
+        player.play("effect", "Select.mp3", false);
+        MenuGUI menugui = new MenuGUI();
         s.setGeld(cc.getSpielerliste().getFirst().getGeld() / 5);
         s.setName(cc.getSpielerliste().getFirst().getName());
         menugui.setS(s);

@@ -24,7 +24,7 @@ import java.util.Stack;
  *
  * @author Kevin
  */
-public class CasinoController {
+public class PokerController {
 
     public final Random rand = new Random();
     private SoundPlayer player = SoundPlayer.getInstance();
@@ -48,7 +48,7 @@ public class CasinoController {
      * @param name --> Name des Spielers
      * @param geld --> Geld des Spielers
      */
-    public CasinoController(String name, int geld) {
+    public PokerController(String name, int geld) {
         this.name = name;
         this.geld = geld;
         spieler = new PokerSpieler(new Karte[2], HOHEKARTE, 0, ENTERED, false, name, "1", geld, null);

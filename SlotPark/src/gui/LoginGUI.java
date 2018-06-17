@@ -16,7 +16,6 @@ import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -52,7 +51,6 @@ public class LoginGUI extends javax.swing.JFrame {
         } catch (Exception ex) {
             Logger.getLogger(LoginGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
 
     }
 
@@ -263,10 +261,12 @@ public class LoginGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void onExit(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onExit
+        player.play("effect", "Select.mp3", false);
         System.exit(0);
     }//GEN-LAST:event_onExit
 
     private void onLogin(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onLogin
+        player.play("effect", "Select.mp3", false);
         btLogin.setVisible(false);
         paLogin.setVisible(true);
         btRegister.setVisible(true);
@@ -274,6 +274,7 @@ public class LoginGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_onLogin
 
     private void onRealLogin(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onRealLogin
+        player.play("effect", "Select.mp3", false);
         String user = tfLogin.getText();
         String password = new String(pfLogin.getPassword());
         try {
@@ -293,6 +294,7 @@ public class LoginGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_onRealLogin
 
     private void onRealRegister(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onRealRegister
+        player.play("effect", "Select.mp3", false);
         try {
             Icon icon = (Icon) cbImages.getSelectedItem();
             String user = tfRegister.getText();
@@ -315,6 +317,7 @@ public class LoginGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_onRealRegister
 
     private void onRegister(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onRegister
+        player.play("effect", "Select.mp3", false);
         btRegister.setVisible(false);
         paRegister.setVisible(true);
         btLogin.setVisible(true);
@@ -322,6 +325,7 @@ public class LoginGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_onRegister
 
     private void onLoginEnter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onLoginEnter
+        player.play("effect", "Select.mp3", false);
         String user = tfLogin.getText();
         String password = new String(pfLogin.getPassword());
         try {
@@ -341,6 +345,7 @@ public class LoginGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_onLoginEnter
 
     private void onRegisterEnter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onRegisterEnter
+        player.play("effect", "Select.mp3", false);
         try {
             Icon icon = (Icon) cbImages.getSelectedItem();
             String user = tfRegister.getText();

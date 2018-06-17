@@ -5,7 +5,6 @@
  */
 package beans;
 
-import java.awt.Color;
 import java.util.List;
 
 /**

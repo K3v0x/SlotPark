@@ -7,25 +7,17 @@ package gui;
 
 import beans.Spieler;
 import beans.Symbol;
-import static beans.Symbol.*;
 import bl.SlotController;
 import bl.SoundPlayer;
 import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.io.File;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.border.LineBorder;
-import javax.swing.border.TitledBorder;
 
 /**
  *
@@ -305,6 +297,7 @@ public class SlotsGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void onSpin(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onSpin
+        player.play("effect", "Select.mp3", false);
         SlotThread st = new SlotThread();
         stThread = new Thread(st);
         stThread.start();
@@ -317,6 +310,7 @@ public class SlotsGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_onSpin
 
     private void onBack(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onBack
+        player.play("effect", "Select.mp3", false);
         MenuGUI menugui = new MenuGUI();
         menugui.setS(s);
         menugui.setVisible(true);
@@ -324,6 +318,7 @@ public class SlotsGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_onBack
 
     private void onHold(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onHold
+        player.play("effect", "Select.mp3", false);
         stThread.stop();
         setBackgroundOnLabels();
         int[] gewinn = sc.getGewinn(berechnung);
@@ -334,6 +329,7 @@ public class SlotsGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_onHold
 
     private void onSet(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onSet
+        player.play("effect", "Select.mp3", false);
         JButton button = (JButton) evt.getSource();
         checkMoney();
         kontoStand = Integer.parseInt(lbGeld.getText().split(" ")[1]);

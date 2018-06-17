@@ -20,6 +20,7 @@ public class BombController {
 
     public static final int ZEILEN = 5;
     public static final int SPALTEN = 5;
+    private int level = 1;
     private int[][] spielfeld = new int[ZEILEN][SPALTEN];
     private JToggleButton[][] buttons = new JToggleButton[ZEILEN][SPALTEN];
     private JLabel[] zeilenfield = new JLabel[ZEILEN];
@@ -52,6 +53,7 @@ public class BombController {
                 if (spielfeld[i][j] == 0) {
                     buttons[i][j].setText("");
                     buttons[i][j].setIcon(new ImageIcon(System.getProperty("user.dir") + File.separator + "src" + File.separator + "images" + File.separator + "Bomb.png"));
+                   
                 } else {
                     buttons[i][j].setText(spielfeld[i][j] + "");
                 }
@@ -71,9 +73,16 @@ public class BombController {
         bombs = 0;
         for (int i = 0; i < spielfeld.length; i++) {
             for (int j = 0; j < spielfeld[i].length; j++) {
-                spielfeld[i][j] = rand.nextInt(3 - 0 + 1) + 0;
-                if (spielfeld[i][j] == 0) {
-                    bombs++;
+                if (bombs < level) {
+                    int zz = rand.nextInt(3 - 0 + 1) + 0;
+
+                    spielfeld[i][j] = zz;
+                    if (spielfeld[i][j] == 0) {
+                        bombs++;
+                    }
+                } else {
+                    int zz = rand.nextInt(3 - 1 + 1) + 1;
+                    spielfeld[i][j] = zz;
                 }
                 System.out.print(spielfeld[i][j] + " ");
             }
@@ -111,6 +120,7 @@ public class BombController {
 
     /**
      * Deckt ein Feld auf
+     *
      * @param buttonname --> Name des Feldes, das gedrückt wurde
      * @return --> Rückgabe des Feldwertes.
      */
@@ -170,4 +180,13 @@ public class BombController {
         this.spaltenfield = spaltenfield;
     }
 
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    
 }

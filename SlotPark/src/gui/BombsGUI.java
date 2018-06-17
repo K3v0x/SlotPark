@@ -50,7 +50,7 @@ public class BombsGUI extends javax.swing.JFrame {
             {bt20, bt21, bt22, bt23, bt24},
             {bt30, bt31, bt32, bt33, bt34},
             {bt40, bt41, bt42, bt43, bt44}
-          
+
         };
 
         JLabel[] spaltenfield = {lbS0, lbS1, lbS2, lbS3, lbS4};
@@ -90,7 +90,7 @@ public class BombsGUI extends javax.swing.JFrame {
         lbS3 = new javax.swing.JLabel();
         lbS4 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        lbLevel = new javax.swing.JLabel();
         tfScore = new javax.swing.JTextField();
         bt00 = new javax.swing.JToggleButton();
         bt01 = new javax.swing.JToggleButton();
@@ -189,10 +189,10 @@ public class BombsGUI extends javax.swing.JFrame {
 
         jPanel5.setLayout(new java.awt.GridLayout(2, 0));
 
-        jLabel1.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Level 1");
-        jPanel5.add(jLabel1);
+        lbLevel.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
+        lbLevel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbLevel.setText("Level 1");
+        jPanel5.add(lbLevel);
 
         tfScore.setEditable(false);
         tfScore.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
@@ -677,6 +677,8 @@ public class BombsGUI extends javax.swing.JFrame {
             button.setText("");
             button.setIcon(new ImageIcon(System.getProperty("user.dir") + File.separator + "src" + File.separator + "images" + File.separator + "Bomb.png"));
             button.setBackground(Color.RED);
+            bc.setLevel(1);
+          
             bc.gameOver();
             btNew.setEnabled(true);
         } else if (val == -1) {
@@ -685,6 +687,9 @@ public class BombsGUI extends javax.swing.JFrame {
             bc.gameOver();
             btNew.setEnabled(true);
             player.play("effect", "Winner.mp3", false);
+            bc.setLevel(bc.getLevel() + 1);
+            lbLevel.setText("Level " + bc.getLevel());
+            btNew.setText("Level " + bc.getLevel());
         } else {
             score = score + val;
             s.setGeld(s.getGeld() + val);
@@ -696,9 +701,11 @@ public class BombsGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_onFlip
 
     private void onNewGame(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onNewGame
+
         player.play("effect", "Select.mp3", false);
-        if (player.isPlaying("Winner.mp3")) {
-            player.play("music", "Bombs.mp3", true);
+        if (btNew.getText().contains("Level")) {
+            btNew.setText("Neues Spiel");
+
         }
         btNew.setEnabled(false);
         tfScore.setText(score + "");
@@ -712,7 +719,7 @@ public class BombsGUI extends javax.swing.JFrame {
 
     private void onBack(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onBack
         player.play("effect", "Select.mp3", false);
-        player.closeAll();
+        player.close("Bombs.mp3");
         MenuGUI menugui = new MenuGUI();
         s.setGeld(s.getGeld());
         menugui.setS(s);
@@ -802,7 +809,6 @@ public class BombsGUI extends javax.swing.JFrame {
     private javax.swing.JToggleButton bt44;
     private javax.swing.JButton btNew;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -811,6 +817,7 @@ public class BombsGUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JLabel lbGeld;
     private javax.swing.JLabel lbIcon;
+    private javax.swing.JLabel lbLevel;
     private javax.swing.JLabel lbName;
     private javax.swing.JLabel lbS0;
     private javax.swing.JLabel lbS1;
