@@ -19,6 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -30,7 +31,7 @@ import javax.swing.border.TitledBorder;
  * @author Kevin
  */
 public class SlotsGUI extends javax.swing.JFrame {
-
+    
     private Symbol[] slots = {Symbol.CHERRY, Symbol.TREE, Symbol.LUCK, Symbol.DIAMOND};
     private String imagepath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "images" + File.separator;
     private String currMoney;
@@ -42,21 +43,21 @@ public class SlotsGUI extends javax.swing.JFrame {
     private int[][] berechnung = new int[3][3];
     JLabel[][] labels;
     SlotController sc;
-
+    
     private Spieler s;
     Random rand = new Random();
-
+    
     public Spieler getS() {
         return s;
     }
-
+    
     public void setS(Spieler s) {
         this.s = s;
         lbName.setText("Name: " + s.getName());
         lbGeld.setText(String.format("Geld: %.0f Chips", s.getGeld() * 5));
         lbIcon.setIcon(s.getIcon().getIcon());
     }
-
+    
     public SlotsGUI() {
 //        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 //        this.setUndecorated(true);
@@ -64,19 +65,18 @@ public class SlotsGUI extends javax.swing.JFrame {
         int width = Toolkit.getDefaultToolkit().getScreenSize().width;
         int height = Toolkit.getDefaultToolkit().getScreenSize().height;
         this.setSize(width, height);
-
+        
         sc = new SlotController();
-
-        kontoStand = Integer.parseInt(lbGeld.getText().replaceAll("Geld: ", "").trim());
-
-        btSpielen.setEnabled(false);
+        
+        kontoStand = Integer.parseInt(lbGeld.getText().split(" ")[1]);
+        
         btHold.setEnabled(false);
         labels = new JLabel[][]{
             {lb00, lb01, lb02},
             {lb10, lb11, lb12},
             {lb20, lb21, lb22}};
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -199,28 +199,28 @@ public class SlotsGUI extends javax.swing.JFrame {
         jPanel6.setLayout(new java.awt.GridLayout(1, 3));
 
         btSet1.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        btSet1.setText("1");
+        btSet1.setText("1x");
         btSet1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                onSet1(evt);
+                onSet(evt);
             }
         });
         jPanel6.add(btSet1);
 
         btSet3.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        btSet3.setText("3");
+        btSet3.setText("3x");
         btSet3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                onSet3(evt);
+                onSet(evt);
             }
         });
         jPanel6.add(btSet3);
 
         btSet5.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        btSet5.setText("5");
+        btSet5.setText("5x");
         btSet5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                onSet5(evt);
+                onSet(evt);
             }
         });
         jPanel6.add(btSet5);
@@ -306,7 +306,7 @@ public class SlotsGUI extends javax.swing.JFrame {
         stThread = new Thread(st);
         stThread.start();
         setBackgroundOnLabels();
-        kontoStand = Integer.parseInt(lbGeld.getText().replaceAll("Geld:", "").trim());
+        kontoStand = Integer.parseInt(lbGeld.getText().split(" ")[1]);
         kontoStand = kontoStand - gewinnFaktor;
         lbGeld.setText("Geld: " + kontoStand);
         btHold.setEnabled(true);
@@ -320,40 +320,6 @@ public class SlotsGUI extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_onBack
 
-    private void onSet1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onSet1
-        checkMoney();
-        kontoStand = Integer.parseInt(lbGeld.getText().replaceAll("Geld:", "").trim());
-
-        if (kontoStand <= 0) {
-            stopTheZock();
-            kontoStand = 0;
-        }
-        gewinnFaktor = 1;
-        btSpielen.setEnabled(true);
-    }//GEN-LAST:event_onSet1
-
-    private void onSet3(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onSet3
-        checkMoney();
-        kontoStand = Integer.parseInt(lbGeld.getText().replaceAll("Geld:", "").trim());
-        if (kontoStand <= 0) {
-            stopTheZock();
-            kontoStand = 0;
-        }
-        gewinnFaktor = 3;
-        btSpielen.setEnabled(true);
-    }//GEN-LAST:event_onSet3
-
-    private void onSet5(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onSet5
-        checkMoney();
-        kontoStand = Integer.parseInt(lbGeld.getText().replaceAll("Geld:", "").trim());
-        if (kontoStand <= 0) {
-            stopTheZock();
-            kontoStand = 0;
-        }
-        gewinnFaktor = 5;
-        btSpielen.setEnabled(true);
-    }//GEN-LAST:event_onSet5
-
     private void onHold(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onHold
         stThread.stop();
         setBackgroundOnLabels();
@@ -361,21 +327,33 @@ public class SlotsGUI extends javax.swing.JFrame {
         addGewinnToKonto(gewinn, gewinnFaktor);
         checkMoney();
         btHold.setEnabled(false);
+        btSpielen.setEnabled(true);
     }//GEN-LAST:event_onHold
 
+    private void onSet(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onSet
+        JButton button = (JButton) evt.getSource();
+        checkMoney();
+        kontoStand = Integer.parseInt(lbGeld.getText().split(" ")[1]);
+        if (kontoStand <= 0) {
+            stopTheZock();
+            kontoStand = Integer.parseInt(button.getText().split("")[1]);
+        }
+        gewinnFaktor = Integer.parseInt(button.getText().split("")[0]);
+    }//GEN-LAST:event_onSet
+    
     public void stopTheZock() {
         btSet1.setEnabled(false);
         btSet3.setEnabled(false);
         btSet5.setEnabled(false);
         btSpielen.setEnabled(false);
     }
-
+    
     public void disableSettings() {
         btSet1.setEnabled(false);
         btSet3.setEnabled(false);
         btSet5.setEnabled(false);
     }
-
+    
     public void setBackgroundOnLabels() {
         lb00.setBackground(Color.white);
         lb01.setBackground(Color.white);
@@ -387,7 +365,7 @@ public class SlotsGUI extends javax.swing.JFrame {
         lb21.setBackground(Color.white);
         lb22.setBackground(Color.white);
     }
-
+    
     public void checkMoney() {
         if (kontoStand >= 1 && kontoStand < 3) {
             btSet1.setEnabled(true);
@@ -405,7 +383,7 @@ public class SlotsGUI extends javax.swing.JFrame {
             stopTheZock();
         }
     }
-
+    
     public void addGewinnToKonto(int[] gewinn, int gewinnFaktor) {
         kontoStand += gewinn[0];
         lbGeld.setText("Geld: " + kontoStand);
@@ -425,16 +403,16 @@ public class SlotsGUI extends javax.swing.JFrame {
             lb22.setBackground(Color.green);
         }
     }
-
+    
     public class SlotThread implements Runnable {
-
+        
         @Override
         public void run() {
             for (int i = 0; i < labels.length; i++) {
                 for (int k = 0; k < 20; k++) {
                     zz = rand.nextInt(slots.length - 1) - 0 + 1;
                     labels[0][i].setIcon(new ImageIcon(imagepath + slots[zz] + "Slot.png"));
-
+                    
                     berechnung[0][i] = zz;
                     if (k >= 3) {
                         zz = rand.nextInt(slots.length - 1) - 0 + 1;
@@ -455,10 +433,12 @@ public class SlotsGUI extends javax.swing.JFrame {
             }
             int[] gewinn = sc.getGewinn(berechnung);
             addGewinnToKonto(gewinn, gewinnFaktor);
+            btSpielen.setEnabled(true);
+            btHold.setEnabled(false);
             checkMoney();
         }
     }
-
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
