@@ -9,6 +9,7 @@ import beans.Spieler;
 import beans.Symbol;
 import static beans.Symbol.*;
 import bl.SlotController;
+import bl.SoundPlayer;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -31,7 +32,9 @@ import javax.swing.border.TitledBorder;
  * @author Kevin
  */
 public class SlotsGUI extends javax.swing.JFrame {
-    
+
+    private SoundPlayer player = SoundPlayer.getInstance();
+
     private Symbol[] slots = {Symbol.CHERRY, Symbol.TREE, Symbol.LUCK, Symbol.DIAMOND};
     private String imagepath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "images" + File.separator;
     private String currMoney;
@@ -43,21 +46,21 @@ public class SlotsGUI extends javax.swing.JFrame {
     private int[][] berechnung = new int[3][3];
     JLabel[][] labels;
     SlotController sc;
-    
+
     private Spieler s;
     Random rand = new Random();
-    
+
     public Spieler getS() {
         return s;
     }
-    
+
     public void setS(Spieler s) {
         this.s = s;
         lbName.setText("Name: " + s.getName());
         lbGeld.setText(String.format("Geld: %.0f Chips", s.getGeld() * 5));
         lbIcon.setIcon(s.getIcon().getIcon());
     }
-    
+
     public SlotsGUI() {
 //        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 //        this.setUndecorated(true);
@@ -65,18 +68,18 @@ public class SlotsGUI extends javax.swing.JFrame {
         int width = Toolkit.getDefaultToolkit().getScreenSize().width;
         int height = Toolkit.getDefaultToolkit().getScreenSize().height;
         this.setSize(width, height);
-        
+
         sc = new SlotController();
-        
+
         kontoStand = Integer.parseInt(lbGeld.getText().split(" ")[1]);
-        
+
         btHold.setEnabled(false);
         labels = new JLabel[][]{
             {lb00, lb01, lb02},
             {lb10, lb11, lb12},
             {lb20, lb21, lb22}};
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -340,20 +343,20 @@ public class SlotsGUI extends javax.swing.JFrame {
         }
         gewinnFaktor = Integer.parseInt(button.getText().split("")[0]);
     }//GEN-LAST:event_onSet
-    
+
     public void stopTheZock() {
         btSet1.setEnabled(false);
         btSet3.setEnabled(false);
         btSet5.setEnabled(false);
         btSpielen.setEnabled(false);
     }
-    
+
     public void disableSettings() {
         btSet1.setEnabled(false);
         btSet3.setEnabled(false);
         btSet5.setEnabled(false);
     }
-    
+
     public void setBackgroundOnLabels() {
         lb00.setBackground(Color.white);
         lb01.setBackground(Color.white);
@@ -365,12 +368,13 @@ public class SlotsGUI extends javax.swing.JFrame {
         lb21.setBackground(Color.white);
         lb22.setBackground(Color.white);
     }
-    
+
     public void checkMoney() {
         if (kontoStand >= 1 && kontoStand < 3) {
             btSet1.setEnabled(true);
             btSet3.setEnabled(false);
             btSet5.setEnabled(false);
+
         } else if (kontoStand >= 3 && kontoStand < 5) {
             btSet1.setEnabled(true);
             btSet3.setEnabled(true);
@@ -383,7 +387,7 @@ public class SlotsGUI extends javax.swing.JFrame {
             stopTheZock();
         }
     }
-    
+
     public void addGewinnToKonto(int[] gewinn, int gewinnFaktor) {
         kontoStand += gewinn[0];
         lbGeld.setText("Geld: " + kontoStand);
@@ -391,28 +395,31 @@ public class SlotsGUI extends javax.swing.JFrame {
             lb00.setBackground(Color.green);
             lb01.setBackground(Color.green);
             lb02.setBackground(Color.green);
+            player.play("effect", "Jackpot.mp3", false);
         }
         if (gewinn[1] == 2) {
             lb10.setBackground(Color.green);
             lb11.setBackground(Color.green);
             lb12.setBackground(Color.green);
+            player.play("effect", "Jackpot.mp3", false);
         }
         if (gewinn[1] == 3) {
             lb20.setBackground(Color.green);
             lb21.setBackground(Color.green);
             lb22.setBackground(Color.green);
+            player.play("effect", "Jackpot.mp3", false);
         }
     }
-    
+
     public class SlotThread implements Runnable {
-        
+
         @Override
         public void run() {
             for (int i = 0; i < labels.length; i++) {
                 for (int k = 0; k < 20; k++) {
                     zz = rand.nextInt(slots.length - 1) - 0 + 1;
                     labels[0][i].setIcon(new ImageIcon(imagepath + slots[zz] + "Slot.png"));
-                    
+
                     berechnung[0][i] = zz;
                     if (k >= 3) {
                         zz = rand.nextInt(slots.length - 1) - 0 + 1;
@@ -438,7 +445,7 @@ public class SlotsGUI extends javax.swing.JFrame {
             checkMoney();
         }
     }
-    
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

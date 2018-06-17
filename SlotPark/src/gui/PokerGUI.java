@@ -60,7 +60,6 @@ public class PokerGUI extends javax.swing.JFrame {
     public PokerGUI() {
 //        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 //        this.setUndecorated(true);
-
         initComponents();
 
     }
@@ -421,11 +420,10 @@ public class PokerGUI extends javax.swing.JFrame {
             s = new Spieler("Testspieler", "123", 500, null);
         }
         cc = new CasinoController(s.getName(), (int) (s.getGeld() * 5));
-
         thread.start();
 
         cc.load();
-        player.play("music", "Poker.mp3", true);
+       
         tfEinsatz.setText(0 + "/" + (int) cc.getSpielerliste().getFirst().getGeld());
         jsEinsatz.setMajorTickSpacing((int) cc.getSpielerliste().getFirst().getGeld() / 4);
         jsEinsatz.setMinorTickSpacing((int) cc.getSpielerliste().getFirst().getGeld() / 10);
@@ -520,8 +518,7 @@ public class PokerGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_onCheck
 
     private void onBack(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onBack
-        player.closeAll();
-        MenuGUI menugui = new MenuGUI();
+       MenuGUI menugui = new MenuGUI();
         s.setGeld(cc.getSpielerliste().getFirst().getGeld() / 5);
         s.setName(cc.getSpielerliste().getFirst().getName());
         menugui.setS(s);

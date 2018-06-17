@@ -8,7 +8,6 @@ package bl;
 import java.awt.Color;
 import java.io.File;
 import java.util.Random;
-import javafx.scene.control.ToggleButton;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JToggleButton;

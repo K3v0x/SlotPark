@@ -89,6 +89,8 @@ public class BombsGUI extends javax.swing.JFrame {
         lbS2 = new javax.swing.JLabel();
         lbS3 = new javax.swing.JLabel();
         lbS4 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         tfScore = new javax.swing.JTextField();
         bt00 = new javax.swing.JToggleButton();
         bt01 = new javax.swing.JToggleButton();
@@ -185,11 +187,20 @@ public class BombsGUI extends javax.swing.JFrame {
         lbS4.setOpaque(true);
         jPanel1.add(lbS4);
 
+        jPanel5.setLayout(new java.awt.GridLayout(2, 0));
+
+        jLabel1.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Level 1");
+        jPanel5.add(jLabel1);
+
         tfScore.setEditable(false);
         tfScore.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         tfScore.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         tfScore.setText("1");
-        jPanel1.add(tfScore);
+        jPanel5.add(tfScore);
+
+        jPanel1.add(jPanel5);
 
         bt00.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         bt00.setText("?");
@@ -791,10 +802,12 @@ public class BombsGUI extends javax.swing.JFrame {
     private javax.swing.JToggleButton bt44;
     private javax.swing.JButton btNew;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JLabel lbGeld;
     private javax.swing.JLabel lbIcon;

@@ -9,6 +9,7 @@ import beans.Icon;
 import beans.Spieler;
 import bl.ComboboxRenderer;
 import bl.LoginController;
+import bl.SoundPlayer;
 import database.DB_Access;
 import java.awt.Color;
 import java.util.LinkedList;
@@ -23,6 +24,7 @@ import javax.swing.JOptionPane;
  */
 public class LoginGUI extends javax.swing.JFrame {
 
+    private SoundPlayer player = SoundPlayer.getInstance();
     private DB_Access access;
     private LinkedList<Spieler> spieler = new LinkedList<>();
     private LinkedList<Icon> icons = new LinkedList<>();
@@ -50,6 +52,8 @@ public class LoginGUI extends javax.swing.JFrame {
         } catch (Exception ex) {
             Logger.getLogger(LoginGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+
     }
 
     /**
@@ -300,8 +304,7 @@ public class LoginGUI extends javax.swing.JFrame {
                 menugui.setS(s);
                 menugui.setVisible(true);
                 this.dispose();
-            }
-            else{
+            } else {
                 tfRegister.setBackground(Color.red);
                 pfRegister.setBackground(Color.red);
                 pfRegister2.setBackground(Color.red);
@@ -349,8 +352,7 @@ public class LoginGUI extends javax.swing.JFrame {
                 menugui.setS(s);
                 menugui.setVisible(true);
                 this.dispose();
-            }
-            else{
+            } else {
                 tfRegister.setBackground(Color.red);
                 pfRegister.setBackground(Color.red);
                 pfRegister2.setBackground(Color.red);

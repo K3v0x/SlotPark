@@ -41,7 +41,9 @@ public class MenuGUI extends javax.swing.JFrame {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setUndecorated(true);
         initComponents();
-
+        if (!player.isPlaying("Poker.mp3")) {
+            player.play("music", "Poker.mp3", true);
+        }
     }
 
     /**
