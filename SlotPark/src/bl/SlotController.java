@@ -22,6 +22,7 @@ public class SlotController {
     public SlotController() {
     }
    
+    // Kirsche zählt 10, Tree zählt 15, Luck zählt 20, Diamond zählt 50
     public int []getGewinn(int[][] array) {
         int [] feld = {0,0};
         

@@ -103,7 +103,7 @@ public class BombController {
                 }
             }
             zeilenfield[i].setText(anz + "");
-            zeilenfield[i].setBackground(new Color(170, 255 - (anz * 50), 0));
+            zeilenfield[i].setBackground(new Color(190, 255 - (anz * 50), 0));
             anz = 0;
 
         }
