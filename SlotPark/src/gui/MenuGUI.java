@@ -20,23 +20,27 @@ import javax.swing.border.LineBorder;
  * @author Kevin
  */
 public class MenuGUI extends javax.swing.JFrame {
-    
+
     private SoundPlayer player = SoundPlayer.getInstance();
     private String selgame = "Poker"; //Ausgewähltes Spiel
     private Spieler s;
     private DB_Access access = DB_Access.getInstance();
-    
+
     public Spieler getS() {
         return s;
     }
-    
+
     public void setS(Spieler s) {
         this.s = s;
         lbName.setText("Name: " + s.getName());
         lbGeld.setText("Geld: " + String.format("%,.02f €", s.getGeld()));
         lbIcon.setIcon(s.getIcon().getIcon());
+        if (s.getGeld() <= 0) {
+            lbPoker.setEnabled(false);
+            lbSlots.setEnabled(false);
+        }
     }
-    
+
     public MenuGUI() {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setUndecorated(true);
@@ -44,6 +48,7 @@ public class MenuGUI extends javax.swing.JFrame {
         if (!player.isPlaying("Poker.mp3")) {
             player.play("music", "Poker.mp3", true);
         }
+
     }
 
     /**
@@ -222,23 +227,28 @@ public class MenuGUI extends javax.swing.JFrame {
         player.play("effect", "Select.mp3", false);
         switch (selgame) {
             case "Slots":
-                SlotsGUI slotsgui = new SlotsGUI();
-                slotsgui.setS(s);
-                slotsgui.setVisible(true);
-                this.dispose();
+                if (lbSlots.isEnabled()) {
+                    SlotsGUI slotsgui = new SlotsGUI();
+                    slotsgui.setS(s);
+                    slotsgui.setVisible(true);
+                    this.dispose();
+                }
+
                 break;
             case "Poker":
-                PokerGUI pokergui = new PokerGUI();
-                pokergui.setS(s);
-                pokergui.setVisible(true);
-                this.dispose();
-                break;
+                if (lbPoker.isEnabled()) {
+                    PokerGUI pokergui = new PokerGUI();
+                    pokergui.setS(s);
+                    pokergui.setVisible(true);
+                    this.dispose();
+                    break;
+                }
             case "Bombs":
                 BombsGUI bombsgui = new BombsGUI();
                 bombsgui.setS(s);
                 bombsgui.setVisible(true);
                 this.dispose();
-                
+
                 break;
         }
     }//GEN-LAST:event_onPlay

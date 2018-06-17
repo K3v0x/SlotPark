@@ -43,7 +43,7 @@ public class BombsGUI extends javax.swing.JFrame {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setUndecorated(true);
         initComponents();
-        player.play("music", "Bombs.mp3", true);
+        //player.play("music", "Bombs.mp3", true);
         JToggleButton[][] tbfield = {
             {bt00, bt01, bt02, bt03, bt04},
             {bt10, bt11, bt12, bt13, bt14},

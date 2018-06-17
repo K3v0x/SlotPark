@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 /**
@@ -54,8 +55,8 @@ public class SlotsGUI extends javax.swing.JFrame {
     }
 
     public SlotsGUI() {
-//        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-//        this.setUndecorated(true);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.setUndecorated(true);
         initComponents();
         int width = Toolkit.getDefaultToolkit().getScreenSize().width;
         int height = Toolkit.getDefaultToolkit().getScreenSize().height;
@@ -193,7 +194,7 @@ public class SlotsGUI extends javax.swing.JFrame {
 
         jPanel6.setLayout(new java.awt.GridLayout(1, 3));
 
-        btSet1.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        btSet1.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         btSet1.setText("1x");
         btSet1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -202,7 +203,7 @@ public class SlotsGUI extends javax.swing.JFrame {
         });
         jPanel6.add(btSet1);
 
-        btSet3.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        btSet3.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         btSet3.setText("3x");
         btSet3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -211,7 +212,7 @@ public class SlotsGUI extends javax.swing.JFrame {
         });
         jPanel6.add(btSet3);
 
-        btSet5.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        btSet5.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         btSet5.setText("5x");
         btSet5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -228,7 +229,7 @@ public class SlotsGUI extends javax.swing.JFrame {
 
         jPanel10.setLayout(new java.awt.GridLayout(1, 2));
 
-        btSpielen.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        btSpielen.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         btSpielen.setText("Spin");
         btSpielen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -237,7 +238,7 @@ public class SlotsGUI extends javax.swing.JFrame {
         });
         jPanel10.add(btSpielen);
 
-        btHold.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        btHold.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         btHold.setText("Hold");
         btHold.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -248,7 +249,7 @@ public class SlotsGUI extends javax.swing.JFrame {
 
         jPanel3.add(jPanel10);
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jButton2.setFont(new java.awt.Font("Eras Bold ITC", 0, 48)); // NOI18N
         jButton2.setText("Zurück");
         jButton2.setToolTipText("");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -312,6 +313,8 @@ public class SlotsGUI extends javax.swing.JFrame {
     private void onBack(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onBack
         player.play("effect", "Select.mp3", false);
         MenuGUI menugui = new MenuGUI();
+        s.setGeld(s.getGeld() / 5);
+        s.setName(s.getName());
         menugui.setS(s);
         menugui.setVisible(true);
         this.dispose();
@@ -335,7 +338,7 @@ public class SlotsGUI extends javax.swing.JFrame {
         kontoStand = Integer.parseInt(lbGeld.getText().split(" ")[1]);
         if (kontoStand <= 0) {
             stopTheZock();
-            kontoStand = Integer.parseInt(button.getText().split("")[1]);
+            kontoStand = Integer.parseInt(lbGeld.getText().split(" ")[1]);
         }
         gewinnFaktor = Integer.parseInt(button.getText().split("")[0]);
     }//GEN-LAST:event_onSet
@@ -438,6 +441,11 @@ public class SlotsGUI extends javax.swing.JFrame {
             addGewinnToKonto(gewinn, gewinnFaktor);
             btSpielen.setEnabled(true);
             btHold.setEnabled(false);
+            if (Integer.parseInt(lbGeld.getText().split(" ")[1]) <= 0) {
+                btSet1.setEnabled(false);
+                btSet3.setEnabled(false);
+                btSet5.setEnabled(false);
+            }
             checkMoney();
         }
     }
