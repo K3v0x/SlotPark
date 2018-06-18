@@ -678,7 +678,7 @@ public class BombsGUI extends javax.swing.JFrame {
             button.setIcon(new ImageIcon(System.getProperty("user.dir") + File.separator + "src" + File.separator + "images" + File.separator + "Bomb.png"));
             button.setBackground(Color.RED);
             bc.setLevel(1);
-          
+            lbLevel.setText("Level " + bc.getLevel());
             bc.gameOver();
             btNew.setEnabled(true);
         } else if (val == -1) {
