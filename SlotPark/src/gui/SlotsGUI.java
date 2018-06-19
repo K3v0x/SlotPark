@@ -109,6 +109,11 @@ public class SlotsGUI extends javax.swing.JFrame {
         lbGeld = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                onOpen(evt);
+            }
+        });
 
         jPanel5.setLayout(new java.awt.BorderLayout());
 
@@ -305,15 +310,17 @@ public class SlotsGUI extends javax.swing.JFrame {
         setBackgroundOnLabels();
         kontoStand = Integer.parseInt(lbGeld.getText().split(" ")[1]);
         kontoStand = kontoStand - gewinnFaktor;
-        lbGeld.setText("Geld: " + kontoStand);
+        lbGeld.setText("Geld: " + kontoStand + " Chips");
+
         btHold.setEnabled(true);
         btSpielen.setEnabled(false);
+
     }//GEN-LAST:event_onSpin
 
     private void onBack(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onBack
         player.play("effect", "Select.mp3", false);
         MenuGUI menugui = new MenuGUI();
-        s.setGeld(s.getGeld() / 5);
+        s.setGeld(kontoStand / 5);
         s.setName(s.getName());
         menugui.setS(s);
         menugui.setVisible(true);
@@ -328,7 +335,33 @@ public class SlotsGUI extends javax.swing.JFrame {
         addGewinnToKonto(gewinn, gewinnFaktor);
         checkMoney();
         btHold.setEnabled(false);
-        btSpielen.setEnabled(true);
+        switch (gewinnFaktor) {
+            case 1:
+                if (kontoStand < 1) {
+                    btSpielen.setEnabled(false);
+                } else {
+                    btSpielen.setEnabled(true);
+                }
+                break;
+
+            case 3:
+                if (kontoStand < 3) {
+                    btSpielen.setEnabled(false);
+
+                } else {
+                    btSpielen.setEnabled(true);
+                }
+                break;
+
+            case 5:
+                if (kontoStand < 5) {
+                    btSpielen.setEnabled(false);
+                } else {
+                    btSpielen.setEnabled(true);
+                }
+                break;
+
+        }
     }//GEN-LAST:event_onHold
 
     private void onSet(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onSet
@@ -342,6 +375,12 @@ public class SlotsGUI extends javax.swing.JFrame {
         }
         gewinnFaktor = Integer.parseInt(button.getText().split("")[0]);
     }//GEN-LAST:event_onSet
+
+    private void onOpen(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_onOpen
+        if (s.getGeld() == 0) {
+            btSpielen.setEnabled(false);
+        }
+    }//GEN-LAST:event_onOpen
 
     public void stopTheZock() {
         btSet1.setEnabled(false);
@@ -389,7 +428,7 @@ public class SlotsGUI extends javax.swing.JFrame {
 
     public void addGewinnToKonto(int[] gewinn, int gewinnFaktor) {
         kontoStand += gewinn[0];
-        lbGeld.setText("Geld: " + kontoStand);
+        lbGeld.setText("Geld: " + kontoStand + " Chips");
         if (gewinn[1] == 1) {
             lb00.setBackground(Color.green);
             lb01.setBackground(Color.green);
@@ -447,6 +486,33 @@ public class SlotsGUI extends javax.swing.JFrame {
                 btSet5.setEnabled(false);
             }
             checkMoney();
+            switch (gewinnFaktor) {
+                case 1:
+                    if (kontoStand < 1) {
+                        btSpielen.setEnabled(false);
+                    } else {
+                        btSpielen.setEnabled(true);
+                    }
+                    break;
+
+                case 3:
+                    if (kontoStand < 3) {
+                        btSpielen.setEnabled(false);
+
+                    } else {
+                        btSpielen.setEnabled(true);
+                    }
+                    break;
+
+                case 5:
+                    if (kontoStand < 5) {
+                        btSpielen.setEnabled(false);
+                    } else {
+                        btSpielen.setEnabled(true);
+                    }
+                    break;
+
+            }
         }
     }
 
