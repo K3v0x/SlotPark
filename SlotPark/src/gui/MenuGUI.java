@@ -241,8 +241,9 @@ public class MenuGUI extends javax.swing.JFrame {
                     pokergui.setS(s);
                     pokergui.setVisible(true);
                     this.dispose();
-                    break;
+
                 }
+                break;
             case "Bombs":
                 BombsGUI bombsgui = new BombsGUI();
                 bombsgui.setS(s);

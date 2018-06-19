@@ -61,6 +61,10 @@ public class PokerGUI extends javax.swing.JFrame {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setUndecorated(true);
         initComponents();
+        lbCom1.setVisible(false);
+        lbCom2.setVisible(false);
+        lbCom3.setVisible(false);
+        lbCom4.setVisible(false);
 
     }
 
